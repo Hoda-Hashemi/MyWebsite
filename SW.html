@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Shallow-Water Equation | Hoda Hashemi</title> 
+        <link rel="stylesheet" href="./design.css">
+        <link rel="icon" type="image/x-icon" href="logo/ilikeit.png" sizes="32x32">
+        <meta charset="UTF-8">
+    
+        <script type="text/javascript">
+            MathJax = {
+                tex: {
+                    tags: 'all'  // Enables equation numbering and referencing
+                }
+            };
+        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+    </head>
+
+<body>
+    <h1>Shallow Water Equations</h1>
+    <h2>Scaling Navier-Stokes Equations</h2>
+    <p>The scaling of the variables is as follows:
+    <ul>
+        <li>\(U\): characteristic scale for horizontal velocity
+        <li>\(L\): characteristic scale for horizontal length
+        <li>\(W\): characteristic scale for vertical velocity
+        <li>\(D\): characteristic scale for vertical length
+        <li>\(T\):\(\frac{L}{U}\), where \(U\) is the scale for horizontal velocity.
+        <li>\(P\): characteristic scale for pressure field.
+    </ul>
+    There is a condition where \(\frac{W}{D}\) can not be larger than \(\mathcal{O}(\frac{U}{L})\) which implies that:</p>
+    <div id="eq-order-of-vertical-velocity">
+     \begin{equation}
+        W \leq \mathcal{O}(\delta U)
+        \label{eq: W and delta and U}
+        \end{equation}
+    </div>
+    <p>where \(\delta = \frac{D}{L}\), which is a small parameter.</p>
+    
+    <p>The momentum equations that are proved in <a href="NS.html#eq-Navier-Stokes-simple"> Navier-Stokes(21)</a> are altered to match the scenario of our problem, which is in the presence of Coriolis force:</p>
+    <div id="eq-Navier-Stokes-our-case">
+    \begin{equation}
+        \boxed{\begin{aligned}  
+            &\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} - fv = -\frac{1}{\rho}\frac{\partial \tilde{p}}{\partial x} \\
+            & \frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} +fu = -\frac{1}{\rho}\frac{\partial \tilde{p}}{\partial y} \\
+            &\frac{\partial w}{\partial t} + u \frac{\partial w}{\partial x} + v \frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} = -\frac{1}{\rho}\frac{\partial \tilde{p}}{\partial z} 
+        \end{aligned}}
+        \rightarrow 
+        \boxed{\begin{aligned} 
+            & \frac{U^2}{L} \quad \frac{U^2}{L} \quad \frac{U^2}{L} \quad \frac{UW}{D} \quad fU \quad \frac{P}{\rho L} \\
+            & \frac{U^2}{L} \quad \frac{U^2}{L} \quad \frac{U^2}{L} \quad \frac{UW}{D} \quad fU \quad \frac{P}{\rho L} \\
+            & \frac{UW}{L} \quad \frac{UW}{L} \quad \frac{UW}{L} \quad \frac{W^2}{D} \quad \frac{P}{\rho D}
+        \end{aligned} }
+    \end{equation} 
+</div>
+    <p>The total pressure is defined by:</p>
+    <div id="eq-total-pressure">
+    \begin{equation}
+        p(x,y,z,t) = -pgz + \tilde{p}(x,y,z,t)
+    \end{equation}
+    </div>
+    <p>where the first term is the hydrostatic pressure and cancels out with gravitational force, and the second term is the dynamic pressure. </p>
+    <p>Using <a href="#eq-order-of-vertical-velocity">(1)</a> to prove the orders of the partial derivatives of the velocities:</p>
+    <div id="eq-order-of-partial-derivatives-of-velocities">
+        \begin{equation}
+        \begin{aligned}
+            &W \leq \mathcal{O}(\delta U) \\
+            &W \leq \frac{D}{L}U\\
+            &WU \leq \frac{DU^2}{L}\\
+            &\frac{WU}{D} \leq \frac{U^2}{L}
+        \end{aligned}
+    \end{equation}
+    <div>
+    <p>Resulting in the following: </p>
+    <div id="eq-result-of-order">
+        \begin{equation}
+            \frac{UW}{D} = \mathcal{O}(\frac{U^2}{L})
+        \end{equation}
+    </div>
+    <p>So the Pressure scale: \(P = \rho U (U,fL)_{max}\). This is so for the horizontal pressure gradient to enter as a forcing term in the horizontal momentum balance; otherwise the flow would be unaccelerated.</p>
+    
+    <h2>Rossby Number Condition</h2>
+    <ul>
+        <li> Kelvin waves: they are affected by earth's rotation. There are equatorial kelvin waves and coastal kelvin waves.
+        <li> Rossby waves: affected by earth's rotation. There are equatorial Rossby waves and Mid-latitude Rossby waves (jet stream).
+            <div id="eq-Rossby-number">
+                \[R_o = \frac{U}{fL}\]
+            </div>
+        The Rossby number can tell us what forces are dominant the inertial if \(U >> fL\) or Coriolis force (atmosphere forces) if \(U << fL\).
+        <li> Internal gravity waves: affected by stratification. and it happens anywhere.
+    </ul>
+
+    <h2>Scaling p</h2>
+    <p>As mentioned the Rossby number is the ratio of the relative to the coriolis accelerration. By the assumption that \(R_o << 1\). Meaning that the characteristic pressure field:\(P = \rho \frac{U^2}{R_o}\).</p>
+    
+    <p>Proof:</p>
+    <div id="eq-characteristic-P"> 
+        \[
+        P = \rho U (U,fL)_{max} = \rho U f L = \rho \frac{U^2}{R_o}
+        \]
+    </div>
+    
+    <h2>The Shallow-Water model condition: hydrostatic approximation</h2>
+    <p>The z-component of the momentum equation:</p>
+    <div id="eq-z-momentum-equation">
+    \[\frac{\partial w}{\partial t}+u \frac{\partial w}{\partial x} + v \frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} = -\frac{1}{\rho} \frac{\partial \tilde{p}}{\partial z}\]
+    </div>
+    <p>Now let us examine the following term (interms of the pressure gradient) from <a href="#eq-result-of-order">(5)</a>, <a href="#eq-Rossby-numbe">(6)</a>, and <a href="#eq-z-momentum-equation">(8)</a>: </p>
+    <div id="interms-of-pressure-gradient">
+    \begin{equation}
+        \begin{aligned}
+        \rho \frac{\frac{\partial w}{\partial t}}{\frac{\partial \tilde{p}}{\partial z}} &= \mathcal{O}(\rho \frac{\frac{UW}{L}}{\frac{P}{D}})\\
+        &= \mathcal{O}(\rho \frac{\frac{UW}{L}}{\frac{\rho U^2}{R_o D}})\\
+        &= \mathcal{O}(\frac{R_o DW}{UL})\\
+        &= \mathcal{O}(\delta^2 R_o) \quad \text{$\delta = \frac{D}{L}= \frac{W}{U}$ which is the ratio of the vertical to horizontal} 
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>Hence we can conclude that that \(\frac{\partial \tilde{p}}{\partial z}\) is negligible to \(\mathcal{O}(\delta^2 R_o)\) or in terms of the total pressure:</p> 
+    <div id="eq-hydrostatic-approximation">
+    \begin{equation}
+            \frac{\partial p}{\partial z} = -pg + \mathcal{O}(\delta^2 R_o)
+    \end{equation}
+    </div>
+   <p>which is the hydrostatic approximation or the shallow-water model.</p>
+    <h2>Horizontal Momentum Equations</h2>
+    <p>Integrating <a href="#eq-hydrostatic-approximation">(10)</a> with respect to z: </p>
+    <div id="eq-integrating-hydrostatic-approximation">
+        \begin{equation}
+            p = \rho g(h-z) +p_o
+        \end{equation}
+    </div>
+    <p>The horizontal pressure gradient is independent of z: </p>
+    <div id="eq-partials-of-hydrostatic-approximation">
+    \begin{equation}
+       \begin{aligned}
+            &\frac{\partial p}{\partial x} = \rho g \frac{\partial h}{\partial x}\\
+            & \frac{\partial p }{\partial y} = \rho g \frac{\partial h}{\partial y}
+        \end{aligned}
+    \end{equation}
+</div>
+    <p>So the horizontal acceleration must be independent of z \(\implies\) it is consistent to consider that the horizontal velocities themselves remain z-independent if they are so initially.</p>
+    
+    <p>Plug in the horizontal pressure gradient <a href="#eq-partials-of-hydrostatic-approximation"></a> in <a href="#eq-Navier-Stokes-our-case">(2)</a> , to get the Horizontal momentum equations:</p>
+    <div id="eq-horizontal-momentum">
+    \begin{equation}
+            \begin{aligned}
+                &\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial y}- fv = -g \frac{\partial h}{\partial x} \\
+                & \frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+fu= -g \frac{\partial h}{\partial y}
+            \end{aligned}
+    \end{equation}
+    </div>
+    
+    <h2>Continuity Equation</h2>
+    <p>We can integrate the incompressibility equation since the horizontal velocities are independent of z:</p>
+    <div id="eq-integrating-incompressibility">
+    \begin{equation}
+        \begin{aligned}
+            & \int \frac{\partial w}{\partial z} dz = \int (- \frac{\partial u}{\partial x} - \frac{\partial v}{\partial y }) dz \\ 
+            & \boxed{w(x,y,z,t) = - z (\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}) +\tilde{w}(x,y,t)}
+        \end{aligned}
+    \end{equation}
+    </div>
+    
+    <p>Applying boundary conditions at \(z = h_B\): </p>
+    <div id="eq-boundary-condition-hb">
+    \begin{equation}
+        w(z=h_B) = \frac{D h_B}{Dt} = u \frac{\partial h_B}{\partial x} + v \frac{\partial h_B}{\partial y}
+        \label{eq: h_B}
+    \end{equation}
+</div>
+    <p>Then we can write \(\tilde{w}(x,y,t)\):</p>
+    <div id="eq-initial-value-w">
+    \begin{equation}
+        \tilde{w}(x,y,t) = u \frac{\partial h_B}{\partial x} + v \frac{\partial h_B}{\partial y} + h_B(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y})
+    \end{equation}
+    </div>
+    <p>We can write \(w(x,y,z,t)\):</p>
+    <div id="eq-w">
+    \begin{equation}
+        w(x,y,z,t) = (h_B -z) (\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}) + u \frac{\partial h_B}{\partial x} + v \frac{\partial h_B}{\partial y}
+    \end{equation}
+    </div>
+    <p>Note: The corresponding kinematic condition at \(z = h\):</p>
+    <div id="eq-kinematic-condition">
+    \begin{equation}
+        w|_{z=h} = \frac{Dh}{Dt} = \frac{\partial h}{\partial t}+ u \frac{\partial h}{\partial x}+v \frac{\partial h}{\partial y}
+    \end{equation}
+    </div>
+    
+    <p>Subtracting <a href="#eq-w">(17)</a> from <a href="#eq-kinematic-condition">(18)</a>, knowing that \(H = h-h_B\):</p>
+    <div id="eq-continuity-equation">
+    \begin{equation}
+        \begin{aligned}
+            \frac{\partial h}{\partial t} +u \frac{\partial h}{\partial x} + v \frac{\partial h}{\partial y} - [(h_B -z) (\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}) + u \frac{\partial h_B}{\partial x} + v \frac{\partial h_B}{\partial y}]&= \frac{\partial h}{\partial t} + u( \frac{\partial h}{\partial x} - \frac{\partial h_B}{\partial x}) + v( \frac{\partial h}{\partial y} - \frac{\partial h_B}{\partial y})\\& - (h_B -z) (\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}) \\
+            &= \frac{\partial H}{\partial t} + \frac{\partial (uH)}{\partial x} + \frac{\partial(vH)}{\partial y} =0 \\
+            &=\frac{D H}{Dt }+H(\frac{\partial u}{\partial x}+ \frac{\partial v}{\partial y}) = 0
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>Analysis of the continuity equation <a href="#eq-continuity-equation">(19)</a>: Notice that if the local horizontal divergence of volume is positive, it must be balanced by decrease of the layer thickness, due to the drop in the free surface.</p>
+    <p>Hence as the cross section of A of a fluid column increases at a rate:</p>
+    <div id="eq-cross-section">
+    \begin{equation}
+        \frac{1}{A}\frac{DA}{Dt} = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}
+    \end{equation}
+    </div> 
+    <p>The total thickness must decrease so that the volume \(HA\) remains constant, as following:</p>
+    <div id="eq-total-thickness">
+    \begin{equation}
+        \frac{1}{H} \frac{D H}{D t} + \frac{1}{A} \frac{DA}{Dt} =0
+    \end{equation}
+    </div>
+    
+    <p>We are done deriving the Shallow-Water equations. They are the following:</p>
+    <div id="eq-Shallow-water-equations">
+    \begin{equation}
+        \boxed{\begin{aligned}
+            &\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial y}- fv = -g \frac{\partial h}{\partial x} \\
+            & \frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+fu= -g \frac{\partial h}{\partial y} \\
+            & \frac{\partial H}{ \partial t} + \frac{ \partial (uH)}{\partial x} + \frac{\partial (vH)}{\partial y} =0 \text{ or } \frac{D H}{Dt} + H(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}) = 0
+        \end{aligned}}
+    \end{equation}
+    </div>
+    
+    <h2>Reflection</h2>
+    <ul>
+        <li> Consequence of \(\delta << 1\): have reduced the number of dynamical equations by 1, the number of dependent variables by 1 (eliminating \(w\)), and the number of independent variables by 1 (no explicit dependence on \(z\).
+        <li> The remaining variables are \(u,v,h\), meaning functions \(x,y,t\) only.
+        <li> The fact that \(w\) is linear function of \(z\) has vital implications. Using <a href="#eq-continuity-equation">(19)</a> and plugging in horizontal divergence in <a href="#eq-w">(17)</a> we get: 
+        <div id="eq-z-h_B">
+        \begin{equation}
+            \begin{aligned}
+                w(x,y,z,t) &= \frac{Dz}{Dt} \\
+                &= \frac{(h_B - z)}{H}[\frac{-DH}{Dt}] + u \frac{\partial h_B}{\partial x} +v \frac{\partial h_B}{\partial y} \\
+                &=  \frac{(z - h_B )}{H}[\frac{DH}{Dt}] + u \frac{\partial h_B}{\partial x} +v \frac{\partial h_B}{\partial y}
+            \end{aligned}
+        \end{equation}
+        </div>
+        which can be written as: 
+        <div id="eq-w-h_B">
+        \begin{equation}
+           \frac{D}{Dt} [\frac{z-h_B}{H}] =0 
+        \end{equation}
+        </div>
+        This tells us that during stretching or contraction of each column the relative position of each column, the relative position of the fluid is unchanged.
+        <li> the independence of \(u,v\) of \(z\), means that during motion of the fluid, the fluid moves as set of columns oriented parallel to z-axis.
+    </ul>
+
+</p>
+    
+</body>
+

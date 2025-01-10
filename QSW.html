@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Quasi-geostrophic Shallow-Water Equations | Hoda Hashemi</title> 
+        <link rel="stylesheet" href="./design.css">
+        <link rel="icon" type="image/x-icon" href="logo/ilikeit.png" sizes="32x32">
+        <meta charset="UTF-8">
+    
+        <script type="text/javascript">
+            MathJax = {
+                tex: {
+                    tags: 'all'  // Enables equation numbering and referencing
+                }
+            };
+        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+    </head>
+<body>
+    <h1>The Quasi-Geostrophic Shallow-Water Potential Vorticity Equation</h1>
+
+    <h2>Integrating Vorticity in the Equations</h2>
+    <p>Vorticity is the curl of velocity. It is a measure of the local rotation of a fluid element. The vorticity vector is defined as:</p>
+    <div id="eq-vorticity">
+    \begin{equation}
+        \vec{\omega} = \nabla \times \vec{v}
+    \end{equation}
+    </div>
+    <div id="eq-vorticity-components">
+    \begin{equation}
+        \begin{bmatrix}
+            \hat{i} & \hat{j} & \hat{k}\\
+            \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z}\\
+            u & v & w
+        \end{bmatrix}
+        \rightarrow 
+        \vec{\omega} = (\frac{\partial w}{\partial y} - \frac{\partial v}{\partial z}, \frac{\partial u}{\partial z} - \frac{\partial w}{\partial x}, \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y})
+    \end{equation}
+    </div>
+    
+    <p>In our case where \(u, v\) are independent of \(z\), so the relative vorticity: </p>
+    <div id="eq-relative-vorticity">
+    \begin{equation}
+        \vec{\omega} = (\frac{\partial w}{\partial y},-\frac{\partial w}{\partial x},\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y})
+    \end{equation}
+    </div>
+    <p>Nondimensional components: </p>
+    <div id="eq-relative-vorticity-nondim">
+    \begin{equation}
+        \begin{aligned}
+            \omega_x &= \frac{\partial w}{\partial y} = \mathcal{O}(\frac{W}{L}) = \mathcal{O}(\frac{\delta U}{L}) \\
+            \omega_y &= -\frac{\partial w}{\partial x} = \mathcal{O}(\frac{W}{L}) = \mathcal{O}(\frac{\delta U}{L}) \\
+            \omega_z &= \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y} = \mathcal{O}(\frac{U}{L})
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>Horizontal components \(w_x,w_y\) of relative vorticity are \(\mathcal{O}(\delta)\), smaller than vertical component \(w_z\). 
+    Let's define the normal component of the relative vorticity as:</p>
+    <div id="eq-normal-vorticity">
+     \[\zeta = \omega_z = \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\]
+    </div>
+    
+    <p>Let's integrate <a href="#eq-normal-vorticity">(5)</a> into the momentum equation, by cross-differentiating the two horizontal momentum equations and to eliminate \(h\):</p>
+    <div id="eq-relative-vorticity-momentum">
+    \begin{equation}
+        \begin{aligned}
+        &1.\begin{aligned}
+        &\frac{\partial }{\partial y}(\frac{\partial u}{\partial t}+u \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial y}-fv) = \frac{\partial}{\partial y}(-g \frac{\partial h}{\partial x})\\
+        &\frac{\partial^2 u }{\partial y \partial t}+\frac{\partial}{\partial y}(u\frac{\partial u}{\partial x})+\frac{\partial}{\partial y}(v \frac{\partial u}{\partial y}) -\frac{\partial}{\partial y}(fv) = -g \frac{\partial^2 h}{\partial x \partial y} \\
+        &\frac{\partial^2 u}{\partial t \partial y}+ \frac{\partial u}{\partial y}\frac{u}{x}+ u \frac{\partial^2 u}{\partial x \partial y} + \frac{\partial v}{\partial y}\frac{\partial u}{\partial y}+v^2\frac{\partial^2 u}{\partial y^2}-f \frac{\partial v}{\partial y} = -g \frac{\partial^2 h}{\partial x \partial y}
+        \end{aligned} 
+        \\[1cm]
+        &2.\begin{aligned}
+            &\frac{\partial}{\partial x}(\frac{\partial v}{\partial t}+ u \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+fu) = \frac{\partial}{\partial x}(-g \frac{\partial h}{\partial y})\\
+            &\frac{\partial^2 v}{\partial x \partial t}+\frac{\partial}{\partial x}(u \frac{\partial v}{\partial x})+\frac{\partial}{\partial x}(v \frac{\partial v}{\partial y})+\frac{\partial}{\partial x}(fu) = -g \frac{\partial^2 h}{\partial y \partial x}\\
+            &\frac{\partial^2 v}{\partial x \partial t}+\frac{\partial u}{\partial x}\frac{\partial v}{\partial x}+u \frac{\partial^2 v}{\partial x^2}+\frac{\partial v}{\partial x}\frac{\partial v}{\partial y}+v \frac{\partial^2 v}{\partial x \partial y}+f \frac{\partial u}{\partial x} = -g \frac{\partial^2 h}{\partial y \partial x}
+        \end{aligned}
+    \end{aligned}
+    \end{equation}
+</p>
+    
+    <p>Subtracting 1 from 2:</p>
+    <div id="eq-relative-vorticity-momentum-diff">
+    \begin{equation}
+        \begin{aligned}
+            & \frac{\partial^2 v}{\partial t \partial x} - \frac{\partial^2 u}{\partial t \partial y} + u \frac{\partial }{\partial x}(\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}) + v \frac{\partial}{\partial y}(\frac{\partial v}{\partial x}- \frac{\partial u}{\partial y}) = -f (\frac{\partial v}{\partial y}+\frac{\partial u}{\partial x}) - (\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y})(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y})\\
+            &\frac{\partial \zeta}{\partial t} + u\frac{\partial \zeta}{\partial x}+v\frac{\partial \zeta}{\partial y} = -(\zeta +f)(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}) \\
+            &\text{Hence:}\\
+            &\boxed{\frac{D \zeta}{Dt} = \frac{\partial \zeta}{\partial t} + u\frac{\partial \zeta}{\partial x}+v\frac{\partial \zeta}{\partial y} = -(\zeta +f)(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y})}
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>Absolute vorticity:</p>
+    <div id="eq-absolute-vorticity">
+     \[\mu = \zeta + f\]
+     </div>
+    <p> where \(f\) is the Coriolis parameter which is planetary vorticity, \(f= 2 \Omega \sin\theta\). Change in absolute vorticity is only allowed if there is finite horizontal divergence, vertical stretching, spinning, squashing of the columns.</p>
+
+    <p>Using the equation <a href="/HTML/SW.html#eq-Shallow-water-equations">continuity equation(22)</a> rewrite <a href="#eq-relative-vorticity-momentum-diff">(7)</a> as: </p>
+    <div id="eq-vortex-tube-stretching">
+    \begin{equation}
+    \frac{D \zeta}{Dt} = \frac{\zeta +f}{H}\frac{DH}{Dt}  
+    \end{equation}
+    </div>
+
+    <p>This equation expresses the same result as before but in terms of vortex-tube stretching. This phenomenon is the stretching of a vortex tube due to the divergence of the flow, where the turbulent energy is transfered into smaller scales.</p>
+
+    <p>For stretching, \(\frac{DH}{Dt} > 0\), the vorticity \(\zeta\) is intensified by an amount proportional to the product of \(\text{Column Stretching } \times \text{ Absolute Vorticity } (\zeta + f)\). Note: \(\zeta\) can't change by vortex fitting, such mechanism is absent in the columnar motion of shallow-water theory.</p>
+    One can imagine the vortex stretching as the figure below:</p>
+    <img src="ShallowWater/vortexlength.jpg" alt="Vortex stretching" width="400" height="400">
+
+    <p>When vortex stretching occurs, the length of the vortex increases. This elongation leads to an increase in the vorticity due to the conservation of angular momentum. The stretching of the vortex filament results in a more intense rotational motion.</p>
+    <h2>Plane Approximation: \(f\)-plane approximation</h2>
+    <p>In the \(f\)-plane approximation, the Coriolis parameter is constant, \(f = f_o= 2\Omega \sin\theta\). The relative vorticity equation becomes:</p>
+    <div id="eq-relative-vorticity-f-plane">
+    \begin{equation}
+        \frac{D}{Dt} (\frac{\zeta +f}{H}) =0
+    \end{equation}
+    </div>
+    <p>This statement is for the conservation of shallow-water potential vorticity \(q\):</p>
+    <div id="eq-potential-vorticity">
+     \begin{equation}
+        q= \frac{\zeta +f}{H}
+    \end{equation}
+    </div>
+    <p>if \(H\) increases, the absolute vorticity increases to keep \(q\) constant. Note that the relative vorticity is generated by column stretching in the field of planetary vorticity f.</p>
+
+    <h2>Plane Approximation: \(\beta\)-plane approximation</h2>
+    <p>In this approximation, the curvature effects at mid-latitudes are taken into account, and hence the Coriolis parameter, \(f\), changes with latitude:</p>
+    <p> Assume small deviation \((\theta - \theta_o)\) :</p>
+    <div id="eq-f">
+    \begin{equation}
+        \begin{aligned}
+           f &= 2\Omega \sin(\theta_o + (\theta - \theta_o))\\
+           &= 2 \Omega \sin\theta_o + 2\Omega \cos\theta_o (\theta - \theta_o)\\
+            &\text{Arc distance: } y=R(\theta - \theta_o) \rightarrow (\theta - \theta_o) = \frac{y}{R} \\
+            &= f_o + 2\Omega \frac{y}{R} \cos\theta_o \\
+            f&= f_o + \beta y
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>where \(\beta = \frac{2\Omega \cos\theta_o}{R}\) is the rate of change of the Coriolis parameter with latitude. This \(\beta\)-plane effect causes changes in parcel vorticity, resulting in a skating motion around the equator, moving east or west, which leads to the formation of Rossby waves.</p>
+    <h2>Scaling \(\beta\)</h2>
+    <p>Recall the scales: \(L\) length, \(T\) time, \(U\) horizontal velocity, \(f_o\) Coriois parameter, and \(N_o\) free surface deviation.</p>
+    <p>Define the following notation: </p>
+    <div id="eq-H">
+        \begin{equation}
+        H = H_o (x,y) + \eta = D- h_B(x,y) + \eta
+        \end{equation}
+    </div>
+    <p>where \(D\) is the scale depth of the ocean, \(h_B\) is the bottom topography which produces a departure of \(H_o\), and \(\eta\) is the free surface deviation.</p>
+   <p>From the equation <a href="#eq-f">(12)</a></p>
+    <div id="eq-beta">
+    \begin{equation}
+        \beta = \frac{df}{dy}
+    \end{equation}
+    </div>
+    <p>Assuming that the variations of the Coriolis parameter are small, rewrite the equation <a href="#eq-beta">(14)</a> as:</p>
+    <div id="eq-condition-beta">
+    \begin{equation}
+      |\beta L | \leq |f_o| 
+    \end{equation}
+    </div>
+        
+    <p>Recognize the smallness of \(\beta\) compared to \(\frac{f_o}{L}\), by letting:</p>
+    <div id="eq-dimensionless-beta">
+    \begin{equation}
+        \beta = (\frac{U}{L^2})\beta' 
+    \end{equation}
+    </div>
+    
+    <h2>Scaling \(f\)</h2>
+    <p>To scale \(f\), the Coriolis parameter, divide it by the characteristic \(f\): </p>
+    <div id="eq-scaled-f">
+    \begin{equation}
+        \begin{aligned}
+            f' &= \frac{f}{f_o} = \frac{f_o + \beta y}{f_o}\\
+            &= 1+ \frac{U\beta' y}{L^2 f_o} \\
+            &= 1+ \frac{U}{f_o L} \frac{y}{L}\beta' \\
+            f' &= 1+ R_o \beta' y' 
+        \end{aligned}
+    \end{equation}
+    </div>
+    
+    <h2> Scaling the Shallow-Water equations interms of \(N_o\)</h2>
+    <p>The shallow-water equations <a href="/HTML/SW.html#eq-Shallow-water-equations">continuity equation(22)</a> proved before: </p>
+    <div>
+    \begin{equation}
+        \begin{aligned}
+            &\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial y}- fv = -g \frac{\partial h}{\partial x} \\
+            & \frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+fu= -g \frac{\partial h}{\partial y} \\
+            & \frac{\partial H}{ \partial t} + \frac{ \partial (uH)}{\partial x} + \frac{\partial (vH)}{\partial y} =0 \text{ or } \frac{D H}{Dt} + H(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}) = 0
+        \end{aligned}
+    \end{equation}
+</div>
+    <p>Recapping all the scaled variables to facilitate nondimensionalizing the equations:</p>
+    <div id="eq-scaled-variables">
+    \begin{equation} 
+        \begin{aligned}     
+            &\bullet x' = \frac{x}{L}, \quad y' = \frac{y}{L}\\
+            &\bullet u' = \frac{u}{U},\quad v' = \frac{v}{U} ,\quad t' = \frac{t}{T} \\
+            &\bullet f' = \frac{f}{f_o}, \quad \eta' =\frac{\eta}{N_o} 
+        \end{aligned}
+    \end{equation} 
+    </div>
+    <p>Substitute the scaled variables into the shallow-water equations:</p>
+    <div id="eq-derivation-scaled-shallow-wate-equations-N_o">
+    \begin{equation}
+        \begin{aligned}
+        &\begin{aligned}
+            & \frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} -fv = -g \frac{\partial h}{\partial x} \\
+            & \frac{\partial (u' U)}{\partial (t' T)} + u' U \frac{\partial (u' U)}{\partial (x' L)} + v' U \frac{\partial (u' U) }{\partial (y' L)} - f' f_o v' U = -g \frac{\partial (\eta' N_o)}{\partial (x' L)}\\
+            & \frac{U}{T}\frac{\partial u'}{\partial t'} + \frac{U^2}{L}\{u' \frac{\partial u' }{\partial x'} + v' \frac{\partial u' }{\partial y'} \}-  f_o U f' v' = -g \frac{N_o}{L} \frac{\partial \eta'}{\partial x'}
+        \end{aligned}
+        \\[1 cm]
+        &\begin{aligned}
+            &\frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+fu= -g \frac{\partial h}{\partial y} \\ 
+            & \frac{\partial (v' U)}{\partial (t' T)} + u' U \frac{\partial (v' U)}{\partial (x' L)} + v' U \frac{\partial (v' U) }{\partial (y' L)} +f' f_o u' U = -g \frac{\partial (\eta' N_o)}{\partial (y' L)}\\
+            & \frac{U}{T}\frac{\partial v'}{\partial t'} + \frac{U^2}{L}\{u' \frac{\partial v' }{\partial x'} + v' \frac{\partial v' }{\partial y'} \} + f_o U f'u' = -g \frac{N_o}{L} \frac{\partial \eta'}{\partial y'}
+        \end{aligned}
+        \\[1cm]
+        &\begin{aligned}
+            &\frac{\partial H}{ \partial t} + \frac{ \partial (uH)}{\partial x} + \frac{\partial (vH)}{\partial y} =0 \\
+            & \frac{\partial (D-h_B+\eta)}{\partial (t' T)} + \frac{\partial (u'U ((D-h_B+\eta)))}{\partial (x' L)} + \frac{\partial (v' U (D-h_B+\eta))}{\partial (y' L)}=0\\
+            & \frac{N_o}{T} \frac{\partial \eta'}{\partial t'} + \frac{U}{L} \frac{\partial u'}{\partial x'}(D-h_B+N_o \eta')+\frac{u'U}{L}\frac{\partial (D-h_B+N_o \eta')}{\partial x'}+ \frac{U}{L}\frac{v'}{y'}(D-h_B+N_o \eta')+\frac{v'U}{L}\frac{\partial (D-h_B+N_o \eta')}{\partial y'} =0 \\
+            & \frac{N_o}{T} \frac{\partial \eta'}{\partial t'} + \frac{U}{L} \{ u' \frac{\partial}{\partial x'} (N_o\eta' -h_B)+v' \frac{\partial}{\partial y'}(N_o \eta' -h_B)\}+ \frac{U}{L}(D-h_B+N_o\eta') (\frac{\partial u'}{\partial x'}+\frac{\partial v'}{\partial y'}) =0
+        \end{aligned}
+    \end{aligned}
+    \end{equation}
+    </div>
+    <p>Hence, the nondimensional scaled Shallow-water equation:</p>
+    <div id="eq-scaled-shallow-water-equations-N_o">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{U}{T}\frac{\partial u'}{\partial t'} + \frac{U^2}{L}\{u' \frac{\partial u' }{\partial x'} + v' \frac{\partial u' }{\partial y'} \}-  f_o U f' v' = -g \frac{N_o}{L} \frac{\partial \eta'}{\partial x'}\\
+            &\frac{U}{T}\frac{\partial v'}{\partial t'} + \frac{U^2}{L}\{u' \frac{\partial v' }{\partial x'} + v' \frac{\partial v' }{\partial y'} \} + f_o U f'u' = -g \frac{N_o}{L} \frac{\partial \eta'}{\partial y'}\\
+            &\frac{N_o}{T} \frac{\partial \eta'}{\partial t'} + \frac{U}{L} \{ u' \frac{\partial}{\partial x'} (N_o\eta' -h_B)+v' \frac{\partial}{\partial y'}(N_o \eta' -h_B)\}+ \frac{U}{L}(D-h_B+N_o\eta') (\frac{\partial u'}{\partial x'}+\frac{\partial v'}{\partial y'}) =0
+        \end{aligned}
+    \end{equation}
+    </div>
+    <h3>Defining \(N_o\)</h3>
+    <p>We can represent these equations in another form in terms of the Rossby number \(R_o\). In the large scale flows, oceanic and atmospheric, we insist that the motions to be described should be such that, \(R_o = \frac{U}{f_oL} << 1 \). Here the relative acceleration terms are much smaller than the Coriolis acceleration terms by \(\mathcal{O}(R_o)\). In order for \(u',v' \neq 0\), the pressure-gradient terms must be large enough to balance the Coriolis acceleration.</p>
+    <p>We need to choose the characteristic scale for the free surface elevation \(\eta\):</p>
+    <div id="eq-N_o">
+    \begin{equation}
+       N_o = \frac{f_o U L}{g}= \frac{U}{f_o L} \frac{f_o^2 L^2}{g}= R_o \frac{f_o^2L^2}{g}
+    \end{equation}
+    </div>
+    
+    <h3>Defining \(L_d\)</h3>
+    <p>The characteristic length scale \(L_d\) is the Rossby deformation radius, which will be defined throught his derivation using <a href="#eq-H">(13)</a>:</p>
+    <div id="eq-H-with-eta">
+    \begin{equation}
+        \begin{aligned}
+            H&= D + \eta - h_B\\
+            &= D(1+ \frac{\eta}{D} -\frac{h_B}{D})\\
+            &= D(1+ \frac{\eta ' N_o }{D} -\frac{h_B}{D})\\
+            &= D(1+ \frac{\eta '}{D}\frac{U}{f_o L} \frac{f_o^2 L^2}{g}- \frac{h_B}{D}) \\
+            &= D(1+\eta' R_o \frac{f_o^2 L^2}{gD} - \frac{h_B}{D})\\
+            &= D(1+R_o \frac{L^2}{L_d^2} \eta'-\frac{h_B}{D}) 
+        \end{aligned}
+    \end{equation}
+    </div>
+    
+    <p>Hence, </p>
+    <div id="eq-L_d">
+        \begin{equation}
+            L_d = \frac{(gD)^{\frac{1}{2}}}{f_o}
+    \end{equation}
+    </div>
+    
+    <h3>Defining \(Fr\)</h3>
+    <p>The Froude number \(Fr\) is square of the ratio of the geometric length scale \(L\) to the Rossby radius of deformation \(L_d\). For convenience we define the Froude number as \(F\):</p>
+    <div id="eq-Froude-number">
+    \begin{equation}
+            F= (\frac{L}{L_d})^2 = \frac{f_o^2 L^2}{gD}
+    \end{equation}
+    </div>
+    <h3>Defining \(h_B\)</h3>
+    <p>This term is the bottom topography, and the nondimensional form of \(h_B\) is:</p>
+    <div id="eq-h_B">
+    \begin{equation}
+      h_B = D R_o \eta_B (x,y)
+    \end{equation}
+    </div>
+    <p>where the order of magnitude of \(\eta_B\) is \(\mathcal{O}(1)\).</p>
+    
+    <h2>Scaling the Shallow-Water equations in terms of \(R_o\)</h2>
+    <p>For ease of notation, drop the primes in <a href="#eq-eq-scaled-shallow-water-equations-N_o">(21)</a></p>
+    <div id="eq-scaled-shallow-water-equations-R_o">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{U}{T}\frac{\partial u}{\partial t} + \frac{U^2}{L}\{u \frac{\partial u }{\partial x} + v \frac{\partial u }{\partial y} \}-  f_o U f v = -g \frac{N_o}{L} \frac{\partial \eta}{\partial x}\\
+            &\frac{U}{T}\frac{\partial v}{\partial t} + \frac{U^2}{L}\{u \frac{\partial v }{\partial x} + v \frac{\partial v }{\partial y} \} + f_o U fu = -g \frac{N_o}{L} \frac{\partial \eta}{\partial y}\\
+            &\frac{N_o}{T} \frac{\partial \eta}{\partial t} + \frac{U}{L} \{ u \frac{\partial}{\partial x} (N_o\eta -h_B)+v \frac{\partial}{\partial y}(N_o \eta -h_B)\}+ \frac{U}{L}(D-h_B+N_o\eta) (\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}) =0
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>In order to do this transformation, you are required to divide both horizontal momentum equations by \(f_o U\) and the mass-conservation equation by \(\frac{U}{L}\). Here are some useful equations: <a href="#eq-Froude-number">(25)</a>,<a href="#eq-h_B">(26)</a>,<a href="#eq-N_o">(22)</a>, and <a href="#eq-f">(17)</a>. </p>
+    <div id="eq-scaled-shallow-water-equations-R_o-derivation">
+    \begin{equation}
+    \begin{aligned}
+        &\begin{aligned}
+            &\bullet \frac{U}{T} \frac{\partial u}{\partial t} + \frac{U^2}{L} \{u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}\} -f_o U f v = -g \frac{N_o}{L} \frac{\partial \eta}{\partial x} \\
+            &\frac{U}{T f_o U} \frac{\partial u}{\partial t} + \frac{U^2}{Lf_o U} \{u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}\} - \frac{f_o U f v}{f_o U} = -g \frac{N_o}{L f_o U} \frac{\partial \eta}{\partial x} \\
+            &\frac{U}{f_o L } \frac{\partial u}{\partial t} + \frac{U}{f_o L} \{u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}\} - (1 + R_o \beta y) v = -g \frac{f_o U L}{L f_o Ug} \frac{\partial \eta}{\partial x} \quad \text{where \(L = T U \) , and plug in \(f\) and \(N_o\)} \\
+            &R_o \frac{\partial u}{\partial t} + R_o \{u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}\} -(1+R_o\beta y)v = -\frac{\partial \eta}{\partial x}
+        \end{aligned}
+        \\[1cm]
+        &\begin{aligned}
+            &\bullet  \frac{U}{T} \frac{\partial v}{\partial t} + \frac{U^2}{L} \{u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}\} +f_o U f u = -g \frac{N_o}{L} \frac{\partial \eta}{\partial y} \\
+            &\frac{U}{T f_o U} \frac{\partial v}{\partial t} + \frac{U^2}{Lf_o U} \{u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}\} + \frac{f_o U f u}{f_o U} = -g \frac{N_o}{L f_o U} \frac{\partial \eta}{\partial y} \\
+            &\frac{U}{f_o L } \frac{\partial v}{\partial t} + \frac{U}{f_o L} \{u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}\} +(1 + R_o \beta y) u = -g \frac{f_o U L}{L f_o U g} \frac{\partial \eta}{\partial y} \quad \text{where \(L = T U \) , and plug in \(f\) and \(N_o\)} \\
+            &R_o \frac{\partial v}{\partial t} + R_o \{u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}\} +(1+R_o\beta y)u = -\frac{\partial \eta}{\partial y}
+        \end{aligned}
+        \\[1cm]
+        &\begin{aligned}
+            &\bullet  \frac{N_o}{T} \frac{\partial \eta}{\partial t}+ \frac{U}{L} \{u \frac{\partial}{\partial x}(N_o \eta -h_B) + v \frac{\partial}{\partial y}(N_o \eta -h_B)\}+\frac{U}{L}(D+N_o \eta -h_B)(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0 \\
+            &\frac{N_o L}{TU} \frac{\partial \eta}{\partial t}+ \frac{U L }{L U} \{u \frac{\partial}{\partial x}(N_o \eta -h_B) + v \frac{\partial}{\partial y}(N_o \eta -h_B)\}+\frac{U L}{LU}(D+N_o \eta -h_B)(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0\\
+            &\frac{R_o L^2 f_o^2 L}{g L } \frac{\partial \eta}{\partial t}+ N_o \{u \frac{\partial \eta}{\partial x} +v \frac{\partial \eta}{\partial y}\}-\{u\frac{\partial h_B}{\partial x} +v \frac{\partial h_B}{\partial y}\}+(D+N_o \eta -h_B)(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0 \\
+            &\text{where \(L = T U \) , and plug in \(f\) and \(N_o\). Note that we can write : \(N_o = R_o F D\), and use the hints given above:} \\
+            &R_o F D \frac{\partial \eta}{\partial t}+ R_oFD \{u \frac{\partial \eta}{\partial x} +v \frac{\partial \eta}{\partial y}\}-R_o D\{u\frac{\partial \eta_B}{\partial x} +v \frac{\partial \eta_B}{\partial y}\}+D (1+\frac{N_o \eta}{D} -\frac{h_B}{D})(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0 \\
+            &\text{where \(D\) is eliminated}\\ 
+            &R_o F \frac{\partial \eta}{\partial t}+ R_oF \{u \frac{\partial \eta}{\partial x} +v \frac{\partial \eta}{\partial y}\}-R_o \{u\frac{\partial \eta_B}{\partial x} +v \frac{\partial \eta_B}{\partial y}\}+(1+R_o F \eta - R_o \eta_B)(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0
+        \end{aligned}
+    \end{aligned}
+    \end{equation}
+    </div>
+    
+    <p>Resulting in the following system:</p>
+    <div id="eq-scaled-shallow-water-equations-R_o">
+    \begin{equation}
+        \begin{aligned}
+            &R_o \frac{\partial u}{\partial t} + R_o \{u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}\} -(1+R_o\beta y)v = -\frac{\partial \eta}{\partial x}\\
+            &R_o \frac{\partial v}{\partial t} + R_o \{u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}\} +(1+R_o\beta y)u = -\frac{\partial \eta}{\partial y}\\
+            &R_o F \frac{\partial \eta}{\partial t}+ R_oF \{u \frac{\partial \eta}{\partial x} +v \frac{\partial \eta}{\partial y}\}-R_o \{u\frac{\partial \eta_B}{\partial x} +v \frac{\partial \eta_B}{\partial y}\}+(1+R_o F \eta - R_o \eta_B)(\frac{\partial u}{\partial x} +\frac{\partial v}{\partial y}) =0
+        \end{aligned}
+    \end{equation}
+    </div>
+    <h2>Asymptotic Expansion in Rossby number</h2>
+    <p>In this section, we'll examine the orders of magnitude of the various terms in the equations of motion. We can find relationships between terms of like order \(R_o\). If you consider any solution of the Shallow-Water, it will be function of \(x,y,t,R_o\), i.e., \(u(x,y,t,R_o)\). We can expand the solutions of the functions in an asymptotic series in \(R_o\) and that is because the last scaled equations appearred in integral powers. The expansion would look like the following:</p>
+    <div id="eq-asymptotic-expansion">
+    \begin{equation}
+    u(x,y,t,R_o) = u_0(x,y,t) + R_o u_1(x,y,t)+ R_o^2u_2(x,y,t)+\cdots
+    \end{equation}
+    </div>
+    <p>where \(u_0,u_1,u_2, \cdots\) are independent of \(R_o\).</p>
+    <p>The same expansion is done for all functions, plug in the expansion and collect terms of like order in \(R_o\). The leading order terms are the \(O(1)\) terms, the next order terms are the \(O(R_o)\) terms, and so on.</p>
+    <p>Plug the asymptotic expansions of the functions in <a href="#eq-scaled-shallow-water-equations-R_o">(29)</a> Horizontal momentum equations:</p>
+    <div id="eq-order-0">
+    \begin{equation}
+        \begin{aligned}
+            &\begin{aligned}
+                & \bullet  R_o \frac{\partial(u_0 +R_ou_1 +\mathcal{O}(R_o^2))}{\partial t}+ R_o ((u_0 +R_ou_1 +\mathcal{O}(R_o^2)) \frac{\partial (u_0 +R_ou_1+\mathcal{O}(R_o^2))}{\partial x}\\
+                &+ (v_0 +R_ov_1 +\mathcal{O}(R_o^2))\frac{\partial (u_0 +R_ou_1+ \mathcal{O}(R_o^2))}{\partial y}) - (1+R_o \beta y)(v_0 + R_ov_1 + \mathcal{O}(R_o^2))\\ 
+                &= -\frac{\partial (\eta_0 + R_o \eta_1 + \mathcal{O}(R_o^2))}{\partial x}
+            \end{aligned} \\[1cm]
+            &\begin{aligned}
+                & \bullet R_o \frac{\partial(v_0 +R_ov_1+\mathcal{O}(R_o^2))}{\partial t}+ R_o ((u_0 +R_ou_1 +\mathcal{O}(R_o^2)) \frac{\partial (v_0 +R_ov_1+\mathcal{O}(R_o^2))}{\partial x}\\
+                &+(v_0 +R_ov_1 +\mathcal{O}(R_o^2))\frac{\partial (v_0 +R_ov_1+\mathcal{O}(R_o^2))}{\partial y}) + (1+R_o \beta y)(u_0 + R_ou_1+\mathcal{O}(R_o^2)) \\
+                &= -\frac{\partial (\eta_0 + R_o \eta_1 + \mathcal{O}(R_o^2))}{\partial y}
+            \end{aligned}\\[1cm]
+            &\begin{aligned}
+                &\bullet R_oF(\frac{\partial (\eta_0 +R_o\eta_1+\mathcal{O}(R_o^2))}{\partial t} + (u_0 +R_ou_1 +\mathcal{O}(R_o^2)) \frac{\partial ((\eta_0 +R_o \eta_1 +\mathcal{O}(R_o^2)))}{\partial x} \\
+                &+ (v_0 +R_o v_1 +\mathcal{O}(R_o^2)) \frac{\partial (\eta_0 +R_o \eta_1 +\mathcal{O}(R_o^2))}{\partial y}) -R_o((u_0 +R_ou_1 +\mathcal{O}(R_o^2)) \frac{\eta_B}{\partial x} + (v_0 +R_o v_1 +\mathcal{O}(R_o^2)) \frac{\partial \eta_B}{\partial y}) \\
+                &+ (1+R_oF(\eta_0 +\mathcal{O}(R_o)) + R_o \eta_B)(\frac{\partial (u_0 +R_ou_1 +\mathcal{O}(R_o^2))}{\partial x} + \frac{\partial (v_0 +R_o v_1 +\mathcal{O}(R_o^2))}{\partial y}) =0
+            \end{aligned}
+        \end{aligned}
+    \end{equation}
+    </div>
+
+    <h3>Geostrophic Condition</h3>
+    <p>The \(\mathcal{O}(1)\) terms would be:</p>
+    <div id="eq-geostrophic">
+    \begin{equation}
+            \begin{aligned}
+                &v_0 = \frac{\partial \eta_0}{\partial x}\\
+                &u_0 = \frac{-\partial \eta_0}{\partial y}
+            \end{aligned}
+    \end{equation}
+    </div>
+    <p>Meaning that the lowest-order fields are geostrophic. We can derive the geostrophic balance from the horizontal momentum equations. </p>
+    <div id="eq-geostrophic-balance">
+    \begin{equation}
+        \frac{\partial u_0}{\partial x} + \frac{\partial v_0}{\partial y} =0
+    \end{equation}
+    </div>
+
+    <p>The \(\mathcal{O}(R_o)\) terms would be:</p>
+    <div id="eq-order-R_o">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{\partial u_0}{\partial t} + u_0 \frac{\partial u_0}{\partial x} +v_0 \frac{\partial u_0}{\partial y} -v_1 -\beta y v_0 = -\frac{\partial \eta_1}{\partial x} \\
+            &\frac{\partial v_0}{\partial t} + u_0 \frac{\partial v_0}{\partial x} +v_0 \frac{\partial v_0}{\partial y} +u_1 +\beta y u_0 = -\frac{\partial \eta_1}{\partial y} \\
+            &F(\frac{\partial \eta_0}{\partial t}+u_0 \frac{\partial \eta_0}{\partial x} + v_0 \frac{\partial \eta_0}{\partial y})-(u_0 \frac{\partial \eta_B}{\partial x} + v_0 \frac{\partial \eta_B}{\partial y}) +(\frac{\partial u_1}{\partial x}+\frac{\partial v_1}{\partial y})+(F+\eta_B)\cancel{(\frac{\partial u_0}{\partial x}+\frac{\partial v_0}{\partial y})} =0
+        \end{aligned}
+    \end{equation}
+    </div>
+
+    <p>Note that \(u_1,v_1\) are not geostrophic. The departures of these velocities from geostrophic balance with \(\mathcal{O}(R_o)\) pressure field are produced entirely by the acceleration of \(\mathcal{O}(1)\) velocity fields that are in geostrophic balance.</p>
+
+    <h3>Vorticity Equation</h3>
+    To Establish a closed dynamical system which involves only \(\mathcal{O}(1)\) fields, we need to eliminate the pressure by cross differentiating the horizontal momentum equations <a href="#eq-order-R_o">(34)</a> and applying the geostrophic condition <a href="#eq-geostrophic-balance">(33)</a>.
+    <div id="eq-vorticity">
+    \begin{equation}
+        \begin{aligned}
+            &1.\begin{aligned}
+                & \frac{\partial u_0}{\partial t} + u_0 \frac{\partial u_0}{\partial x} +v_0 \frac{\partial u_0}{\partial y} -v_1 -\beta y v_0 = -\frac{\partial \eta_1}{\partial x} \\
+                & \frac{\partial^2 u_0}{\partial t \partial y} + \frac{\partial u_0 }{\partial y} \frac{\partial u_0}{\partial x}+u_0 \frac{\partial^2 u_0}{\partial y \partial x} + \frac{\partial v_0}{\partial y} \frac{\partial u_0}{\partial y}+v_0 \frac{\partial^2 u_0}{\partial^2 y} - \frac{\partial v_1}{\partial y} - \frac{\partial \beta y}{\partial y} v_0 - \beta y \frac{\partial v_0}{\partial y}= -\frac{\partial^2 \eta_1}{\partial x \partial y}
+            \end{aligned}\\[1cm]
+            &2.\begin{aligned}
+                &\frac{\partial v_0}{\partial t} + u_0 \frac{\partial v_0}{\partial x} +v_0 \frac{\partial v_0}{\partial y} +u_1 +\beta y u_0 = -\frac{\partial \eta_1}{\partial y} \\
+                & \frac{\partial^2 v_0}{\partial t \partial x} + \frac{\partial u_0}{\partial x}\frac{\partial v_0}{\partial x}+ u_0 \frac{\partial^2 v_0}{\partial x^2} +\frac{\partial v_0}{\partial x} \frac{\partial v_0}{\partial y}+v_0 \frac{\partial^2 v_0}{\partial y \partial x} + \frac{\partial u_1}{\partial x} + \frac{\partial \beta y}{\partial x} u_0 +\beta y \frac{\partial u_0}{\partial x} = -\frac{\partial^2 \eta_1}{\partial y \partial x}
+            \end{aligned}
+        \end{aligned}
+    \end{equation}
+    </div>
+
+    <p>Subtracting 1 from 2:</p>
+    <div id="eq-vorticity-subtract">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{\partial}{\partial t}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y }) + u_0 \frac{\partial}{\partial x}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + v_0 \frac{\partial}{\partial y}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + (\frac{\partial u_1}{\partial x} - \frac{\partial v_1}{\partial y} )+ \beta y(\frac{\partial v_0}{\partial x}+ \frac{\partial v_0}{\partial y}) \\&+\frac{\partial u_0}{\partial x}\frac{\partial v_0}{\partial x} + \frac{\partial v_0}{\partial x}\frac{\partial v_0}{\partial y} -\frac{\partial u_0}{\partial y}\frac{\partial u_0}{\partial x} - \frac{\partial v_0}{\partial y} \frac{\partial u_0}{\partial y}=0 \\[0.6cm]
+            & \frac{\partial}{\partial t}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y }) + u_0 \frac{\partial}{\partial x}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + v_0 \frac{\partial}{\partial y}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + (\frac{\partial u_1}{\partial x} - \frac{\partial v_1}{\partial y} )+ \beta y(\frac{\partial v_0}{\partial x}+ \frac{\partial v_0}{\partial y})\\& 
+            +\frac{\partial u_0}{\partial x}(\frac{\partial v_0}{\partial x}-\frac{\partial u_0}{\partial y})+\frac{\partial v_0}{\partial y}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y})=0  \\[0.6cm]
+            & \frac{\partial}{\partial t}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y }) + u_0 \frac{\partial}{\partial x}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + v_0 \frac{\partial}{\partial y}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y}) + (\frac{\partial u_1}{\partial x} - \frac{\partial v_1}{\partial y} )+ \beta y(\frac{\partial v_0}{\partial x}+ \frac{\partial v_0}{\partial y})\\& 
+            +\cancel{(\frac{\partial u_0}{\partial x}+\frac{\partial v_0}{\partial y})}(\frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y})=0 
+        \end{aligned} 
+    \end{equation}
+    </div>
+    
+    <div id="eq-vorticity-equation-order1">
+    \begin{equation}
+        \frac{\partial \zeta_o}{\partial t} +u_0 \frac{\partial (\zeta_o +\beta y)}{\partial x} +v_0 \frac{\partial (\zeta_o+\beta y)}{\partial y}= -(\frac{\partial u_1 }{\partial x}+\frac{\partial v_1}{\partial y})
+    \end{equation}
+    <div>
+
+    <p>where if we used <a href="#eq-geostrophic">(32)</a>: </p>
+
+    <div id="eq-zeta-in-terms-of-eta">
+    \begin{equation}
+    \zeta_o = \frac{\partial v_0}{\partial x} - \frac{\partial u_0}{\partial y} = \frac{\partial}{\partial x} \frac{\partial \eta_o}{\partial y} - \frac{\partial}{\partial y} \frac{\partial \eta_o}{\partial x}= \nabla^2 \eta_o
+    \end{equation}
+    </div>
+
+    <h3>Potential Vorticity</h3>
+    <p>To get the equation of potential vorticity, we need to eliminate first the left hand side, and that is done by <a href="#eq-order-R_o">(34)</a>.</p>
+    <div id="eq-potential-vorticity">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{\partial}{\partial t} \zeta_o + u_0 \frac{\partial}{\partial x}(\zeta_o+\beta y)+v_0 \frac{\partial}{\partial y}( \zeta_o +\beta y) = -(\frac{\partial u_1}{\partial x} + \frac{\partial v_1}{\partial y}) \\ 
+            & \frac{\partial}{\partial t} \zeta_o + u_0 \frac{\partial}{\partial x}(\zeta_o+\beta y)+v_0 \frac{\partial}{\partial y}( \zeta_o +\beta y) -F(\frac{\partial \eta_o}{\partial t} + u_0 \frac{\partial \eta_o}{\partial x}+v_0 \frac{\partial \eta_o}{\partial y})+(u_0 \frac{\partial \eta_B}{\partial x}+v_0 \frac{\partial \eta_B}{\partial y})=0\\
+            & \frac{D (\zeta_o +\beta y)}{Dt} = F \frac{D \eta_o}{Dt} -(u_0 \frac{\partial \eta_B}{\partial x} + v_0 \frac{\partial \eta_B}{\partial y})\\
+            &\frac{D (\zeta_o +\beta y)}{Dt} = F \frac{D \eta_o}{Dt} -\frac{D \eta_B}{Dt}
+        \end{aligned}
+    \end{equation}
+    </div>
+    <p>where \(\frac{D}{Dt} = \frac{\partial}{\partial t} + u_0 \frac{\partial}{\partial x}+ v_0 \frac{\partial}{\partial y}\). We can rewrite <a href="#eq-potential-vorticity">(39)</a> as: </p>
+
+    <div id="eq-mini-potential-vorticity">
+    \begin{equation}
+        \frac{D}{Dt} (\zeta_0 + \beta y -F \eta_o+\eta_B)=0
+    \end{equation}
+    </div>
+
+    <p>This representation <a href="#eq-mini-potential-vorticity">(40)</a> can be merely in terms of \(\eta_o\), using equations <a href="#eq-geostrophic">(32)</a> and <a href="#eq-zeta-in-terms-of-eta">(38)</a>: </p>
+    <div id="eq-Quasi-geostrophic-potential-vorticity">
+    \begin{equation}
+        \begin{aligned}
+            &\frac{D}{Dt}(\zeta_o + \beta y-F \eta_o+\eta_B)=0\\
+            &\frac{D}{Dt}(\nabla^2 \eta_o + \beta y-F \eta_o+\eta_B)=0 \\
+            &\text{Expand the operator \(\frac{D}{Dt}\) in terms of \(\eta_o\)}:\\
+            &\frac{D}{Dt} = \frac{\partial }{\partial t}+ u_0 \frac{\partial}{\partial x}+v_0 \frac{\partial }{\partial y} = \frac{\partial }{\partial t}- \frac{\partial \eta_o}{\partial y} \frac{\partial}{\partial x}+\frac{\partial \eta_o}{\partial x} \frac{\partial }{\partial y}\\
+            &\text{This transformation results in the following:}\\
+            &[\frac{\partial }{\partial t}+\frac{\partial \eta_o}{\partial x} \frac{\partial }{\partial y}- \frac{\partial \eta_o}{\partial y} \frac{\partial}{\partial x}](\nabla^2 \eta_o + \beta y-F \eta_o+\eta_B) =0
+        \end{aligned}
+    \end{equation}
+    </div>
+
+    <p>This is the Quasi-Geostrophic Potential-Vorticity equation which is equivalent to the conservaion statement for potential vorticity.</p>
+    <div id="eq-Q">
+    \begin{equation}
+        Q = \zeta_o -F\eta_o+\beta y + \eta_B  
+    \end{equation}
+    </div>
+    <p>that is the potential vorticity equation in which all terms are evaluated through the use of their geostrophic \(\mathcal{O}(1)\) values.</p>
+
+    <h2>Stream Function</h2>
+    <p>Since the \(\eta_o\) serves as a stream function \(\psi\) for the geostrophic flow, we can write the geostrophic velocities in terms of \(\psi\):</p>
+    <div id="eq-stream-function">
+    \begin{equation}
+        \eta_o = \psi(x,y,t)
+    \end{equation}
+    </div>
+
+    <p>where the <a href="/HTML/QSW.html#eq-geostrophic">velocities(32)</a> become:</p>
+    <div id="eq-stream-velocity">
+    \begin{equation}
+        \boxed{\begin{aligned}
+            &v_0 = -\frac{\partial \psi}{\partial x} = \frac{\partial \eta_o}{\partial x}\\
+            &u_0 = -\frac{\partial \psi}{\partial y} = -\frac{\partial \eta_o}{\partial y}        
+        \end{aligned}}
+    \end{equation}
+    </div>
+
+    <p>Let's rewrite <a href="/HTML/QSW.html#eq-Quasi-geostrophic-potential-vorticity">Quasi-geostrophic potential vorticity equation(41)</a> as:</p>
+    <div id="eq-Quasi-geostrophic-potential-vorticity-stream-function">
+    \begin{equation}
+        [\frac{\partial }{\partial t}+\frac{\partial \psi}{\partial x} \frac{\partial }{\partial y}- \frac{\partial \psi}{\partial y} \frac{\partial}{\partial x}](\nabla^2 \psi -F \psi+ \beta y+\eta_B) =0
+    \end{equation}
+    </div>
+
+    <p>Notice the potential vorticity:</p>
+    <ul>
+        <li> the term \(\nabla^2 \psi\): is the relative vorticity 
+        <li> the term \(-F\eta_o\): is the contribution to the potential vorticity due to variations in the free surface height
+        <li> \(-F\eta_o\) has relative importance to \(\nabla^2 \psi\) that is measured by \(F\) which is \((\frac{L}{L_d})^2=\frac{f_o^2 L^2}{gD}\). If \(L\) is small compared to \(L_d\), on scale of motion, a negligible variation of \(\eta\), and a consequently negligible contribution to the portential vorticity by vortex-tube stretching.
+        <li> Consider two cases: 
+            <ul>
+                <li> \(L \ll L_d\): From point of view of the vorticity balance, the free surface appears no different than a rigid lid. 
+                <li> \(L \gg L_d\): the relative vorticity \(\eta_o\) is not important and the fluid velocity appears horizontally uniform.
+            </ul>
+        Note that the Rossby radius of deformation, \(L_d\), is the scale for which the relative vorticity and the surface height make equal contributions to the potential vorticity \(Q\).
+    </ul>
+    <p>If we took the model to the dimensional form:</p>
+    <div id="eq-dimensional-form">
+    \begin{equation}
+        [\frac{\partial}{\partial t} + \frac{\partial \psi}{\partial x}\frac{\partial }{\partial y} -\frac{\partial \psi}{\partial y}\frac{\partial }{\partial x}](\nabla^2 \psi - \frac{L^2}{L_d^2} \psi + \beta y + \frac{h_B f_o L}{DU}) =0 
+    \end{equation}
+    </div>
+
+    <h2>The Final Shallow-Water Model</h2>
+    <p>In this section i will state the model but if you felt like missing some notions and need backup feel free to wander in the next section. 
+    Friction is needed in the model along with wind acting as a driving force on the surface of the ocean, the evolution of the quasi-geostrophic potential vorticity will be governed by:</p>
+    <div id="eq-final-shallow-water-model">
+    \begin{equation}
+        \boxed{[\frac{\partial}{\partial t} + \frac{\partial \psi}{\partial x}\frac{\partial}{\partial y} -\frac{\partial \psi}{\partial y}\frac{\partial}{\partial x}](\nabla^2 \psi -F\psi+\beta y + \eta_B) = \beta \vec{k} \cdot \nabla \times \tau - \alpha \nabla^2 \psi + \frac{1}{Re}\nabla^4 \psi}
+    \end{equation}
+    </div>
+    <p>where \(\tau\) is the wind stress, \(\tau = (\tau_x,\tau_y)\) obtained from wind speed measured at 10 m above sea surface. \(\vec{k}\) is unit vector in the z-direction, \(\alpha\) is the dissipation coefficient, and \(Re = \frac{UL}{A_H}\) is Reynolds number and \(A_H\) is horizontal turbulent viscosity coefficient explained in the next section.</p>
+    <p>Slight insight to the coefficients but they are explained and derived in the next section.</p>
+    <p>The importance of friction:</p>
+    <ul>
+        <li> in the absence of friction, <a href="#eq-final-shallow-water-model">(47)</a> would be nothing but the conservation of potential vorticity <a href="#eq-dimensional-form">(46)</a>. Hence, its presence allows for the evolution of the potential vorticity of each fluid column with time. 
+        <li> The frictional forces are weak compared to the nonlinear relative acceleration terms, but they are essential for the dissipation of energy in the system. They arise from the random motion of fluid molecules. 
+        <li> The curl of the applied stress acts as a source of potential vorticity, while the frictional dissipation in the layer of the Ekman layer acts as sink of potential vorticity. 
+        <li> The presence of \(\mathcal{O}({Re}^{-1})\), the small quantity, of friction in the interior, although negligible, acts to diffuse vorticity laterally. 
+    </ul>
+    <h3>Insight</h3>
+    <p>I will not do the full derivation of the model's equation, but instead I will provide insight to some coefficients. The second term in the RHS, \(- \frac{r}{2} \nabla^2 \psi \) is nothing but the relative vorticity of the flow. Usually, it is a drag force like bottom friction. The coefficient \(\alpha\) is a damping coefficient that represents how this vorticity is dissipated over time, leading to a decrease in the fluid's rotation, since we are considering all small non-geostrophic forces in the interior. The vortex tube stretching by the Ekman suction velocity acting on the planetary vorticity filaments will produce an \(\mathcal{O}({E_v}^{\frac{1}{2}})\) variation of the relative vorticity. The ratio of the stretching by Ekman pumping to advection of the relative vorticity is given by:</p>
+    <div id="eq-ratio-stretching-advection">
+    \[
+    r = \frac{ {E_v}^{\frac{1}{2}} }{R_o} = \frac{fL (2A_v)^{\frac{1}{2}}}{U(fD)^{\frac{1}{2}}} = \frac{L}{U \tau}
+    \]
+    </div>  
+    <p>We are still in the \(\beta\)-plane, so that \(\eta_B\) is read as the variable part of the ambient potential vorticity is caused by the variation of Coriolis parameter with the latitude. Using these two equations \(\beta = \frac{2\Omega \cos\theta_o}{R}\) and <a href="/HTML/QSW.html#eq-scaled-f">scaled f(17)</a> in: </p>
+    <div id="eq-eta-B">
+    \begin{equation}
+        \begin{aligned}
+            &\bullet \eta_B = \frac{\beta_o L^2}{U}y= \beta y \\
+            &\bullet \beta_o = \frac{2\Omega \cos \theta}{r_o}
+        \end{aligned}
+    \end{equation}
+    </div>
+
+    <p>In the absence of friction, geostrophic flow will tend to be along the lines of constant \(\eta_B\), meaning \(\frac{d \eta_B}{dt}=0\), but in our case where we have applied stress: </p>
+    <div id="eq-eta-B-time">
+    \begin{equation}
+        \frac{d \eta_B}{dt} = \frac{\tau_o}{\rho f U D R_o} \vec{k} \times \vec{\tau}
+    \end{equation}
+    </div>
+    <p>The curl of the stress will drive fluid across the line of ambient potential vorticity, so the vorticity input is balanced by the increase of the columns potential vorticity experienced when it moves to an area of larger ambient potential vorticity. We need to choose \(U\) using nondimensional units such that:</p>
+    <div id="eq-U">
+    \begin{equation}
+    \beta = \frac{\beta_o L^2}{U} = \frac{\tau_o}{\rho f U D R_o} = \frac{\tau_o L}{\rho U^2 D}     
+    \end{equation}
+    </div>
+    <p>or </p>
+    <div id="eq-U-2">
+    \begin{equation}
+        U = \frac{\tau_o}{\rho \beta_o DL}
+    \end{equation}
+    </div>
+</body>
+</html>
+

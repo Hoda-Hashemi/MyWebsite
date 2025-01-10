@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <title>MITGCM Installation | Hoda Hashemi</title> 
+    <link rel="stylesheet" href="./design.css">
+    <link rel="icon" type="image/x-icon" href="logo/ilikeit.png" sizes="32x32">
+    <meta charset="UTF-8">
+
+    <script type="text/javascript">
+        MathJax = {
+            tex: {
+                tags: 'all'  // Enables equation numbering and referencing
+            }
+        };
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+
+    <!-- React and ReactDOM -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel for TSX and JSX compilation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+</head>
+
+
+<body>
+<h1> Installing MITGCM </h1>
+<h2>This is me trying to run MITGCM tutorial</h2>
+<a href = "https://mitgcm.readthedocs.io/en/latest/overview/overview.html#" > MITGCM Documentation</a>
+<ul> 
+    <li> Need to have <code>Xcode</code> and <code>homebrew</code>   installed </li>
+    <li> Install git using homebrew: <br>
+        <code>install git</code>
+    </li>
+    <li> Install gfortran, Fortran compiling:<br>
+        <code>brew install gcc</code>
+    </li>
+    <li> Install other dependencies:<br>
+        <code>brew install make</code>
+    </li>
+    <li>Working with git environment is more flexible allowing the version code to regularly updated as MITGCM developers check in bugs fixes and new features: <br>
+        <code>git clone https://github.com/MITgcm/MITgcm.git</code>
+        </li>
+        <li> Choose the tutorial:<br>
+        <code>cd MITgcm/verification</code>
+        </li>
+        <li>Displaying the files:<br>
+            <code>ls</code>
+        </li>
+        <li>Go to the directory of the tutorial:<br>
+            <code>cd global_oce_latlon</code> 
+            
+        </li>
+            <li>Use any view command of your choice: <code>cat, nvim, vim ,...</code> to view the files in the directory</li>
+            </li>
+            <li>For example, to view the README file:<br>
+            <code>cat README</code> <br>
+            <img src="cat.png" alt="snapshot of terminal for cat command" >
+        </li>
+        <li> Generating the Makefile inside the build directory:
+            <code>cd build</code> <br>
+            <code>../../../tools/genmake2 -mods=../code -of my_platform_optionFile </code>
+            <img src="depend1.png" alt="make depend" >
+            <img src="depend2.png" alt="make depend" >
+        </li>
+        <li> Processing the source code to identify and record dependencies between source files. It ensures that the Makefile knows the order in which files need to be compiled and linked. <br>
+            <code>make depend</code>
+        </li>
+        <li>Compiling and linking the code to build the executable model: <br>
+            <code>make</code>
+        </li>
+        <li>Running: <br>
+            <code>cd run</code> <br>
+            <code>ln -s ../input/* .</code> <br>
+            <code>ln -s ../build/mitgcmuv .</code> <br>
+            <code>./mitgcmuv > output.txt</code> <br>
+            <code>cd ..</code> <br>
+        </li>
+        <li>Viewing the output: <br>
+            <code>cat run/output.txt</code> 
+        </li>
+
+</ul>
+</body>
+</html>
