@@ -98,17 +98,7 @@ nav a {
     transition: color 0.6s ease;
 }
 
-/*! wrapper */
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 80%; /* Adjust as needed */
-    max-width: 1200px; /* Adjust as needed */
-    height: 90%; /* Adjust as needed */
-    max-height: 800px; /* Adjust as needed */
-    overflow: hidden; /* Prevent content overflow */
-    box-sizing: border-box;
-}
+
 
 /*!Footer*/
 .wrapper footer {
