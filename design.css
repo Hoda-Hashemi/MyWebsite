@@ -36,6 +36,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center; 
+
 } 
 
 h1 {
@@ -99,15 +100,14 @@ nav a {
 
 /*! wrapper */
 .wrapper {
-    margin: 50px auto; 
-    width: 70%;
-    max-height: 80vh;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    color: #ffffff; 
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* Adjust as needed */
+    max-width: 1200px; /* Adjust as needed */
+    height: 90%; /* Adjust as needed */
+    max-height: 800px; /* Adjust as needed */
+    overflow: hidden; /* Prevent content overflow */
+    box-sizing: border-box;
 }
 
 /*!Footer*/
