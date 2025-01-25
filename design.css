@@ -25,7 +25,7 @@
 
 body {
     font-family: roboto_condensed_h;
-    background-image: url('background/shaft.jpg');
+    /* background-image: url('background/shaft.jpg'); */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed; /* Fix the background */
@@ -35,8 +35,8 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
+    align-items: center; 
+} 
 
 h1 {
     font-family: special;
