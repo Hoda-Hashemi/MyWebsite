@@ -23,6 +23,7 @@
     src: url(fonts/Courier_Prime/CourierPrime-Regular.ttf);
 }
 
+
 body {
     font-family: roboto_condensed_h;
     /* background-image: url('background/shaft.jpg'); */
@@ -97,8 +98,6 @@ nav a {
     display: inline-block;
     transition: color 0.6s ease;
 }
-
-
 
 /*!Footer*/
 .wrapper footer {
