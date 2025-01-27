@@ -1,3 +1,4 @@
+/*!Fonts*/
 @font-face {
     font-family: funky;
     src: url(fonts/Agu_Display/AguDisplay-Regular-VariableFont_MORF.ttf);
@@ -23,23 +24,6 @@
     src: url(fonts/Courier_Prime/CourierPrime-Regular.ttf);
 }
 
-
-body {
-    font-family: roboto_condensed_h;
-    /* background-image: url('background/shaft.jpg'); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Fix the background */
-    background-position: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-
-} 
-
 h1 {
     font-family: special;
     color: #ffffff;
@@ -62,6 +46,22 @@ p { font-family: roboto_flex_p;
 a {
     font-family: mono_link;
 }
+
+/*!Header*/ 
+body {
+    font-family: roboto_condensed_h;
+    background-color: #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Fix the background */
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    justify-content: center;
+    align-items: center; 
+
+} 
 
 /*! toolbar */
 nav{text-align: right; margin-top: 30px;}
@@ -86,11 +86,12 @@ nav ul li{
     background-color: #ffffff;
     color:#00ffe5;
 }
+
+/*!navigators in header*/
 nav li:hover a {
     color: #00ffe5;
 
 }
-
 nav a {
     text-decoration: none;
     color: #ffffff;
