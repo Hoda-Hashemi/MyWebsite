@@ -194,10 +194,10 @@ nav ul {
 
 nav ul li {
     list-style-type: none;
-    margin: auto;
-    padding: 0 15px;
     text-align: center;
-    position: relative;
+    margin: auto;
+    padding: 0 ;
+   
 }
 
 nav ul li a {
@@ -226,6 +226,22 @@ nav ul li:hover::after {
     /* background-color: #ffffff; */
     color: #39ff14;
 } 
+
+/*!List*/
+.centered-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: auto;
+    flex-direction: column; /* Change to row if you want items in a row */
+    text-align: center;
+}
+
+.centered-list li {
+    margin: 0 10px;
+}
 
 /*! Main center*/
 @keyframes typing {

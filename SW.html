@@ -48,16 +48,18 @@
 
     <h1>Shallow Water Equations</h1>
     <h2>Scaling Navier-Stokes Equations</h2>
-    <p>The scaling of the variables is as follows:
+    <p>The scaling of the variables is as follows:</p>
+
     <ul>
-        <li>\(U\): characteristic scale for horizontal velocity
-        <li>\(L\): characteristic scale for horizontal length
-        <li>\(W\): characteristic scale for vertical velocity
-        <li>\(D\): characteristic scale for vertical length
-        <li>\(T\):\(\frac{L}{U}\), where \(U\) is the scale for horizontal velocity.
-        <li>\(P\): characteristic scale for pressure field.
+        <li>\(U\): characteristic scale for horizontal velocity</li>
+        <li>\(L\): characteristic scale for horizontal length</li>
+        <li>\(W\): characteristic scale for vertical velocity</li>
+        <li>\(D\): characteristic scale for vertical length</li>
+        <li>\(T\):\(\frac{L}{U}\), where \(U\) is the scale for horizontal velocity.</li>
+        <li>\(P\): characteristic scale for pressure field.</li>
     </ul>
-    There is a condition where \(\frac{W}{D}\) can not be larger than \(\mathcal{O}(\frac{U}{L})\) which implies that:</p>
+
+    <p>There is a condition where \(\frac{W}{D}\) can not be larger than \(\mathcal{O}(\frac{U}{L})\) which implies that:</p>
     <div id="eq-order-of-vertical-velocity">
      \begin{equation}
         W \leq \mathcal{O}(\delta U)
@@ -253,10 +255,12 @@
     </div>
     
     <h2>Reflection</h2>
+
     <ul>
-        <li> Consequence of \(\delta << 1\): have reduced the number of dynamical equations by 1, the number of dependent variables by 1 (eliminating \(w\)), and the number of independent variables by 1 (no explicit dependence on \(z\).
-        <li> The remaining variables are \(u,v,h\), meaning functions \(x,y,t\) only.
-        <li> The fact that \(w\) is linear function of \(z\) has vital implications. Using <a href="#eq-continuity-equation">(19)</a> and plugging in horizontal divergence in <a href="#eq-w">(17)</a> we get: 
+        <li> Consequence of \(\delta << 1\): have reduced the number of dynamical equations by 1, the number of dependent variables by 1 (eliminating \(w\)), and the number of independent variables by 1 (no explicit dependence on \(z\). </li>
+        <li> The remaining variables are \(u,v,h\), meaning functions \(x,y,t\) only. </li>
+        <li> The fact that \(w\) is linear function of \(z\) has vital implications. Using <a href="#eq-continuity-equation">(19)</a> and plugging in horizontal divergence in <a href="#eq-w">(17)</a> we get:  </li>
+    </ul>
         <div id="eq-z-h_B">
         \begin{equation}
             \begin{aligned}
@@ -266,17 +270,16 @@
             \end{aligned}
         \end{equation}
         </div>
-        which can be written as: 
+        <p>which can be written as: </p>
         <div id="eq-w-h_B">
         \begin{equation}
            \frac{D}{Dt} [\frac{z-h_B}{H}] =0 
         \end{equation}
         </div>
-        This tells us that during stretching or contraction of each column the relative position of each column, the relative position of the fluid is unchanged.
-        <li> the independence of \(u,v\) of \(z\), means that during motion of the fluid, the fluid moves as set of columns oriented parallel to z-axis.
-    </ul>
+        <p>This tells us that during stretching or contraction of each column the relative position of each column, the relative position of the fluid is unchanged.</p>
+    <ul>
+        <li> the independence of \(u,v\) of \(z\), means that during motion of the fluid, the fluid moves as set of columns oriented parallel to z-axis. </li>
+    </ul> 
 
-</p>
-    
 </body>
 
