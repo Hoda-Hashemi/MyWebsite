@@ -3,8 +3,9 @@
 <head>
     <title>MITGCM Installation | Hoda Hashemi</title> 
     <link rel="stylesheet" href="./design.css">
-    <link rel="icon" type="image/x-icon" href="logo/ilikeit.png" sizes="32x32">
+    <link rel="icon" type="image/x-icon" href="logo/logo.png" sizes="32x32">
     <meta charset="UTF-8">
+    <input type="checkbox" role="switch" class="dark-2" />
 
     <script type="text/javascript">
         MathJax = {
@@ -22,7 +23,6 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
 </head>
-
 
 <body>
 <h1> Installing MITGCM </h1>
@@ -56,13 +56,13 @@
             </li>
             <li>For example, to view the README file:<br>
             <code>cat README</code> <br>
-            <img src="cat.png" alt="snapshot of terminal for cat command" >
+            <img src="./mitgcmdir/cat.png" alt="snapshot of terminal for cat command" class="responsive-img"  >
         </li>
-        <li> Generating the Makefile inside the build directory:
+        <li> Generating the Makefile inside the build directory:<br>
             <code>cd build</code> <br>
-            <code>../../../tools/genmake2 -mods=../code -of my_platform_optionFile </code>
-            <img src="depend1.png" alt="make depend" >
-            <img src="depend2.png" alt="make depend" >
+            <code>../../../tools/genmake2  -oad -of ../../../tools/build_options/linux_amd64_gfortran -mods ../code_oad</code>
+            <img src="./mitgcmdir/depend1.png" alt="make depend" class="responsive-img" >
+            <img src="./mitgcmdir/depend2.png" alt="make depend"  class="responsive-img">
         </li>
         <li> Processing the source code to identify and record dependencies between source files. It ensures that the Makefile knows the order in which files need to be compiled and linked. <br>
             <code>make depend</code>
@@ -84,3 +84,4 @@
 </ul>
 </body>
 </html>
+
