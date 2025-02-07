@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en"> 
 
 <head> 
@@ -25,15 +26,26 @@
             <nav> 
                 <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
             <ul> 
-                <li> <a href="./Scribbles.html"> Scribbles</a> </li>
-                <li> <a href="./Coding.html"> Coding</a></li>
-                <li> <a href="./Articles.html"> Articles</a></li>
-                <li><a href="./Publications.html"> Publications</a> </li> 
-                <li> <a href="./Contact.html" id="contact"> Contact</a></li>
+                <li class="dropdown">  
+                    <a href="#">Scribbles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="NS.html">Navier Stokes equations</a></li>
+                        <li><a href="SW.html">Shallow water equations</a></li>
+                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
+                        </ul>
+                <li class= "dropdown">
+                    <a href="#">Numerics</a>
+                    <ul class="dropdown-content">
+                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                    </ul>
+                
                 <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
             </ul>
         </nav>
     </header>
+
     <h1>Quasi-Geostrophic Shallow-Water Potential-Vorticity Equations: On a Sphere </h1>
     <p>In this section you will find the derivations similar to that of the previous sections, so i will move forward with some derivations.</p>
     
@@ -41,15 +53,15 @@
     <p>I will start by deriving the gradient, divergence and curl operators in spherical coordinates.</p>
     <h3>Coordinate System</h3>
     <p>The spherical cooridinate system is defined by the physics notions as \((r,\theta,\phi)\). But for the sake of homogenity with the papers and reference books, I will use \((r,\theta,\lambda)\), where \(\lambda\) is the longitude and \(\theta\) is the latitude.</p>
-    <img src="ShallowWater/spherical.jpg" width="400" height="400">
+    <img src="ShallowWater/spherical.jpg" width="400" height="400" class="center-image">
     <p>This figure shows the spherical coordinate system, where \(r\) is the distance from the origin \(r = |\vec{r}|\), angle \(\theta\) is the angle between \(r\) and the z-axis (latitude), and angle \(\lambda\), (azimuth), is the angle between the x-axis and the projection of \(r\) on the xy-plane (longitude).</p>
     <p>The beautiful use of the spherical coordinates, which may help you to visualize the system, is to specify positions on the Earth's surface. By choosing the origin at the center of the Earth, the radius of the Earth is \(R\), the positions on the surface can be specified by giving just the angles \(\theta\) and \(\lambda\). If the z-axis coincide with the Earth's rotation axis, then \(\theta\) is the latitude and you may see "colatitude", since traditionally latitude is measured up from the equator, and \(\lambda\) is the longitude. </p>
     
     <p>Important note: This derivation is different from the spherical coordinates derivations as \(\theta\) is from the equator (xy-plane) to the z-axis. Some notations will change for example the scale factor from the normal latitude and longitude are \(h_2 = r\) and \(h_3 = r \sin \theta\) respectively where as for the colatitude case \(h_2 = r\) and \(h_3 = r \cos \theta\).</p>
     
-    <img src="ShallowWater/spherical1.jpg" width="200" height="200">
+    <img src="ShallowWater/spherical1.jpg" width="200" height="200" class="center-image">
 
-    <img src="ShallowWater/spherical2.jpg" width="200" height="200">
+    <img src="ShallowWater/spherical2.jpg" width="200" height="200" class="center-image">
 
    <p>From the first figure we can get the following relations:</p>
    <div id="eq-x-prime-z">

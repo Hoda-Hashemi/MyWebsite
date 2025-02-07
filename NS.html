@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <input type="checkbox" role="switch" class="dark-2" />
 
-
     <script type="text/javascript">
         MathJax = {
             tex: {
@@ -26,23 +25,25 @@
         <header id="header">
             <nav> 
                 <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
-                <ol> 
-                    <li> 
-                        <a href="./Scribbles.html"> Scribbles</a>
-                        <ol>
-                            <li> <a href="./NS.html"> Navier Stokes equations</a> </li>
-                            <li> <a href="./SW.html"> Shallow water equations</a></li>
-                            <li> <a href="./QSW.html"> Quasi-geostrophic Shallow water Potential vorticity equation</a></li>
-                            <li> <a href="./SphericalQSW.html"> Quasi-geostrophic Shallow water PV equation on a Sphere</a></li>
-                        </ol>
-                    </li>
-                    <li> <a href="./Coding.html"> Coding</a></li>
-                    <li> <a href="./Articles.html"> Articles</a></li>
-                    <li><a href="./Publications.html"> Publications</a> </li> 
-                    <li> <a href="./Contact.html" id="contact"> Contact</a></li>
-                    <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
-                </ol>
-            </nav>
+            <ul> 
+                <li class="dropdown">  
+                    <a href="#">Scribbles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="NS.html">Navier Stokes equations</a></li>
+                        <li><a href="SW.html">Shallow water equations</a></li>
+                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
+                        </ul>
+                <li class= "dropdown">
+                    <a href="#">Numerics</a>
+                    <ul class="dropdown-content">
+                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                    </ul>
+                
+                <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
+            </ul>
+        </nav>
     </header>
 <main>
 <h1>Navier-Stokes Equations</h1>
@@ -69,7 +70,7 @@ The Navier-Stokes equations describe the motion of fluid substances and are deri
 
 <p>Using <a href="#eq-conservation-mass-rule">(1)</a>,<a href="#eq-mass-flux">(2)</a> and taking the flow of faces A and B:</p>
 
-<img src="ShallowWater/conservationcube.png" alt="Example image" width="500" height="400">
+<img src="ShallowWater/conservationcube.png" alt="Example image" width="500" height="400" class="center-image">
 
 <div id="eq-mass-flow-surface">
     \[
@@ -198,7 +199,7 @@ The Navier-Stokes equations describe the motion of fluid substances and are deri
 <p>It is a measure of the resistance of a fluid to deformation under shear stress. And i will define it in another way in a bit. <br>
 Consider the following figure:</p>
 
-<img src="ShallowWater/plates.jpg" width="400" height="400">
+<img src="ShallowWater/plates.jpg" width="400" height="400" class="center-image">
 <p>Analyzing the behavior of fluids 'pull' of each others:
 the velocity of the very bottom one, \(v_x(y=0) =0\), and the very top, \(v_x(y=H) =H\). These two conditions are called no-slip condition. Due to the fixed plate and the other movable one we have shear stress as a result of deformation force, which is linearly related to velocity gradient (slope):</p>
 

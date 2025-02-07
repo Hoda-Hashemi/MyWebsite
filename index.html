@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <input type="checkbox" role="switch" class="dark-2" />
 
-
     <script type="text/javascript">
         MathJax = {
             tex: {
@@ -27,43 +26,35 @@
             <nav> 
                 <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
             <ul> 
-                <li> <a href="./Scribbles.html"> Scribbles</a> </li>
-                <li> <a href="./Coding.html"> Coding</a></li>
-                <li> <a href="./Articles.html"> Articles</a></li>
-                <li><a href="./Publications.html"> Publications</a> </li> 
-                <li> <a href="./Contact.html" id="contact"> Contact</a></li>
+                <li class="dropdown">  
+                    <a href="#">Scribbles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="NS.html">Navier Stokes equations</a></li>
+                        <li><a href="SW.html">Shallow water equations</a></li>
+                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
+                        </ul>
+                <li class= "dropdown">
+                    <a href="#">Numerics</a>
+                    <ul class="dropdown-content">
+                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                    </ul>
+                
                 <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
             </ul>
         </nav>
     </header>
         
     <main>
-        <h1>Into The Sinews of Fluid Dynamics</h1>
+        <h1 class="main-sentence">Into The Sinews of Computational Fluid Dynamics</h1>
     </main>
-    
-    <aside>
-        <h2>Recent Scribbles</h2>
-        <ul>
-            <li> <a href="./Scribbles.html"> Scribbles</a> </li>
-            <li> <a href="./Coding.html"> Coding</a></li>
-            <li> <a href="./Articles.html"> Articles</a></li>
-        </ul>
-    </aside>
 
     <footer>
-        
-        <ul>
-            <li> <a href="./index.html">Home</a></li>
-            <li> <a href="./Scribbles.html">Scribbles</a></li>
-            <li> <a href="./Coding.html">Coding</a></li>
-            <li> <a href="./Articles.html">Articles</a></li>
-        </ul>
-        <br> 
-        
-        <a href="mailto:hmh85@mail.aub.edu" id="foot"><img src="icons/mailwanted.png" height="20px" width="20px" ></a>
-            <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204">
-            <img src="icons/link.png" height = 20px width =20px> </a>
-
+        <div class="center-links">
+            <a href="mailto:hmh85@mail.aub.edu" id="foot">Mail</a>
+            <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204" id="foot">LinkedIn</a>
+        </div>
     </footer>
 
 </body>

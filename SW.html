@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en"> 
 
 <head> 
@@ -25,15 +26,26 @@
             <nav> 
                 <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
             <ul> 
-                <li> <a href="./Scribbles.html"> Scribbles</a> </li>
-                <li> <a href="./Coding.html"> Coding</a></li>
-                <li> <a href="./Articles.html"> Articles</a></li>
-                <li><a href="./Publications.html"> Publications</a> </li> 
-                <li> <a href="./Contact.html" id="contact"> Contact</a></li>
+                <li class="dropdown">  
+                    <a href="#">Scribbles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="NS.html">Navier Stokes equations</a></li>
+                        <li><a href="SW.html">Shallow water equations</a></li>
+                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
+                        </ul>
+                <li class= "dropdown">
+                    <a href="#">Numerics</a>
+                    <ul class="dropdown-content">
+                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                    </ul>
+                
                 <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
             </ul>
         </nav>
     </header>
+
     <h1>Shallow Water Equations</h1>
     <h2>Scaling Navier-Stokes Equations</h2>
     <p>The scaling of the variables is as follows:

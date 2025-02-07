@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en"> 
 
 <head> 
@@ -25,15 +26,26 @@
             <nav> 
                 <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
             <ul> 
-                <li> <a href="./Scribbles.html"> Scribbles</a> </li>
-                <li> <a href="./Coding.html"> Coding</a></li>
-                <li> <a href="./Articles.html"> Articles</a></li>
-                <li><a href="./Publications.html"> Publications</a> </li> 
-                <li> <a href="./Contact.html" id="contact"> Contact</a></li>
+                <li class="dropdown">  
+                    <a href="#">Scribbles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="NS.html">Navier Stokes equations</a></li>
+                        <li><a href="SW.html">Shallow water equations</a></li>
+                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
+                        </ul>
+                <li class= "dropdown">
+                    <a href="#">Numerics</a>
+                    <ul class="dropdown-content">
+                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                    </ul>
+                
                 <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
             </ul>
         </nav>
     </header>
+
     <h1>The Quasi-Geostrophic Shallow-Water Potential Vorticity Equation</h1>
 
     <h2>Integrating Vorticity in the Equations</h2>
@@ -123,8 +135,9 @@
     <p>This equation expresses the same result as before but in terms of vortex-tube stretching. This phenomenon is the stretching of a vortex tube due to the divergence of the flow, where the turbulent energy is transfered into smaller scales.</p>
 
     <p>For stretching, \(\frac{DH}{Dt} > 0\), the vorticity \(\zeta\) is intensified by an amount proportional to the product of \(\text{Column Stretching } \times \text{ Absolute Vorticity } (\zeta + f)\). Note: \(\zeta\) can't change by vortex fitting, such mechanism is absent in the columnar motion of shallow-water theory.</p>
-    One can imagine the vortex stretching as the figure below:</p>
-    <img src="ShallowWater/vortexlength.jpg" alt="Vortex stretching" width="400" height="400">
+    <p>One can imagine the vortex stretching as the figure below:</p>
+    
+    <img src="ShallowWater/vortexlength.jpg" alt="Vortex stretching" width="400" height="400" class="center-image">
 
     <p>When vortex stretching occurs, the length of the vortex increases. This elongation leads to an increase in the vorticity due to the conservation of angular momentum. The stretching of the vortex filament results in a more intense rotational motion.</p>
     <h2>Plane Approximation: \(f\)-plane approximation</h2>
