@@ -22,30 +22,30 @@
 
 <body>
 
-        <header id="header">
-            <nav> 
-                <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
-            <ul> 
-                <li class="dropdown">  
-                    <a href="#">Scribbles</a>
-                    <ul class="dropdown-content">
-                        <li><a href="NS.html">Navier Stokes equations</a></li>
-                        <li><a href="SW.html">Shallow water equations</a></li>
-                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
-                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
-                        </ul>
-                <li class= "dropdown">
-                    <a href="#">Numerics</a>
-                    <ul class="dropdown-content">
-                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
-                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+    <header id="header">
+        <nav> 
+            <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
+        <ul> 
+            <li class="dropdown">  
+                <a href="#">Scribbles</a>
+                <ul class="dropdown-content">
+                    <li><a href="NS.html">Navier Stokes equations</a></li>
+                    <li><a href="SW.html">Shallow water equations</a></li>
+                    <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
+                    <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
                     </ul>
-                
-                <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
-            </ul>
-        </nav>
-    </header>
-
+            <li class= "dropdown">
+                <a href="#">Numerics</a>
+                <ul class="dropdown-content">
+                    <li><a href="InstallingMITGCM.html">MITGCM</a></li>
+                    <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
+                </ul>
+            
+            <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
+        </ul>
+    </nav>
+</header>
+<main>
     <h1>Quasi-Geostrophic Shallow-Water Potential-Vorticity Equations: On a Sphere </h1>
     <p>In this section you will find the derivations similar to that of the previous sections, so i will move forward with some derivations.</p>
     
@@ -274,7 +274,7 @@
         <li> \(\hat{k}\): pointing vertically upwards.
     </ul>
 
-    <p>Defining velocity: \((u,v,w)\), where \(u\) is the zonal velocity which produces displacement \(\frac{\partial \lambda}{\partial t} = \frac{u}{r\cos \theta}\), \(v\) is the meridional velocity which produces displacement \(\frac{\partial \theta}{\partial t} = \frac{v}{r}\) and this give rise to the local effective vector rotation rate around the local zonal axis of \(- \frac{v}{r} \hat{i}\). You may notice the negative sign which is because a displacement in the direction of the north pole produces negative rotational displacement around the vertical axis.</p>
+    <p>Defining velocity: \((u,v,w)\), where \(u\) is the zonal velocity \(\frac{\partial \lambda}{\partial t} = \frac{u}{r\cos \theta}\), \(v\) is the meridional velocity \(\frac{\partial \theta}{\partial t} = \frac{v}{r}\) and this gives rise to the local effective vector rotation rate around the local zonal axis of \(- \frac{v}{r} \hat{i}\). You may notice the negative sign which is because a displacement in the direction of the north pole produces negative rotational displacement around the vertical axis.</p>
     <p>A rotation around the Earth's rotation axis may be written as: </p>
     <div id="eq-rotation-rate">
     \begin{equation}
@@ -299,7 +299,7 @@
     <div id="eq-coriolis-parameter">
     \begin{equation}
         \begin{aligned}
-            f &= 2\vec{\Omega} \times \vec{v} \\
+            f &= 2\vec{\Omega} \times \vec{u} \\
             &= \begin{vmatrix}
                 \vec{i} & \vec{j} & \vec{k} \\
                 0 & 2\Omega \cos \theta & 2\Omega \sin \theta \\
@@ -465,7 +465,7 @@
     \end{equation}
     </div>
     <p>where the deformation radius is defined as \(L_d = \sqrt{\frac{gD}{f^2}}\).</p>
-     
+</main> 
 </body>
 </html>
 
