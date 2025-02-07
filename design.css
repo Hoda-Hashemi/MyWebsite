@@ -149,13 +149,14 @@ nav .logo {
 
 nav ul {
     font-size: small;
-    margin: 0;
+    text-align: center;
+    margin: auto;
     padding: 0;
 }
 
 nav ul li {
     list-style-type: none;
-    display: inline-block;
+    margin: auto;
     padding: 0 15px;
     text-align: center;
     position: relative;
@@ -165,26 +166,12 @@ nav ul li a {
     color: #ffffff;
     text-decoration: none;
     padding: 10px 15px;
-    display: block;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
     color: #39ff14;
 }
-/* 
-nav ul li::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #39ff14;
-    transition: width 0.3s;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-} */
 
 nav ul li:hover::after {
     width: 100%;
