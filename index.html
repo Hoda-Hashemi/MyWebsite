@@ -7,7 +7,11 @@
     <!-- <link rel="icon" type="image/x-icon" href="logo/icon.png" sizes="90x90" > -->
     <link rel="icon" type="image/x-icon" href="logo/negativeSpace.png" sizes="90x90" >
     <meta charset="UTF-8">
-    <input type="checkbox" role="switch" class="dark-2" />
+    <!-- <input type="checkbox" role="switch" class="dark-2" /> -->
+    <label class="neon-toggle">
+        <input type="checkbox" role="switch" class="dark-2">
+        <span class="slider"></span>
+      </label>
 
     <script type="text/javascript">
         MathJax = {
@@ -16,6 +20,7 @@
             }
         };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
     
@@ -50,11 +55,15 @@
     <!-- <main>
         <h1 class="main-sentence">Into The Sinews of Computational Fluid Dynamics</h1>
     </main> -->
-    <main class="hero">
+    <!-- <main class="hero">
         <h1 class="tagline">Into The Sinews of Computational Fluid Dynamics</h1>
         <p class="desc">Dive deep into Navier-Stokes, MITGCM hacks, and oceanic flows.</p>
-      </main>
-      
+      </main> -->
+      <div id="hero-bg"></div>
+        <main class="hero">
+            <h1 class="main-sentence">Into The Sinews of Computational Fluid Dynamics</h1>
+        </main>
+
       <section class="featured">
         <h2>Featured Scribbles</h2>
         <div class="grid"> <!-- Cards for NS, SW etc. --></div>

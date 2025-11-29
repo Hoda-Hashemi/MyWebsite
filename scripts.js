@@ -54,3 +54,46 @@ gsap.utils.toArray('section').forEach(sec => {
   gsap.from(sec, { opacity: 0, y: 100, duration: 1, scrollTrigger: { trigger: sec, start: 'top 80%' } });
 });
 
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('hero-bg').appendChild(renderer.domElement);
+
+const particles = 5000;
+const geometry = new THREE.BufferGeometry();
+const positions = new Float32Array(particles * 3);
+for (let i = 0; i < positions.length; i++) positions[i] = (Math.random() - 0.5) * 10;
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+const material = new THREE.PointsMaterial({ color: 0x39ff14, size: 0.02, transparent: true, blending: THREE.AdditiveBlending });
+const particleSystem = new THREE.Points(geometry, material);
+scene.add(particleSystem);
+
+camera.position.z = 5;
+
+function animate(time) {
+  requestAnimationFrame(animate);
+  const pos = geometry.attributes.position.array;
+  for (let i = 0; i < pos.length; i += 3) {
+    pos[i] += Math.sin(time * 0.001 + pos[i+1]) * 0.001; // X flow
+    pos[i+1] += Math.cos(time * 0.001 + pos[i]) * 0.001; // Y vorticity
+    if (Math.abs(pos[i]) > 5) pos[i] = -5; // Reset bounds
+    if (Math.abs(pos[i+1]) > 5) pos[i+1] = -5;
+  }
+  geometry.attributes.position.needsUpdate = true;
+  renderer.render(scene, camera);
+}
+animate(0);
+
+// Resize handler
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+document.querySelector('.dark-2').addEventListener('change', (e) => {
+    document.body.classList.toggle('dark-mode', e.target.checked);
+  });
+
