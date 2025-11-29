@@ -665,3 +665,27 @@ body {
     100% { transform: scale(3); opacity: 0; }
   }
 
+  .hero {
+    height: 100vh;
+    background: #000 url('neon-bg.jpg') center/cover; /* Add starry/neon img */
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: #39ff14; text-shadow: 0 0 10px #39ff14;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.8; } }
+  .tagline { font-size: 4rem; font-family: 'Inter', sans-serif; }
+
+.featured { padding: 5rem; background: linear-gradient(#000, #111); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.card { background: #222; border: 1px solid #39ff14; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover { transform: scale(1.05); box-shadow: 0 0 20px #39ff14; }
+
+.custom-cursor {
+    position: absolute; width: 20px; height: 20px; background: #39ff14;
+    border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    box-shadow: 0 0 10px #39ff14;
+  }
+.custom-cursor.hover { width: 40px; height: 40px; }
+body { cursor: none; } /* Hide default */
+

@@ -35,4 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
- 
+const cursor = document.createElement('div');
+cursor.classList.add('custom-cursor');
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', e => {
+cursor.style.left = `${e.pageX}px`;
+cursor.style.top = `${e.pageY}px`;
+});
+
+document.querySelectorAll('a').forEach(a => {
+a.addEventListener('mouseover', () => cursor.classList.add('hover'));
+a.addEventListener('mouseout', () => cursor.classList.remove('hover'));
+});
+
+gsap.from('.tagline', { opacity: 0, y: 50, duration: 1, ease: 'power2.out' });
+gsap.utils.toArray('section').forEach(sec => {
+  gsap.from(sec, { opacity: 0, y: 100, duration: 1, scrollTrigger: { trigger: sec, start: 'top 80%' } });
+});
+
