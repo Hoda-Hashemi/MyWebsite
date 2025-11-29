@@ -608,3 +608,60 @@ footer .center-links a:hover {
     color: #39ff14;
 }
 
+/* COMMENT: added for trial:*/
+/* Neon Arcade Globals */
+body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); /* Subtle basement depth */
+    transition: background 0.6s, filter 0.3s;
+  }
+  
+  body:hover { /* Site-wide interaction: Slight glow on mouse move */
+    filter: brightness(1.1);
+  }
+  
+  /* Arcade Pixel Links: Retro hover with neon pulse */
+  a {
+    text-shadow: 0 0 5px #39ff14; /* Baseline glow */
+    animation: neon-flicker 1.5s infinite alternate; /* Flicker like old arcade sign */
+  }
+  
+  @keyframes neon-flicker {
+    0%, 100% { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14; }
+    50% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14; opacity: 0.8; }
+  }
+  
+  /* Dropdown: Arcade Drop Animation */
+  .dropdown-content {
+    animation: pixel-drop 0.3s ease-out;
+    border: 2px dashed #39ff14; /* Pixel border */
+    background: rgba(0,0,0,0.8) url('data:image/png;base64,...') repeat; /* Add tiny pixel pattern base64 or img */
+  }
+  
+  @keyframes pixel-drop {
+    0% { transform: translateY(-20px) scale(0.9); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  
+  /* Main Sentence: Arcade Bounce + Typing */
+  .main-sentence {
+    animation: typing 4s steps(40), arcade-bounce 2s infinite;
+  }
+  
+  @keyframes arcade-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  /* Equations/Scribbles: Neon Highlight on Hover */
+  p:hover, h2:hover {
+    box-shadow: 0 0 15px #39ff14; /* Glow like arcade button press */
+    transition: box-shadow 0.2s;
+  }
+
+/*Define Burst Animation in CSS (add to design.css)*/
+
+  @keyframes confetti-burst {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
