@@ -127,10 +127,10 @@
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const cursor = document.createElement("div");
-    cursor.className = "alien-cursor";
-    cursor.innerHTML = '<span class="alien-head"></span><span class="alien-robe"></span>';
+    cursor.className = "pomegranate-cursor";
+    cursor.innerHTML = '<span class="pomegranate-fruit"></span><span class="pomegranate-leaf"></span>';
     document.body.appendChild(cursor);
-    document.body.classList.add("has-mascot-cursor");
+    document.body.classList.add("has-pomegranate-cursor");
 
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
@@ -240,7 +240,7 @@
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    const colors = ["#EDBA97", "#E17426", "#701B15", "#A4C0C1", "#0A4152", "#3A1C36", "#9B71B2", "#E3D0EA", "#6D6D11", "#374126"];
+    const colors = ["#FF0000", "#151E73", "#788BFF", "#819C86", "#F4FAFF"];
     let width = 0;
     let height = 0;
     let dpr = 1;
