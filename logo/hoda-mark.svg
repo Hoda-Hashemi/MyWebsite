@@ -1,46 +1,58 @@
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Hoda Hashemi shared-stem HH mark</title>
-  <desc id="desc">A faceted shared-stem HH monogram built from three vertical bars and two horizontal links.</desc>
+  <title id="title">Hoda Hashemi hand-drawn HH mark</title>
+  <desc id="desc">A hand-drawn shared-stem HH monogram based on a pencil sketch, with Persian botanical line details.</desc>
   <defs>
-    <linearGradient id="metal" x1="22" y1="106" x2="104" y2="22" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#e9f056"/>
-      <stop offset="0.35" stop-color="#ff5f1f"/>
-      <stop offset="0.72" stop-color="#d7efff"/>
-      <stop offset="1" stop-color="#8f3dff"/>
+    <linearGradient id="body" x1="23" y1="104" x2="106" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A4152"/>
+      <stop offset="0.42" stop-color="#3A1C36"/>
+      <stop offset="1" stop-color="#701B15"/>
     </linearGradient>
-    <linearGradient id="visor" x1="31" y1="48" x2="97" y2="48" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#64ff73"/>
-      <stop offset="0.5" stop-color="#d7efff"/>
-      <stop offset="1" stop-color="#a855ff"/>
+    <linearGradient id="edge" x1="20" y1="23" x2="103" y2="106" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EDBA97"/>
+      <stop offset="0.5" stop-color="#E17426"/>
+      <stop offset="1" stop-color="#A4C0C1"/>
     </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+    <filter id="soft" x="-18%" y="-18%" width="136%" height="136%">
+      <feGaussianBlur stdDeviation="1.1" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <style>
+      .mark { animation: breathe 4.8s ease-in-out infinite; transform-origin: 64px 67px; }
+      .ink { filter: url(#soft); }
+      .line { fill: none; stroke: #EDBA97; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 90; animation: draw 5.4s ease-in-out infinite; }
+      .leaf { fill: none; stroke: #A4C0C1; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: .88; }
+      @keyframes breathe {
+        50% { transform: translateY(-2px) scale(1.025); }
+      }
+      @keyframes draw {
+        0% { stroke-dashoffset: 90; }
+        36%, 100% { stroke-dashoffset: 0; }
+      }
+    </style>
   </defs>
 
-  <path d="M18 14h92l12 18v64l-18 18H24L6 96V32l12-18Z" fill="#050208"/>
-  <path d="M24 21h80l10 15v55l-15 16H29L14 91V36l10-15Z" fill="#351e28" opacity="0.72"/>
-  <path d="M21 42h86l-9 18H30l-9-18Z" fill="#050208"/>
-  <path d="M31 44h66l-6 12H37l-6-12Z" fill="url(#visor)" opacity="0.92" filter="url(#glow)"/>
+  <g class="mark">
+    <path d="M18 42l17-8 9 8-2 58-16 7-9-9 2-56Z" fill="#3A1C36"/>
+    <path d="M53 22l20-6 12 10-4 86-17 8-12-10 3-88Z" fill="url(#body)" class="ink"/>
+    <path d="M88 39l18-10 8 9-4 56-14 10-9-9 2-56Z" fill="#701B15"/>
 
-  <path d="M28 37h18v58H28V37Z" fill="#fff7eb"/>
-  <path d="M55 24h18v82H55V24Z" fill="#fff7eb"/>
-  <path d="M82 37h18v58H82V37Z" fill="#fff7eb"/>
-  <path d="M40 58h26v16H40V58Z" fill="#fff7eb"/>
-  <path d="M62 58h26v16H62V58Z" fill="#fff7eb"/>
+    <path d="M35 52l26 15 2 15-29-11-6-12 7-7Z" fill="#0A4152"/>
+    <path d="M72 68l26-17 8 7-7 15-27 12-5-9 5-8Z" fill="#0A4152"/>
+    <path d="M39 59l21 12M75 74l22-14" class="line"/>
 
-  <path d="M46 37l9-8v77l-9-11V37Z" fill="#e9f056"/>
-  <path d="M73 24l9 13v58l-9 11V24Z" fill="#ff5f1f"/>
-  <path d="M100 37l7 11v39l-7 8V37Z" fill="#8f3dff"/>
-  <path d="M28 95h18l9 11H34l-6-11Z" fill="#64ff73" opacity="0.9"/>
-  <path d="M82 95h18l-7 11H73l9-11Z" fill="#d7efff" opacity="0.85"/>
+    <path d="M55 25l5-7 6 8 6-8 6 8 5-6-3 20-24 3-1-18Z" fill="#EDBA97"/>
+    <path d="M60 29l-2 79M66 28l-1 83M73 29l-2 78" class="line"/>
+    <path d="M54 110l11 10 16-8-10-7-17 5Z" fill="#E17426"/>
 
-  <path d="M23 23l7 7 7-7 7 7-7 7 7 7-7 7-7-7-7 7-7-7 7-7-7-7 7-7Z" fill="#ff5f1f" opacity="0.78"/>
-  <path d="M84 23l7 7 7-7 7 7-7 7 7 7-7 7-7-7-7 7-7-7 7-7-7-7 7-7Z" fill="#e9f056" opacity="0.78"/>
-  <path d="M21 83h86l-8 24H29l-8-24Z" fill="#050208" opacity="0.28"/>
-  <path d="M18 14h92l12 18v64l-18 18H24L6 96V32l12-18Z" fill="none" stroke="url(#metal)" stroke-width="4"/>
+    <path d="M18 42l17-8 9 8-2 58-16 7-9-9 2-56ZM53 22l20-6 12 10-4 86-17 8-12-10 3-88ZM88 39l18-10 8 9-4 56-14 10-9-9 2-56Z" fill="none" stroke="url(#edge)" stroke-width="3" stroke-linejoin="round"/>
+
+    <path d="M22 38c10 12 14 26 10 42" class="leaf"/>
+    <path d="M28 49c4-2 7-4 11-7M30 61c4-2 8-3 12-5M30 73c4-1 8-2 12-3" class="leaf"/>
+    <path d="M108 35c-12 13-16 28-13 45" class="leaf"/>
+    <path d="M101 48c-4-2-8-3-12-5M99 61c-4-1-8-2-12-3M98 74c-4-1-7-1-11-2" class="leaf"/>
+    <path d="M64 13l4 6 7 1-5 5 1 7-7-3-6 3 1-7-5-5 7-1 3-6Z" fill="#6D6D11"/>
+  </g>
 </svg>
