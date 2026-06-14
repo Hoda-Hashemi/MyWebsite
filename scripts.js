@@ -123,56 +123,6 @@
     }
   }
 
-  function initCursor() {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-
-    const cursor = document.createElement("div");
-    cursor.className = "pomegranate-cursor";
-    cursor.innerHTML = '<span class="pomegranate-fruit"></span><span class="pomegranate-leaf"></span>';
-    document.body.appendChild(cursor);
-    document.body.classList.add("has-pomegranate-cursor");
-
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
-    let targetX = x;
-    let targetY = y;
-
-    const move = () => {
-      x += (targetX - x) * 0.28;
-      y += (targetY - y) * 0.28;
-      cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-      requestAnimationFrame(move);
-    };
-    move();
-
-    window.addEventListener("pointermove", (event) => {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      cursor.classList.add("is-visible");
-    });
-
-    window.addEventListener("pointerdown", () => cursor.classList.add("is-active"));
-    window.addEventListener("pointerup", () => cursor.classList.remove("is-active"));
-    window.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
-  }
-
-  function initSparks() {
-    if (reducedMotion) return;
-
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      if (!target.closest("a, button, .feature-card, .lab-card")) return;
-
-      const spark = document.createElement("div");
-      spark.className = "click-spark";
-      spark.style.left = `${event.clientX}px`;
-      spark.style.top = `${event.clientY}px`;
-      document.body.appendChild(spark);
-      spark.addEventListener("animationend", () => spark.remove(), { once: true });
-    });
-  }
-
   function initReveals() {
     const candidates = document.querySelectorAll(
       ".feature-card, .lab-card, .cv-panel, .cv-section, .timeline-item, .metric, .section-head, .page-hero"
@@ -233,95 +183,111 @@
     request();
   }
 
-  function initHeroField() {
-    const canvas = document.querySelector("#hero-field");
-    if (!(canvas instanceof HTMLCanvasElement) || reducedMotion) return;
+  function initScrollStory() {
+    if (reducedMotion || !window.gsap || !window.ScrollTrigger) return;
 
-    const context = canvas.getContext("2d");
-    if (!context) return;
+    window.gsap.registerPlugin(window.ScrollTrigger);
 
-    const colors = ["#FF0000", "#151E73", "#788BFF", "#819C86", "#F4FAFF"];
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let pointerX = 0.5;
-    let pointerY = 0.5;
-    let particles = [];
+    window.gsap.utils.toArray(".story-panel").forEach((panel) => {
+      window.gsap.fromTo(
+        panel,
+        { opacity: 0.72, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 85%",
+            end: "top 30%",
+            scrub: true
+          }
+        }
+      );
+    });
 
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const count = Math.max(110, Math.min(240, Math.floor((width * height) / 8200)));
-      particles = Array.from({ length: count }, (_, index) => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: 2 + Math.floor(Math.random() * 3),
-        vx: -0.22 + Math.random() * 0.44,
-        vy: 0.08 + Math.random() * 0.38,
-        color: colors[index % colors.length],
-        phase: Math.random() * Math.PI * 2,
-        stem: Math.random() > 0.78
-      }));
-    }
-
-    function draw(time) {
-      context.clearRect(0, 0, width, height);
-      context.globalCompositeOperation = "lighter";
-
-      particles.forEach((particle) => {
-        const pullX = (pointerX - 0.5) * 0.26;
-        const pullY = (pointerY - 0.5) * 0.18;
-        particle.x += particle.vx + pullX + Math.sin(time * 0.001 + particle.phase) * 0.08;
-        particle.y += particle.vy + pullY;
-
-        if (particle.x < -12) particle.x = width + 12;
-        if (particle.x > width + 12) particle.x = -12;
-        if (particle.y > height + 12) particle.y = -12;
-
-        const px = Math.round(particle.x / 4) * 4;
-        const py = Math.round(particle.y / 4) * 4;
-        context.fillStyle = particle.color;
-        context.globalAlpha = 0.34 + Math.sin(time * 0.004 + particle.phase) * 0.18;
-        context.fillRect(px, py, particle.size, particle.size);
-
-        if (particle.stem) {
-          context.globalAlpha *= 0.42;
-          context.fillRect(px, py + particle.size + 3, 1, 26);
-          context.fillRect(px - 5, py + 12, 6, 1);
-          context.fillRect(px, py + 20, 6, 1);
+    window.gsap.utils.toArray("[data-parallax]").forEach((layer) => {
+      const y = Number(layer.getAttribute("data-parallax")) * -520 || -60;
+      const x = Number(layer.getAttribute("data-parallax-x")) * -520 || 0;
+      window.gsap.to(layer, {
+        x,
+        y,
+        ease: "none",
+        scrollTrigger: {
+          trigger: layer.closest(".story-panel") || layer,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
         }
       });
+    });
+  }
 
-      requestAnimationFrame(draw);
+  function initStoryWebGL() {
+    const canvas = document.querySelector("#story-webgl");
+    if (!(canvas instanceof HTMLCanvasElement) || reducedMotion || !window.THREE) return;
+
+    const scene = new window.THREE.Scene();
+    const camera = new window.THREE.PerspectiveCamera(35, 1, 0.1, 100);
+    const renderer = new window.THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const group = new window.THREE.Group();
+    const geometry = new window.THREE.IcosahedronGeometry(1.25, 1);
+    const material = new window.THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.7
+    });
+    const mesh = new window.THREE.Mesh(geometry, material);
+    const ring = new window.THREE.Mesh(
+      new window.THREE.TorusGeometry(1.7, 0.018, 8, 96),
+      new window.THREE.MeshBasicMaterial({ color: 0x788bff, transparent: true, opacity: 0.85 })
+    );
+
+    group.add(mesh, ring);
+    scene.add(group);
+    camera.position.z = 5;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      const width = Math.max(1, rect.width);
+      const height = Math.max(1, rect.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
     }
 
     window.addEventListener("resize", resize);
     window.addEventListener(
       "pointermove",
       (event) => {
-        pointerX = event.clientX / Math.max(width, 1);
-        pointerY = event.clientY / Math.max(height, 1);
+        const rect = canvas.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
+        const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
+        group.rotation.y = x * 1.2;
+        group.rotation.x = y * 0.8;
       },
       { passive: true }
     );
 
+    function animate(time) {
+      mesh.rotation.x += 0.004;
+      mesh.rotation.y += 0.006;
+      ring.rotation.z = time * 0.00035;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
     resize();
-    draw(0);
+    animate(0);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     buildHeader();
-    initCursor();
-    initSparks();
     initReveals();
-    initParallax();
-    initHeroField();
+    initScrollStory();
+    if (!window.gsap || !window.ScrollTrigger) initParallax();
+    initStoryWebGL();
   });
 })();
