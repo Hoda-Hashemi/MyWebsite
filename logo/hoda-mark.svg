@@ -1,0 +1,33 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Hoda Hashemi mark</title>
+  <desc id="desc">Pixel H monogram with a Persian cypress and geometric pattern.</desc>
+  <defs>
+    <linearGradient id="edge" x1="18" y1="110" x2="111" y2="19" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#64ff73"/>
+      <stop offset="0.48" stop-color="#ff7a18"/>
+      <stop offset="1" stop-color="#a855ff"/>
+    </linearGradient>
+    <filter id="glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="18" fill="#07040d"/>
+  <path d="M18 31h14v-8h8v8h14v8H40v14h14v8H40v14h14v8H40v14h-8V83H18v-8h14V61H18v-8h14V39H18V31Z" fill="#15101f"/>
+  <path d="M74 31h14v-8h8v8h14v8H96v14h14v8H96v14h14v8H96v14h-8V83H74v-8h14V61H74v-8h14V39H74V31Z" fill="#15101f"/>
+  <rect x="26" y="25" width="18" height="78" fill="#fff7eb"/>
+  <rect x="84" y="25" width="18" height="78" fill="#fff7eb"/>
+  <path d="M44 58h15V25h18v78H59V72H44V58Z" fill="#fff7eb"/>
+  <path d="M84 58H69V25H51v78h18V72h15V58Z" fill="#fff7eb" opacity="0.96"/>
+  <path d="M50 106h18V75l18-10v-8L68 67V22H50v84Z" fill="#64ff73" opacity="0.92"/>
+  <path d="M64 21C77 35 80 49 72 62C68 68 67 74 70 83C58 76 52 66 54 55C56 42 61 34 64 21Z" fill="#07040d"/>
+  <path d="M64 24C74 37 76 49 69 60C65 66 64 72 67 79C58 72 55 64 57 55C59 43 62 35 64 24Z" fill="url(#edge)" filter="url(#glow)"/>
+  <path d="M24 24l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#ff7a18"/>
+  <path d="M94 24l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#a855ff"/>
+  <path d="M24 88l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#48f4ff"/>
+  <path d="M94 88l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#64ff73"/>
+  <rect x="8" y="8" width="112" height="112" rx="18" fill="none" stroke="url(#edge)" stroke-width="4"/>
+</svg>

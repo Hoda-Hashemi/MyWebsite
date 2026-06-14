@@ -1,4 +1,44 @@
-<h1>Directory structure </h1>
-<p> The numerical model is contained with an execution environment support wrapper.</p>
-<h2>Clickable directory structure</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Understanding MITgcm | Hoda Hashemi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MITgcm directory-structure notes by Hoda Hashemi.">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="icon" type="image/svg+xml" href="logo/hoda-mark.svg">
+    <script src="./scripts.js" defer></script>
+</head>
+<body>
+    <header id="header" class="site-header"></header>
 
+    <main>
+        <h1>MITgcm Directory Structure</h1>
+        <p>The numerical model is organized as a source tree plus execution, tools, package, and verification layers.</p>
+
+        <h2>Core Directories</h2>
+        <div class="lab-grid">
+            <a class="lab-card" href="InstallingMITGCM.html">
+                <small>Build</small>
+                <h3>Installation workflow</h3>
+                <p>Steps for dependencies, source clone, Makefile generation, compilation, and execution.</p>
+            </a>
+            <article class="lab-card">
+                <small>Verification</small>
+                <h3>verification/</h3>
+                <p>Tutorial and experiment directories used for reproducible model tests.</p>
+            </article>
+            <article class="lab-card">
+                <small>Tools</small>
+                <h3>tools/</h3>
+                <p>Build scripts, option files, and helper utilities for configuring model compilation.</p>
+            </article>
+        </div>
+
+        <h2>Visual Notes</h2>
+        <img src="./mitgcmdir/model.png" alt="MITgcm model directory screenshot" class="responsive-img center-image">
+        <img src="./mitgcmdir/pkg.png" alt="MITgcm package directory screenshot" class="responsive-img center-image">
+        <img src="./mitgcmdir/verification.png" alt="MITgcm verification directory screenshot" class="responsive-img center-image">
+    </main>
+</body>
+</html>

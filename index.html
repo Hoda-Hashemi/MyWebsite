@@ -1,82 +1,139 @@
 <!DOCTYPE html>
-<html lang="en"> 
-
-<head> 
-    <title>Homepage | Hoda Hashemi</title> 
-    <link rel="stylesheet" href="./design.css">
-    <!-- <link rel="icon" type="image/x-icon" href="logo/icon.png" sizes="90x90" > -->
-    <link rel="icon" type="image/x-icon" href="logo/logo.png" sizes="90x90" >
+<html lang="en">
+<head>
+    <title>Hoda Hashemi | Computational Physics</title>
     <meta charset="UTF-8">
-    <!-- <input type="checkbox" role="switch" class="dark-2" /> -->
-    <label class="neon-toggle">
-        <input type="checkbox" role="switch" class="dark-2">
-        <span class="slider"></span>
-      </label>
-
-    <script type="text/javascript">
-        MathJax = {
-            tex: {
-                tags: 'all'  
-            }
-        };
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hoda Hashemi: computational physics, physical oceanography, MITgcm, vortex methods, and scientific machine learning.">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="icon" type="image/svg+xml" href="logo/hoda-mark.svg">
+    <script src="./scripts.js" defer></script>
 </head>
+<body class="home-page">
+    <canvas id="hero-field" class="hero-field" aria-hidden="true"></canvas>
+    <header id="header" class="site-header"></header>
 
-<body>
+    <main>
+        <section class="home-hero">
+            <div class="hero-copy" data-parallax="-0.045">
+                <p class="kicker">Computational physics / ocean dynamics / numerical modeling</p>
+                <h1>Hoda <span>Hashemi</span></h1>
+                <p class="hero-line">
+                    I work on research-grade numerical models for geophysical fluids: quasi-geostrophic shallow-water dynamics,
+                    vortex methods, MITgcm workflows, GPU computing, and LLM/RAG tools for scientific code.
+                </p>
+                <div class="hero-actions">
+                    <a class="button" href="CV.html">Open CV</a>
+                    <a class="button-ghost" href="QSW.html">Read QG notes</a>
+                    <a class="button-ghost" href="InstallingMITGCM.html">MITgcm setup</a>
+                </div>
+            </div>
 
-        <header id="header">
-            <nav> 
-                <a href="index.html"> <img src="logo/logo.png" alt="logo" height="30px" width="30px"> </a>  
-            <ul> 
-                <li class="dropdown">  
-                    <a href="#">Scribbles</a>
-                    <ul class="dropdown-content">
-                        <li><a href="NS.html">Navier Stokes equations</a></li>
-                        <li><a href="SW.html">Shallow water equations</a></li>
-                        <li><a href="QSW.html">Quasi-geostrophic equations</a></li>
-                        <li><a href="SphericalQSW.html">Quasi-geostrophic equations on sphere</a></li>
-                        </ul>
-                <li class= "dropdown">
-                    <a href="#">Numerics</a>
-                    <ul class="dropdown-content">
-                        <li><a href="InstallingMITGCM.html">MITGCM</a></li>
-                        <li><a href="UnderstandingMITGCM.html">Numerics </a></li>
-                    </ul>
-                
-                <li> <a href="https://buymeacoffee.com/hodahashemi"><img src="neon.png"> </a></li>
-            </ul>
-        </nav>
-    </header>
-        
-    <!-- <main>
-        <h1 class="main-sentence">Into The Sinews of Computational Fluid Dynamics</h1>
-    </main> -->
-    <!-- <main class="hero">
-        <h1 class="tagline">Into The Sinews of Computational Fluid Dynamics</h1>
-        <p class="desc">Dive deep into Navier-Stokes, MITGCM hacks, and oceanic flows.</p>
-      </main> -->
-      <div id="hero-bg"></div>
-        <main class="hero">
-            <h1 class="main-sentence">Into The Sinews of Computational Fluid Dynamics</h1>
-        </main>
+            <div class="hero-console" data-parallax="0.035" aria-label="Research signal board">
+                <img class="console-mark" src="logo/hoda-mark.svg" alt="">
+                <div class="console-node node-a">
+                    <strong>QGSW</strong>
+                    <span>Vortex-in-cell modeling over the sphere.</span>
+                </div>
+                <div class="console-node node-b">
+                    <strong>MITgcm</strong>
+                    <span>Simulation workflows, tutorials, and model structure.</span>
+                </div>
+                <div class="console-node node-c">
+                    <strong>CUDA / HPC</strong>
+                    <span>Parallel algorithms and performance-aware computing.</span>
+                </div>
+                <div class="console-node node-d">
+                    <strong>LLM + RAG</strong>
+                    <span>Agentic interfaces for scientific modeling tools.</span>
+                </div>
+            </div>
+        </section>
 
-      <section class="featured">
-        <h2>Featured Scribbles</h2>
-        <div class="grid"> <!-- Cards for NS, SW etc. --></div>
-      </section>
+        <section class="metric-strip" aria-label="Research areas">
+            <div class="metric">
+                <strong>QG</strong>
+                <span>geophysical fluid dynamics</span>
+            </div>
+            <div class="metric">
+                <strong>MIT</strong>
+                <span>MITgcm numerical modeling</span>
+            </div>
+            <div class="metric">
+                <strong>GPU</strong>
+                <span>CUDA and HPC workflows</span>
+            </div>
+            <div class="metric">
+                <strong>RAG</strong>
+                <span>LLM systems for code</span>
+            </div>
+        </section>
 
-    <footer>
+        <section class="content-band">
+            <div class="band-inner">
+                <div class="section-head">
+                    <h2>Research Map</h2>
+                    <p>Current work centers on computational oceanography, numerical methods, and scientific software interfaces.</p>
+                </div>
+                <div class="feature-grid">
+                    <a class="feature-card" href="SphericalQSW.html">
+                        <small>Sphere</small>
+                        <h3>Quasi-geostrophic shallow-water equations</h3>
+                        <p>Coordinate systems, vorticity, potential vorticity, and streamfunction formulation.</p>
+                    </a>
+                    <a class="feature-card" href="QSW.html">
+                        <small>Vorticity</small>
+                        <h3>QG potential-vorticity derivation</h3>
+                        <p>Scaling arguments and asymptotic structure for shallow-water dynamics.</p>
+                    </a>
+                    <a class="feature-card" href="InstallingMITGCM.html">
+                        <small>Numerics</small>
+                        <h3>MITgcm installation workflow</h3>
+                        <p>Setup notes for building and running model tutorials from source.</p>
+                    </a>
+                    <a class="feature-card" href="CV.html">
+                        <small>Profile</small>
+                        <h3>CV and research trajectory</h3>
+                        <p>Education, projects, skills, and the downloadable source CV.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-band">
+            <div class="band-inner">
+                <div class="section-head">
+                    <h2>Scribbles</h2>
+                    <p>Derivations and computational notes, kept as working research notebooks rather than polished textbook chapters.</p>
+                </div>
+                <div class="lab-grid">
+                    <a class="lab-card" href="NS.html">
+                        <small>Continuum</small>
+                        <h3>Navier-Stokes equations</h3>
+                        <p>Mass and momentum conservation in component and vector form.</p>
+                    </a>
+                    <a class="lab-card" href="SW.html">
+                        <small>Scaling</small>
+                        <h3>Shallow-water equations</h3>
+                        <p>Hydrostatic balance, Rossby number logic, and reduced dynamics.</p>
+                    </a>
+                    <a class="lab-card" href="UnderstandingMITGCM.html">
+                        <small>Model</small>
+                        <h3>MITgcm structure</h3>
+                        <p>Directory and execution-structure notes for model work.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
         <div class="center-links">
-            <a href="mailto:hmh85@mail.aub.edu" id="foot">Mail</a>
-            <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204" id="foot">LinkedIn</a>
+            <a href="mailto:hmh85@mail.aub.edu">hmh85@mail.aub.edu</a>
+            <a href="mailto:hodamhashemi@gmail.com">hodamhashemi@gmail.com</a>
+            <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204">LinkedIn</a>
+            <a href="https://github.com/Hoda-Hashemi">GitHub</a>
         </div>
     </footer>
-
 </body>
-
 </html>
-

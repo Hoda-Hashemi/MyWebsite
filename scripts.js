@@ -1,89 +1,269 @@
-// Modern Neon UX: Subtle Interactions
-document.addEventListener('DOMContentLoaded', () => {
-    // Custom Cursor: Sniper Glow
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-  
-    document.addEventListener('mousemove', e => {
-      gsap.to(cursor, { duration: 0.2, left: `${e.pageX}px`, top: `${e.pageY}px`, ease: 'power2.out' });
-    });
-  
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseover', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseout', () => cursor.classList.remove('hover'));
-    });
-  
-    // Subtle Confetti: Neon Sparks on Click (modern burst)
-    document.querySelectorAll('nav a, .card').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const burst = document.createElement('div');
-        burst.style.position = 'absolute';
-        burst.style.left = `${e.clientX}px`;
-        burst.style.top = `${e.clientY}px`;
-        burst.style.width = '20px'; burst.style.height = '20px';
-        burst.style.background = 'radial-gradient(#39ff14, transparent)';
-        burst.style.opacity = 0.8;
-        document.body.appendChild(burst);
-        gsap.to(burst, { duration: 0.5, scale: 3, opacity: 0, ease: 'power3.out', onComplete: () => burst.remove() });
-      });
-    });
-  
-    // Scroll Reveals: Figma-Like Parallax Slides
-    gsap.utils.toArray('section, main').forEach((sec, i) => {
-      gsap.from(sec, {
-        y: 100, opacity: 0, duration: 1.2, ease: 'power3.out',
-        scrollTrigger: { trigger: sec, start: 'top 80%', scrub: true, toggleActions: 'play none none reverse' }
-      });
-      // Subtle Parallax: Bg shift on scroll
-      gsap.to(sec, { backgroundPositionY: '50%', y: -50, duration: 1, scrollTrigger: { trigger: sec, scrub: true } });
-    });
-  
-    // Three.js Particles: Subtle Flow (adaptive resize)
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('hero-bg').appendChild(renderer.domElement);
-  
-    const particles = 3000; // Reduced for subtlety
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particles * 3);
-    for (let i = 0; i < positions.length; i++) positions[i] = (Math.random() - 0.5) * 10;
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  
-    const material = new THREE.PointsMaterial({ color: 0x39ff14, size: 0.01, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
-    const particleSystem = new THREE.Points(geometry, material);
-    scene.add(particleSystem);
-  
-    camera.position.z = 5;
-  
-    function animate(time) {
-      requestAnimationFrame(animate);
-      const pos = geometry.attributes.position.array;
-      for (let i = 0; i < pos.length; i += 3) {
-        pos[i] += Math.sin(time * 0.0005 + pos[i+1]) * 0.0005; // Slower, subtle flow
-        pos[i+1] += Math.cos(time * 0.0005 + pos[i]) * 0.0005;
-        if (Math.abs(pos[i]) > 5) pos[i] = -5;
-        if (Math.abs(pos[i+1]) > 5) pos[i+1] = -5;
-      }
-      geometry.attributes.position.needsUpdate = true;
-      particleSystem.rotation.y += 0.0002; // Gentle rotate
-      renderer.render(scene, camera);
-    }
-    animate(0);
-  
-    // Adaptive Resize: Modern Fluid
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  
-    // Toggle: Smooth Neon Transition
-    document.querySelector('.dark-2').addEventListener('change', (e) => {
-      gsap.to('body', { duration: 0.5, backgroundColor: e.target.checked ? '#111' : '#1a1a1a', ease: 'power2.inOut' });
-      document.body.classList.toggle('dark-mode', e.target.checked);
-    });
-  });
+(() => {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function pageName() {
+    const name = window.location.pathname.split("/").pop();
+    return name || "index.html";
+  }
+
+  function buildHeader() {
+    const current = pageName();
+    const storage = {
+      get(key) {
+        try {
+          return window.localStorage.getItem(key);
+        } catch {
+          return null;
+        }
+      },
+      set(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+        } catch {
+          /* Focus mode still works for this page view. */
+        }
+      }
+    };
+    const header = document.querySelector("#header") || document.createElement("header");
+    header.id = "header";
+    header.className = "site-header";
+    header.innerHTML = `
+      <nav class="site-nav" aria-label="Primary">
+        <a class="brand-mark" href="index.html" data-cursor="link" aria-label="Hoda Hashemi home">
+          <img src="logo/hoda-mark.svg" width="42" height="42" alt="">
+          <span>Hoda Hashemi</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" data-page="index.html">Home</a>
+          <a href="CV.html" data-page="CV.html">CV</a>
+          <div class="nav-menu">
+            <button type="button" aria-haspopup="true" aria-expanded="false">Scribbles</button>
+            <div class="dropdown-content">
+              <a href="NS.html" data-page="NS.html">Navier-Stokes equations</a>
+              <a href="SW.html" data-page="SW.html">Shallow water equations</a>
+              <a href="QSW.html" data-page="QSW.html">Quasi-geostrophic equations</a>
+              <a href="SphericalQSW.html" data-page="SphericalQSW.html">QG equations on sphere</a>
+            </div>
+          </div>
+          <div class="nav-menu">
+            <button type="button" aria-haspopup="true" aria-expanded="false">Numerics</button>
+            <div class="dropdown-content">
+              <a href="InstallingMITGCM.html" data-page="InstallingMITGCM.html">Installing MITgcm</a>
+              <a href="UnderstandingMITGCM.html" data-page="UnderstandingMITGCM.html">MITgcm structure</a>
+            </div>
+          </div>
+          <a href="Articles.html" data-page="Articles.html">Articles</a>
+          <a href="Publications.html" data-page="Publications.html">Publications</a>
+          <a href="https://buymeacoffee.com/hodahashemi" target="_blank" rel="noreferrer">Support</a>
+          <button class="theme-button" type="button" aria-label="Toggle focus mode"><span></span></button>
+        </div>
+      </nav>
+    `;
+
+    if (!header.parentNode) {
+      document.body.prepend(header);
+    }
+
+    header.querySelectorAll("[data-page]").forEach((link) => {
+      if (link.dataset.page === current) link.classList.add("active");
+    });
+
+    header.querySelector(".theme-button")?.addEventListener("click", () => {
+      document.body.classList.toggle("focus-mode");
+      storage.set("focus-mode", document.body.classList.contains("focus-mode") ? "1" : "0");
+    });
+
+    if (storage.get("focus-mode") === "1") {
+      document.body.classList.add("focus-mode");
+    }
+  }
+
+  function initCursor() {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement("div");
+    cursor.className = "reticle";
+    cursor.innerHTML = "<span></span>";
+    document.body.appendChild(cursor);
+    document.body.classList.add("has-custom-cursor");
+
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let targetX = x;
+    let targetY = y;
+
+    const move = () => {
+      x += (targetX - x) * 0.28;
+      y += (targetY - y) * 0.28;
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(move);
+    };
+    move();
+
+    window.addEventListener("pointermove", (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      cursor.classList.add("is-visible");
+    });
+
+    window.addEventListener("pointerdown", () => cursor.classList.add("is-active"));
+    window.addEventListener("pointerup", () => cursor.classList.remove("is-active"));
+    window.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
+  }
+
+  function initSparks() {
+    if (reducedMotion) return;
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest("a, button, .feature-card, .lab-card")) return;
+
+      const spark = document.createElement("div");
+      spark.className = "click-spark";
+      spark.style.left = `${event.clientX}px`;
+      spark.style.top = `${event.clientY}px`;
+      document.body.appendChild(spark);
+      spark.addEventListener("animationend", () => spark.remove(), { once: true });
+    });
+  }
+
+  function initReveals() {
+    const candidates = document.querySelectorAll(
+      ".feature-card, .lab-card, .cv-panel, .cv-section, .timeline-item, .metric, .section-head, .page-hero"
+    );
+
+    candidates.forEach((node) => node.classList.add("reveal"));
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      candidates.forEach((node) => node.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    candidates.forEach((node) => observer.observe(node));
+  }
+
+  function initParallax() {
+    const layers = Array.from(document.querySelectorAll("[data-parallax]"));
+    if (reducedMotion || layers.length === 0) return;
+
+    let ticking = false;
+
+    const update = () => {
+      layers.forEach((layer) => {
+        const speed = Number(layer.getAttribute("data-parallax")) || 0;
+        const rect = layer.getBoundingClientRect();
+        const delta = (window.innerHeight * 0.5 - rect.top) * speed;
+        layer.style.transform = `translate3d(0, ${delta.toFixed(2)}px, 0)`;
+      });
+      ticking = false;
+    };
+
+    const request = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    request();
+  }
+
+  function initHeroField() {
+    const canvas = document.querySelector("#hero-field");
+    if (!(canvas instanceof HTMLCanvasElement) || reducedMotion) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const colors = ["#ff7a18", "#a855ff", "#64ff73", "#48f4ff"];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let pointerX = 0.5;
+    let pointerY = 0.5;
+    let particles = [];
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = Math.max(70, Math.min(150, Math.floor((width * height) / 11000)));
+      particles = Array.from({ length: count }, (_, index) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: 2 + Math.floor(Math.random() * 3),
+        vx: -0.22 + Math.random() * 0.44,
+        vy: 0.08 + Math.random() * 0.38,
+        color: colors[index % colors.length],
+        phase: Math.random() * Math.PI * 2
+      }));
+    }
+
+    function draw(time) {
+      context.clearRect(0, 0, width, height);
+      context.globalCompositeOperation = "lighter";
+
+      particles.forEach((particle) => {
+        const pullX = (pointerX - 0.5) * 0.26;
+        const pullY = (pointerY - 0.5) * 0.18;
+        particle.x += particle.vx + pullX + Math.sin(time * 0.001 + particle.phase) * 0.08;
+        particle.y += particle.vy + pullY;
+
+        if (particle.x < -12) particle.x = width + 12;
+        if (particle.x > width + 12) particle.x = -12;
+        if (particle.y > height + 12) particle.y = -12;
+
+        const px = Math.round(particle.x / 4) * 4;
+        const py = Math.round(particle.y / 4) * 4;
+        context.fillStyle = particle.color;
+        context.globalAlpha = 0.34 + Math.sin(time * 0.004 + particle.phase) * 0.18;
+        context.fillRect(px, py, particle.size, particle.size);
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        pointerX = event.clientX / Math.max(width, 1);
+        pointerY = event.clientY / Math.max(height, 1);
+      },
+      { passive: true }
+    );
+
+    resize();
+    draw(0);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    buildHeader();
+    initCursor();
+    initSparks();
+    initReveals();
+    initParallax();
+    initHeroField();
+  });
+})();
