@@ -68,6 +68,51 @@
       if (link.dataset.page === current) link.classList.add("active");
     });
 
+    const menus = Array.from(header.querySelectorAll(".nav-menu"));
+    const closeMenus = (except) => {
+      menus.forEach((menu) => {
+        if (menu === except) return;
+        menu.classList.remove("is-open");
+        menu.querySelector("button")?.setAttribute("aria-expanded", "false");
+      });
+    };
+
+    menus.forEach((menu) => {
+      const button = menu.querySelector("button");
+      const setOpen = (open) => {
+        menu.classList.toggle("is-open", open);
+        button?.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+
+      button?.addEventListener("click", (event) => {
+        event.preventDefault();
+        const open = !menu.classList.contains("is-open");
+        closeMenus(menu);
+        setOpen(open);
+      });
+
+      menu.addEventListener("mouseenter", () => {
+        closeMenus(menu);
+        setOpen(true);
+      });
+
+      menu.addEventListener("mouseleave", () => setOpen(false));
+      menu.addEventListener("focusout", (event) => {
+        const next = event.relatedTarget;
+        if (!(next instanceof Node) || !menu.contains(next)) setOpen(false);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof Element && header.contains(target)) return;
+      closeMenus();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenus();
+    });
+
     header.querySelector(".theme-button")?.addEventListener("click", () => {
       document.body.classList.toggle("focus-mode");
       storage.set("focus-mode", document.body.classList.contains("focus-mode") ? "1" : "0");
@@ -163,10 +208,15 @@
 
     const update = () => {
       layers.forEach((layer) => {
-        const speed = Number(layer.getAttribute("data-parallax")) || 0;
+        const speedY = Number(layer.getAttribute("data-parallax")) || 0;
+        const speedX = Number(layer.getAttribute("data-parallax-x")) || 0;
+        const rotateSpeed = Number(layer.getAttribute("data-parallax-rotate")) || 0;
         const rect = layer.getBoundingClientRect();
-        const delta = (window.innerHeight * 0.5 - rect.top) * speed;
-        layer.style.transform = `translate3d(0, ${delta.toFixed(2)}px, 0)`;
+        const centerDelta = window.innerHeight * 0.5 - rect.top;
+        const deltaY = centerDelta * speedY;
+        const deltaX = centerDelta * speedX;
+        const rotation = centerDelta * rotateSpeed;
+        layer.style.transform = `translate3d(${deltaX.toFixed(2)}px, ${deltaY.toFixed(2)}px, 0) rotate(${rotation.toFixed(2)}deg)`;
       });
       ticking = false;
     };
@@ -190,7 +240,7 @@
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    const colors = ["#ff7a18", "#a855ff", "#64ff73", "#48f4ff"];
+    const colors = ["#ff5f1f", "#8f3dff", "#e9f056", "#64ff73", "#d7efff"];
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -208,7 +258,7 @@
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.max(70, Math.min(150, Math.floor((width * height) / 11000)));
+      const count = Math.max(110, Math.min(240, Math.floor((width * height) / 8200)));
       particles = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -216,7 +266,8 @@
         vx: -0.22 + Math.random() * 0.44,
         vy: 0.08 + Math.random() * 0.38,
         color: colors[index % colors.length],
-        phase: Math.random() * Math.PI * 2
+        phase: Math.random() * Math.PI * 2,
+        stem: Math.random() > 0.78
       }));
     }
 
@@ -239,6 +290,13 @@
         context.fillStyle = particle.color;
         context.globalAlpha = 0.34 + Math.sin(time * 0.004 + particle.phase) * 0.18;
         context.fillRect(px, py, particle.size, particle.size);
+
+        if (particle.stem) {
+          context.globalAlpha *= 0.42;
+          context.fillRect(px, py + particle.size + 3, 1, 26);
+          context.fillRect(px - 5, py + 12, 6, 1);
+          context.fillRect(px, py + 20, 6, 1);
+        }
       });
 
       requestAnimationFrame(draw);

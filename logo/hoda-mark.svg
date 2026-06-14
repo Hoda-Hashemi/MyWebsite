@@ -1,33 +1,46 @@
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Hoda Hashemi mark</title>
-  <desc id="desc">Pixel H monogram with a Persian cypress and geometric pattern.</desc>
+  <title id="title">Hoda Hashemi shared-stem HH mark</title>
+  <desc id="desc">A faceted shared-stem HH monogram built from three vertical bars and two horizontal links.</desc>
   <defs>
-    <linearGradient id="edge" x1="18" y1="110" x2="111" y2="19" gradientUnits="userSpaceOnUse">
+    <linearGradient id="metal" x1="22" y1="106" x2="104" y2="22" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e9f056"/>
+      <stop offset="0.35" stop-color="#ff5f1f"/>
+      <stop offset="0.72" stop-color="#d7efff"/>
+      <stop offset="1" stop-color="#8f3dff"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="31" y1="48" x2="97" y2="48" gradientUnits="userSpaceOnUse">
       <stop stop-color="#64ff73"/>
-      <stop offset="0.48" stop-color="#ff7a18"/>
+      <stop offset="0.5" stop-color="#d7efff"/>
       <stop offset="1" stop-color="#a855ff"/>
     </linearGradient>
-    <filter id="glow" x="-35%" y="-35%" width="170%" height="170%">
-      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
-  <rect x="8" y="8" width="112" height="112" rx="18" fill="#07040d"/>
-  <path d="M18 31h14v-8h8v8h14v8H40v14h14v8H40v14h14v8H40v14h-8V83H18v-8h14V61H18v-8h14V39H18V31Z" fill="#15101f"/>
-  <path d="M74 31h14v-8h8v8h14v8H96v14h14v8H96v14h14v8H96v14h-8V83H74v-8h14V61H74v-8h14V39H74V31Z" fill="#15101f"/>
-  <rect x="26" y="25" width="18" height="78" fill="#fff7eb"/>
-  <rect x="84" y="25" width="18" height="78" fill="#fff7eb"/>
-  <path d="M44 58h15V25h18v78H59V72H44V58Z" fill="#fff7eb"/>
-  <path d="M84 58H69V25H51v78h18V72h15V58Z" fill="#fff7eb" opacity="0.96"/>
-  <path d="M50 106h18V75l18-10v-8L68 67V22H50v84Z" fill="#64ff73" opacity="0.92"/>
-  <path d="M64 21C77 35 80 49 72 62C68 68 67 74 70 83C58 76 52 66 54 55C56 42 61 34 64 21Z" fill="#07040d"/>
-  <path d="M64 24C74 37 76 49 69 60C65 66 64 72 67 79C58 72 55 64 57 55C59 43 62 35 64 24Z" fill="url(#edge)" filter="url(#glow)"/>
-  <path d="M24 24l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#ff7a18"/>
-  <path d="M94 24l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#a855ff"/>
-  <path d="M24 88l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#48f4ff"/>
-  <path d="M94 88l5 5 5-5 5 5-5 5 5 5-5 5-5-5-5 5-5-5 5-5-5-5 5-5Z" fill="#64ff73"/>
-  <rect x="8" y="8" width="112" height="112" rx="18" fill="none" stroke="url(#edge)" stroke-width="4"/>
+
+  <path d="M18 14h92l12 18v64l-18 18H24L6 96V32l12-18Z" fill="#050208"/>
+  <path d="M24 21h80l10 15v55l-15 16H29L14 91V36l10-15Z" fill="#351e28" opacity="0.72"/>
+  <path d="M21 42h86l-9 18H30l-9-18Z" fill="#050208"/>
+  <path d="M31 44h66l-6 12H37l-6-12Z" fill="url(#visor)" opacity="0.92" filter="url(#glow)"/>
+
+  <path d="M28 37h18v58H28V37Z" fill="#fff7eb"/>
+  <path d="M55 24h18v82H55V24Z" fill="#fff7eb"/>
+  <path d="M82 37h18v58H82V37Z" fill="#fff7eb"/>
+  <path d="M40 58h26v16H40V58Z" fill="#fff7eb"/>
+  <path d="M62 58h26v16H62V58Z" fill="#fff7eb"/>
+
+  <path d="M46 37l9-8v77l-9-11V37Z" fill="#e9f056"/>
+  <path d="M73 24l9 13v58l-9 11V24Z" fill="#ff5f1f"/>
+  <path d="M100 37l7 11v39l-7 8V37Z" fill="#8f3dff"/>
+  <path d="M28 95h18l9 11H34l-6-11Z" fill="#64ff73" opacity="0.9"/>
+  <path d="M82 95h18l-7 11H73l9-11Z" fill="#d7efff" opacity="0.85"/>
+
+  <path d="M23 23l7 7 7-7 7 7-7 7 7 7-7 7-7-7-7 7-7-7 7-7-7-7 7-7Z" fill="#ff5f1f" opacity="0.78"/>
+  <path d="M84 23l7 7 7-7 7 7-7 7 7 7-7 7-7-7-7 7-7-7 7-7-7-7 7-7Z" fill="#e9f056" opacity="0.78"/>
+  <path d="M21 83h86l-8 24H29l-8-24Z" fill="#050208" opacity="0.28"/>
+  <path d="M18 14h92l12 18v64l-18 18H24L6 96V32l12-18Z" fill="none" stroke="url(#metal)" stroke-width="4"/>
 </svg>
