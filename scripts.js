@@ -8,286 +8,139 @@
 
   function buildHeader() {
     const current = pageName();
-    const storage = {
-      get(key) {
-        try {
-          return window.localStorage.getItem(key);
-        } catch {
-          return null;
-        }
-      },
-      set(key, value) {
-        try {
-          window.localStorage.setItem(key, value);
-        } catch {
-          /* Focus mode still works for this page view. */
-        }
-      }
-    };
     const header = document.querySelector("#header") || document.createElement("header");
     header.id = "header";
     header.className = "site-header";
     header.innerHTML = `
       <nav class="site-nav" aria-label="Primary">
-        <a class="brand-mark" href="index.html" data-cursor="link" aria-label="Hoda Hashemi home">
-          <img src="logo/hoda-mark.svg" width="42" height="42" alt="">
+        <a class="brand-mark" href="index.html" aria-label="Hoda Hashemi home">
+          <img src="logo/hoda-mark.svg" width="28" height="28" alt="">
           <span>Hoda Hashemi</span>
         </a>
         <div class="nav-links">
           <a href="index.html" data-page="index.html">Home</a>
+          <a href="index.html#research">Research</a>
+          <a href="index.html#notes">Notes</a>
           <a href="CV.html" data-page="CV.html">CV</a>
-          <div class="nav-menu">
-            <button type="button" aria-haspopup="true" aria-expanded="false">Scribbles</button>
-            <div class="dropdown-content">
-              <a href="NS.html" data-page="NS.html">Navier-Stokes equations</a>
-              <a href="SW.html" data-page="SW.html">Shallow water equations</a>
-              <a href="QSW.html" data-page="QSW.html">Quasi-geostrophic equations</a>
-              <a href="SphericalQSW.html" data-page="SphericalQSW.html">QG equations on sphere</a>
-            </div>
-          </div>
-          <div class="nav-menu">
-            <button type="button" aria-haspopup="true" aria-expanded="false">Numerics</button>
-            <div class="dropdown-content">
-              <a href="InstallingMITGCM.html" data-page="InstallingMITGCM.html">Installing MITgcm</a>
-              <a href="UnderstandingMITGCM.html" data-page="UnderstandingMITGCM.html">MITgcm structure</a>
-            </div>
-          </div>
-          <a href="Articles.html" data-page="Articles.html">Articles</a>
-          <a href="Publications.html" data-page="Publications.html">Publications</a>
-          <a href="https://buymeacoffee.com/hodahashemi" target="_blank" rel="noreferrer">Support</a>
-          <button class="theme-button" type="button" aria-label="Toggle focus mode"><span></span></button>
+          <a href="index.html#contact">Contact</a>
+          <span class="external-links" aria-label="External profiles">
+            <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/Hoda-Hashemi" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </span>
         </div>
       </nav>
     `;
 
-    if (!header.parentNode) {
-      document.body.prepend(header);
-    }
+    if (!header.parentNode) document.body.prepend(header);
 
     header.querySelectorAll("[data-page]").forEach((link) => {
       if (link.dataset.page === current) link.classList.add("active");
     });
-
-    const menus = Array.from(header.querySelectorAll(".nav-menu"));
-    const closeMenus = (except) => {
-      menus.forEach((menu) => {
-        if (menu === except) return;
-        menu.classList.remove("is-open");
-        menu.querySelector("button")?.setAttribute("aria-expanded", "false");
-      });
-    };
-
-    menus.forEach((menu) => {
-      const button = menu.querySelector("button");
-      const setOpen = (open) => {
-        menu.classList.toggle("is-open", open);
-        button?.setAttribute("aria-expanded", open ? "true" : "false");
-      };
-
-      button?.addEventListener("click", (event) => {
-        event.preventDefault();
-        const open = !menu.classList.contains("is-open");
-        closeMenus(menu);
-        setOpen(open);
-      });
-
-      menu.addEventListener("mouseenter", () => {
-        closeMenus(menu);
-        setOpen(true);
-      });
-
-      menu.addEventListener("mouseleave", () => setOpen(false));
-      menu.addEventListener("focusout", (event) => {
-        const next = event.relatedTarget;
-        if (!(next instanceof Node) || !menu.contains(next)) setOpen(false);
-      });
-    });
-
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target instanceof Element && header.contains(target)) return;
-      closeMenus();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenus();
-    });
-
-    header.querySelector(".theme-button")?.addEventListener("click", () => {
-      document.body.classList.toggle("focus-mode");
-      storage.set("focus-mode", document.body.classList.contains("focus-mode") ? "1" : "0");
-    });
-
-    if (storage.get("focus-mode") === "1") {
-      document.body.classList.add("focus-mode");
-    }
   }
 
   function initReveals() {
-    const candidates = document.querySelectorAll(
-      ".feature-card, .lab-card, .cv-panel, .cv-section, .timeline-item, .metric, .section-head, .page-hero"
-    );
-
-    candidates.forEach((node) => node.classList.add("reveal"));
-
+    const nodes = Array.from(document.querySelectorAll(".reveal, .research-card, .note-row, .timeline-item, .cv-panel, .cv-section"));
     if (reducedMotion || !("IntersectionObserver" in window)) {
-      candidates.forEach((node) => node.classList.add("is-visible"));
+      nodes.forEach((node) => node.classList.add("is-visible"));
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    candidates.forEach((node) => observer.observe(node));
-  }
-
-  function initParallax() {
-    const layers = Array.from(document.querySelectorAll("[data-parallax]"));
-    if (reducedMotion || layers.length === 0) return;
-
-    let ticking = false;
-
-    const update = () => {
-      layers.forEach((layer) => {
-        const speedY = Number(layer.getAttribute("data-parallax")) || 0;
-        const speedX = Number(layer.getAttribute("data-parallax-x")) || 0;
-        const rotateSpeed = Number(layer.getAttribute("data-parallax-rotate")) || 0;
-        const rect = layer.getBoundingClientRect();
-        const centerDelta = window.innerHeight * 0.5 - rect.top;
-        const deltaY = centerDelta * speedY;
-        const deltaX = centerDelta * speedX;
-        const rotation = centerDelta * rotateSpeed;
-        layer.style.transform = `translate3d(${deltaX.toFixed(2)}px, ${deltaY.toFixed(2)}px, 0) rotate(${rotation.toFixed(2)}deg)`;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
       });
-      ticking = false;
-    };
+    }, { threshold: 0.12 });
 
-    const request = () => {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
-    request();
-  }
-
-  function initScrollStory() {
-    if (reducedMotion || !window.gsap || !window.ScrollTrigger) return;
-
-    window.gsap.registerPlugin(window.ScrollTrigger);
-
-    window.gsap.utils.toArray(".story-panel").forEach((panel) => {
-      window.gsap.fromTo(
-        panel,
-        { opacity: 0.72, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: panel,
-            start: "top 85%",
-            end: "top 30%",
-            scrub: true
-          }
-        }
-      );
-    });
-
-    window.gsap.utils.toArray("[data-parallax]").forEach((layer) => {
-      const y = Number(layer.getAttribute("data-parallax")) * -520 || -60;
-      const x = Number(layer.getAttribute("data-parallax-x")) * -520 || 0;
-      window.gsap.to(layer, {
-        x,
-        y,
-        ease: "none",
-        scrollTrigger: {
-          trigger: layer.closest(".story-panel") || layer,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+    nodes.forEach((node) => {
+      node.classList.add("reveal");
+      observer.observe(node);
     });
   }
 
-  function initStoryWebGL() {
-    const canvas = document.querySelector("#story-webgl");
-    if (!(canvas instanceof HTMLCanvasElement) || reducedMotion || !window.THREE) return;
+  function initStreamlines() {
+    const canvas = document.querySelector("#streamlines");
+    if (!(canvas instanceof HTMLCanvasElement)) return;
 
-    const scene = new window.THREE.Scene();
-    const camera = new window.THREE.PerspectiveCamera(35, 1, 0.1, 100);
-    const renderer = new window.THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    const group = new window.THREE.Group();
-    const geometry = new window.THREE.IcosahedronGeometry(1.25, 1);
-    const material = new window.THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.7
-    });
-    const mesh = new window.THREE.Mesh(geometry, material);
-    const ring = new window.THREE.Mesh(
-      new window.THREE.TorusGeometry(1.7, 0.018, 8, 96),
-      new window.THREE.MeshBasicMaterial({ color: 0x788bff, transparent: true, opacity: 0.85 })
-    );
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
-    group.add(mesh, ring);
-    scene.add(group);
-    camera.position.z = 5;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let time = 0;
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
-      const width = Math.max(1, rect.width);
-      const height = Math.max(1, rect.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function velocity(x, y, t) {
+      const cx1 = width * 0.32;
+      const cy1 = height * 0.48;
+      const cx2 = width * 0.72;
+      const cy2 = height * 0.46;
+      const dx1 = x - cx1;
+      const dy1 = y - cy1;
+      const dx2 = x - cx2;
+      const dy2 = y - cy2;
+      const r1 = dx1 * dx1 + dy1 * dy1 + 9000;
+      const r2 = dx2 * dx2 + dy2 * dy2 + 12000;
+      const s1 = 22000 / r1;
+      const s2 = -18000 / r2;
+      return {
+        x: -dy1 * s1 - dy2 * s2 + Math.cos(y * 0.01 + t) * 0.28,
+        y: dx1 * s1 + dx2 * s2 + Math.sin(x * 0.008 - t) * 0.22
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(15, 92, 92, 0.22)";
+
+      const cols = Math.max(9, Math.floor(width / 92));
+      const rows = Math.max(6, Math.floor(height / 96));
+
+      for (let j = 0; j <= rows; j += 1) {
+        for (let i = 0; i <= cols; i += 1) {
+          let x = (i + 0.35 * Math.sin(j + time)) * width / cols;
+          let y = (j + 0.35 * Math.cos(i - time)) * height / rows;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          for (let k = 0; k < 42; k += 1) {
+            const v = velocity(x, y, time);
+            x += v.x * 4.2;
+            y += v.y * 4.2;
+            if (x < -40 || x > width + 40 || y < -40 || y > height + 40) break;
+            ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+      }
+    }
+
+    function animate() {
+      time += 0.006;
+      draw();
+      if (!reducedMotion) requestAnimationFrame(animate);
     }
 
     window.addEventListener("resize", resize);
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
-        const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
-        group.rotation.y = x * 1.2;
-        group.rotation.x = y * 0.8;
-      },
-      { passive: true }
-    );
-
-    function animate(time) {
-      mesh.rotation.x += 0.004;
-      mesh.rotation.y += 0.006;
-      ring.rotation.z = time * 0.00035;
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-
     resize();
-    animate(0);
+    if (!reducedMotion) animate();
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     buildHeader();
     initReveals();
-    initScrollStory();
-    if (!window.gsap || !window.ScrollTrigger) initParallax();
-    initStoryWebGL();
+    initStreamlines();
   });
 })();
