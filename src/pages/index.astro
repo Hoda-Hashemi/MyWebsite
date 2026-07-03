@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const pillars = [
+  {
+    id: "qgsw",
+    label: "01 / QGSW",
+    title: "Quasi-geostrophic shallow-water dynamics",
+    body: "Vortex-in-cell modeling over the sphere, potential vorticity, coordinate systems, and streamfunction formulation.",
+    href: "/notes/qgsw/",
+    metric: "PV residual 2.1e-4"
+  },
+  {
+    id: "mitgcm",
+    label: "02 / MITgcm",
+    title: "Simulation workflow and model anatomy",
+    body: "Installation notes, verification experiments, source structure, and reproducible tutorial workflows for the MIT General Circulation Model.",
+    href: "/notes/mitgcm/",
+    metric: "build graph 93 nodes"
+  },
+  {
+    id: "cuda",
+    label: "03 / CUDA + HPC",
+    title: "Parallel scientific computing",
+    body: "GPU kernels, memory movement, reductions, occupancy diagnostics, and performance-aware numerical implementation.",
+    href: "/notes/cuda/",
+    metric: "throughput x38"
+  },
+  {
+    id: "rag",
+    label: "04 / LLM + RAG",
+    title: "Agentic interfaces for scientific code",
+    body: "Retrieval-augmented workflows for documentation lookup, code modification, simulation execution, and model-code explanation.",
+    href: "/notes/rag/",
+    metric: "retrieval k=8"
+  }
+];
+
+const notes = [
+  ["2026-07-03", "QGSW potential-vorticity structure", "Vorticity, PV conservation, and spherical coordinate discretization.", "/notes/qgsw/"],
+  ["2026-07-03", "MITgcm setup and model anatomy", "Build workflow, run directories, diagnostics, and verification experiments.", "/notes/mitgcm/"],
+  ["2026-07-03", "CUDA/HPC implementation notes", "Kernel structure, memory hierarchy, reductions, and profiling discipline.", "/notes/cuda/"],
+  ["2026-07-03", "LLM/RAG for scientific models", "Agentic retrieval workflows for scientific modeling documentation and code.", "/notes/rag/"]
+];
+---
+<BaseLayout pageClass="home-page" title="Hoda Hashemi | Discretized Flow">
+  <Header />
+  <main id="content">
+    <section class="hero" aria-label="Interactive discretized vortex field">
+      <canvas id="vortex-field" class="vortex-field" aria-hidden="true"></canvas>
+      <div class="dither-overlay" aria-hidden="true"></div>
+      <div class="cursor-ring" aria-hidden="true"></div>
+      <div class="hero-wordmark">
+        <img src="/brand/wordmark-horizontal.svg" alt="Hoda Hashemi Discretized Flow" width="720" height="190" />
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">Computational physicist / ocean dynamics / numerical modeling</p>
+        <h1>Continuous fluid physics, resolved through a visible computational grid.</h1>
+        <p>
+          Hoda Hashemi works across QGSW dynamics, MITgcm simulation workflows,
+          CUDA/HPC, and LLM/RAG tools for scientific modeling code.
+        </p>
+        <div class="hero-links">
+          <a class="magnetic" href="/CV/">Open CV</a>
+          <a class="magnetic" href="#notebook">Read notes</a>
+          <a class="magnetic" href="https://github.com/Hoda-Hashemi" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <aside class="sim-controls" aria-label="Simulation controls">
+        <label for="density">grid density</label>
+        <input id="density" type="range" min="4" max="14" value="8" />
+        <output id="density-readout" for="density">8</output>
+        <span id="particle-readout">particles 4096</span>
+        <span id="frame-readout">frame 0000</span>
+      </aside>
+      <a class="scroll-cue" href="#research">scroll / resolve</a>
+    </section>
+
+    <section id="research" class="research-section">
+      <div class="section-intro panel-resolve">
+        <p class="eyebrow">Research map</p>
+        <h2>Four instruments in the same lab.</h2>
+      </div>
+      {pillars.map((pillar) => (
+        <article class="research-panel panel-resolve" data-panel={pillar.id}>
+          <div class="panel-copy">
+            <p class="eyebrow">{pillar.label}</p>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.body}</p>
+            <a class="text-link magnetic" href={pillar.href}>Open note</a>
+          </div>
+          <div class="panel-instrument">
+            <canvas class="panel-canvas" data-kind={pillar.id} aria-hidden="true"></canvas>
+            <span>{pillar.metric}</span>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section id="notebook" class="notebook-section panel-resolve">
+      <div class="section-intro">
+        <p class="eyebrow">Notebook / scribbles</p>
+        <h2>Readable notes after the field resolves.</h2>
+      </div>
+      <div class="note-list">
+        {notes.map(([date, title, description, href]) => (
+          <a class="note-row magnetic" href={href}>
+            <time datetime={date}>{date}</time>
+            <strong>{title}</strong>
+            <span>{description}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section id="about" class="about-section panel-resolve">
+      <div>
+        <p class="eyebrow">About / CV</p>
+        <h2>Geophysical fluids, numerical methods, and scientific interfaces.</h2>
+      </div>
+      <div class="about-body">
+        <p>
+          Hoda Hashemi is a computational physicist working in ocean dynamics and numerical modeling.
+          The core thread is discretization: translating continuous geophysical flow into stable,
+          inspectable, computational fields.
+        </p>
+        <p>
+          This site uses the same idea visually: a vortex field, dithered into cells, with resolution
+          exposed as a live control.
+        </p>
+        <a class="text-link magnetic" href="/CV/">Open print-friendly CV</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

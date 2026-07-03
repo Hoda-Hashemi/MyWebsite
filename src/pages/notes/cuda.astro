@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+---
+<BaseLayout pageClass="note-page" title="CUDA/HPC Notes | Hoda Hashemi">
+  <Header />
+  <main id="content" class="note-layout">
+    <article class="note-article">
+      <p class="eyebrow">Research note / structural placeholder</p>
+      <h1>CUDA/HPC implementation notes</h1>
+      <p class="lede">Placeholder page for performance-aware scientific computing notes.</p>
+      <h2 id="kernel">Kernel structure</h2>
+      <p>Numerical kernels should document memory access patterns, thread-block geometry, synchronization requirements, and reductions.</p>
+      <h2 id="metric">Performance metric</h2>
+      <div class="equation">\( T_\mathrm&#123;step&#125; = T_\mathrm&#123;load&#125; + T_\mathrm&#123;compute&#125; + T_\mathrm&#123;store&#125; \)</div>
+      <h2 id="cluster">Cluster workflow</h2>
+      <p>Production notes should include compiler versions, Slurm scripts, GPU model, problem size, and reproducible profiling commands.</p>
+    </article>
+    <aside class="toc"><a href="#kernel">Kernel structure</a><a href="#metric">Performance metric</a><a href="#cluster">Cluster workflow</a><a href="/#notebook">Back to notes</a></aside>
+  </main>
+</BaseLayout>

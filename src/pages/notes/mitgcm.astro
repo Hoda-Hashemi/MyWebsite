@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+---
+<BaseLayout pageClass="note-page" title="MITgcm Notes | Hoda Hashemi">
+  <Header />
+  <main id="content" class="note-layout">
+    <article class="note-article">
+      <p class="eyebrow">Research note / structural placeholder</p>
+      <h1>MITgcm setup and model anatomy</h1>
+      <p class="lede">Placeholder for installation, verification, and workflow notes.</p>
+      <h2 id="build">Build workflow</h2>
+      <pre><code>git clone https://github.com/MITgcm/MITgcm.git
+cd MITgcm/verification/global_oce_latlon/build
+../../../tools/genmake2 -mods ../code
+make depend
+make</code></pre>
+      <h2 id="run">Run directory</h2>
+      <p>The run directory should document symbolic links, input files, executable provenance, and output diagnostics.</p>
+      <h2 id="diagnostics">Diagnostics</h2>
+      <p>Future notes can separate numerical configuration, grid geometry, forcing files, diagnostics, and figure reproduction steps.</p>
+    </article>
+    <aside class="toc"><a href="#build">Build workflow</a><a href="#run">Run directory</a><a href="#diagnostics">Diagnostics</a><a href="/#notebook">Back to notes</a></aside>
+  </main>
+</BaseLayout>

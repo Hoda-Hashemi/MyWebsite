@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+<BaseLayout pageClass="cv-page" title="CV | Hoda Hashemi">
+  <Header />
+  <main id="content" class="cv-shell">
+    <section class="cv-hero">
+      <img src="/brand/mark-teal.svg" alt="" width="92" height="92" />
+      <p class="eyebrow">CV / computational physics / ocean dynamics</p>
+      <h1>Hoda Hashemi</h1>
+      <p>
+        Computational physicist working in geophysical fluid dynamics, ocean dynamics,
+        numerical modeling, CUDA/HPC, MITgcm workflows, and LLM/RAG tools for scientific code.
+      </p>
+      <div class="hero-links">
+        <a href="/assets/CV_HodaHashemi.pdf" download>Download PDF</a>
+        <a href="/assets/CV_HodaHashemi.pdf">Open PDF</a>
+        <a href="mailto:hmh85@mail.aub.edu">Email</a>
+      </div>
+    </section>
+
+    <section class="cv-grid">
+      <aside>
+        <h2>Contact</h2>
+        <a href="mailto:hmh85@mail.aub.edu">hmh85@mail.aub.edu</a>
+        <a href="mailto:hodamhashemi@gmail.com">hodamhashemi@gmail.com</a>
+        <a href="https://www.linkedin.com/in/hoda-hashemi-630a33204/" target="_blank" rel="noopener noreferrer">LinkedIn / profile</a>
+        <a href="https://github.com/Hoda-Hashemi" target="_blank" rel="noopener noreferrer">GitHub / Hoda-Hashemi</a>
+        <h2>Core stack</h2>
+        <p>Python, Julia, Fortran, C/C++, CUDA, MATLAB, FreeFem++, LaTeX, MITgcm, Slurm, LLM/RAG.</p>
+      </aside>
+      <article>
+        <h2>Profile</h2>
+        <p>Research interests include computational physics, physical oceanography, quasi-geostrophic shallow-water dynamics, vortex methods, numerical simulation, parallel computing, scientific ML, and interfaces for advanced simulation tools.</p>
+      </article>
+    </section>
+
+    <section class="cv-timeline">
+      <h2>Education</h2>
+      <article><time>08/2023-current</time><div><h3>MSc, Computational Science</h3><p>American University of Beirut. Optimization, GPU computing, statistical learning, finite elements, and vortex methods.</p></div></article>
+      <article><time>08/2019-05/2023</time><div><h3>BS, Theoretical Physics; Minor, Pure Mathematics</h3><p>American University of Beirut. Analysis, differential equations, algebra, manifolds, probability, and numerical computing.</p></div></article>
+      <article><time>08/2021-01/2022</time><div><h3>Exchange Program</h3><p>Pitzer College, Claremont, California. Statistical physics, French, and R programming.</p></div></article>
+    </section>
+
+    <section class="cv-timeline">
+      <h2>Research and projects</h2>
+      <article><time>08/2024-current</time><div><h3>MITgcm simulations of atmosphere-ocean dynamics</h3><p>Simulation workflows and numerical experiments based on atmosphere-ocean climate dynamics.</p></div></article>
+      <article><time>05/2024-current</time><div><h3>Vortex-in-cell model for QG shallow water on the sphere</h3><p>Computational modeling for quasi-geostrophic shallow-water equations over spherical geometry.</p></div></article>
+      <article><time>04/2025-05/2025</time><div><h3>Agentic system for MITgcm</h3><p>LLM/RAG interface for querying documentation, modifying code, and executing simulations through natural language.</p></div></article>
+      <article><time>03/2024-05/2024</time><div><h3>Needleman-Wunsch on CUDA</h3><p>Parallel implementation using CUDA and Octopus HPC, with reduction trees, stencils, coarsening, and occupancy optimization.</p></div></article>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

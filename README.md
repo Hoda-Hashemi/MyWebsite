@@ -1,27 +1,31 @@
 # Hoda Hashemi Website
 
-Minimal personal portfolio for Hoda Hashemi, focused on computational physics, ocean dynamics, numerical modeling, MITgcm, CUDA/HPC, and LLM/RAG tools for scientific code.
+Astro + Three.js personal portfolio for Hoda Hashemi, built around the "Discretized Flow" identity: continuous vortex dynamics resolved through a visible computational grid/dither field.
 
 Live site: https://hodahashemi.com/
 
+Identity system: [`identity/IDENTITY.md`](identity/IDENTITY.md)
+
 ## Local use
 
-Open `index.html` directly in a browser, or serve the repository:
+Install dependencies and run Astro:
 
 ```bash
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
 ## Content editing
 
-- Main landing page: `index.html`
-- Global styling: `design.css`
-- Header, reveal behavior, and streamline canvas: `scripts.js`
-- Print-friendly CV page: `CV.html`
-- Placeholder research-note pages:
-  - `notes-qgsw.html`
-  - `notes-mitgcm.html`
-  - `notes-cuda.html`
-  - `notes-rag.html`
+- Main landing page: `src/pages/index.astro`
+- Global styling: `src/styles/global.css`
+- Three.js vortex/dither simulation: `src/scripts/flow-field.js`
+- Print-friendly CV page: `src/pages/CV.astro`
+- Placeholder research-note pages: `src/pages/notes/*.astro`
+- Generated identity assets: `identity/` and `public/brand/`
 
 The note bodies are structural placeholders. Replace them with Hoda's real derivations, setup notes, and project documentation.
+
+## Deployment
+
+GitHub Pages is configured through `.github/workflows/deploy.yml`. Every push to `main` runs `npm ci`, `npm run build`, and deploys Astro's `dist/` output.

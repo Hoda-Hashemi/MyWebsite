@@ -1,0 +1,41 @@
+---
+import "../styles/global.css";
+
+const {
+  title = "Hoda Hashemi | Discretized Flow",
+  description = "Hoda Hashemi is a computational physicist working in ocean dynamics, numerical modeling, QGSW, MITgcm, CUDA/HPC, and LLM/RAG tools.",
+  pageClass = ""
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0B0C10" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}] });"
+    ></script>
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#content">Skip interactive hero</a>
+    <slot />
+    <script>
+      import "../scripts/flow-field.js";
+    </script>
+  </body>
+</html>

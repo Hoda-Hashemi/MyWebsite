@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+---
+<BaseLayout pageClass="note-page" title="QGSW Notes | Hoda Hashemi">
+  <Header />
+  <main id="content" class="note-layout">
+    <article class="note-article">
+      <p class="eyebrow">Research note / structural placeholder</p>
+      <h1>QGSW potential-vorticity structure</h1>
+      <p class="lede">Placeholder page for Hoda's quasi-geostrophic shallow-water derivations. Replace with the full derivation when ready.</p>
+      <h2 id="state">State variables</h2>
+      <p>The model tracks horizontal velocity, layer depth, relative vorticity, and potential vorticity. The organizing invariant is shallow-water potential vorticity.</p>
+      <div class="equation">\( q = \frac&#123;\zeta + f&#125;&#123;H&#125; \)</div>
+      <h2 id="scaling">Scaling</h2>
+      <p>The Rossby number expresses the ratio of advective to rotational time scales.</p>
+      <div class="equation">\( Ro = \frac&#123;U&#125;&#123;f_0 L&#125; \)</div>
+      <h2 id="sphere">Spherical geometry</h2>
+      <p>On the sphere, coordinate choices affect numerical conditioning, vorticity reconstruction, and streamfunction inversion.</p>
+    </article>
+    <aside class="toc"><a href="#state">State variables</a><a href="#scaling">Scaling</a><a href="#sphere">Spherical geometry</a><a href="/#notebook">Back to notes</a></aside>
+  </main>
+</BaseLayout>
