@@ -43,6 +43,14 @@ function initReveals() {
       }
     );
   });
+
+  gsap.utils.toArray(".premium-home .hero-identity, .premium-home .hero-copy, .premium-home .hero-readout").forEach((node, index) => {
+    gsap.fromTo(
+      node,
+      { y: 28, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.1, delay: 0.1 + index * 0.08, ease: "power3.out" }
+    );
+  });
 }
 
 function initCursor() {
@@ -80,6 +88,28 @@ function initMagnetic() {
   });
 }
 
+function initPremiumPointer() {
+  const root = document.querySelector(".premium-home");
+  if (!root || matchMedia("(pointer: coarse)").matches) return;
+  let x = 0.5;
+  let y = 0.5;
+  let tx = 0.5;
+  let ty = 0.5;
+  window.addEventListener("pointermove", (event) => {
+    tx = event.clientX / Math.max(1, window.innerWidth);
+    ty = event.clientY / Math.max(1, window.innerHeight);
+  }, { passive: true });
+
+  function tick() {
+    x += (tx - x) * 0.08;
+    y += (ty - y) * 0.08;
+    root.style.setProperty("--mx", x.toFixed(4));
+    root.style.setProperty("--my", y.toFixed(4));
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+
 function initHeroField() {
   const canvas = document.querySelector("#vortex-field");
   if (!(canvas instanceof HTMLCanvasElement)) return;
@@ -90,7 +120,7 @@ function initHeroField() {
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
   camera.position.z = 2;
 
-  const count = 4096;
+  const count = 6144;
   const positions = new Float32Array(count * 3);
   const phase = new Float32Array(count);
   const state = Array.from({ length: count }, (_, i) => {
@@ -107,6 +137,28 @@ function initHeroField() {
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute("phase", new THREE.BufferAttribute(phase, 1));
 
+  const lattice = new THREE.Group();
+  const latticeMaterial = new THREE.LineBasicMaterial({
+    color: "#F7F4ED",
+    transparent: true,
+    opacity: 0.085
+  });
+  for (let i = 0; i < 18; i += 1) {
+    const y = -1 + i * (2 / 17);
+    const horizontal = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-1.35, y, 0),
+      new THREE.Vector3(1.35, y + Math.sin(i) * 0.02, 0)
+    ]);
+    const x = -1 + i * (2 / 17);
+    const vertical = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(x, -1.25, 0),
+      new THREE.Vector3(x + Math.cos(i) * 0.02, 1.25, 0)
+    ]);
+    lattice.add(new THREE.Line(horizontal, latticeMaterial));
+    lattice.add(new THREE.Line(vertical, latticeMaterial));
+  }
+  scene.add(lattice);
+
   const material = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
@@ -122,7 +174,7 @@ function initHeroField() {
       void main() {
         vPhase = phase;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = 2.4;
+        gl_PointSize = 3.2;
       }
     `,
     fragmentShader: `
@@ -147,7 +199,7 @@ function initHeroField() {
         float threshold = bayer(floor(gl_FragCoord.xy / max(1.0, uDensity)));
         float signal = step(threshold, 0.62 + 0.22 * sin(vPhase * 6.283));
         vec3 color = mix(uColor, uWarm, step(0.93, vPhase));
-        gl_FragColor = vec4(color, circle * signal * 0.88);
+        gl_FragColor = vec4(color, circle * signal * 0.98);
       }
     `
   });
@@ -156,12 +208,15 @@ function initHeroField() {
   const pointer = { x: 0, y: 0, active: false, strength: 0 };
   const density = document.querySelector("#density");
   const densityOut = document.querySelector("#density-readout");
+  const particleOut = document.querySelector("#particle-readout");
   const frameOut = document.querySelector("#frame-readout");
+
+  if (particleOut) particleOut.textContent = String(count);
 
   density?.addEventListener("input", () => {
     const value = Number(density.value);
     material.uniforms.uDensity.value = value;
-    if (densityOut) densityOut.value = String(value);
+    if (densityOut) densityOut.textContent = String(value);
   });
 
   canvas.addEventListener("pointermove", (event) => {
@@ -230,9 +285,11 @@ function initHeroField() {
     pointer.strength *= 0.965;
     geometry.attributes.position.needsUpdate = true;
     material.uniforms.uTime.value = t;
+    lattice.rotation.z = Math.sin(t * 0.18) * 0.04;
+    lattice.scale.setScalar(1 + Math.sin(t * 0.12) * 0.025);
     renderer.render(scene, camera);
     frame += 1;
-    if (frameOut && frame % 6 === 0) frameOut.textContent = `frame ${String(frame).padStart(4, "0")}`;
+    if (frameOut && frame % 6 === 0) frameOut.textContent = String(frame).padStart(4, "0");
     if (!reduced) requestAnimationFrame(animate);
   }
   animate();
@@ -248,16 +305,41 @@ function initPanelCanvases() {
     camera.position.z = 2;
     const group = new THREE.Group();
     const kind = canvas.dataset.kind;
-    const material = new THREE.LineBasicMaterial({ color: kind === "cuda" ? "#FF6B4A" : "#21E6C1", transparent: true, opacity: 0.72 });
-    for (let j = 0; j < 12; j += 1) {
+    const colorMap = {
+      qgsw: "#49F4D1",
+      mitgcm: "#C8AA6E",
+      cuda: "#FF4D3D",
+      rag: "#F7F4ED"
+    };
+    const material = new THREE.LineBasicMaterial({ color: colorMap[kind] || "#49F4D1", transparent: true, opacity: 0.78 });
+    for (let j = 0; j < 16; j += 1) {
       const points = [];
-      for (let i = 0; i < 90; i += 1) {
-        const x = -1 + i / 44.5;
-        const y = Math.sin(i * 0.16 + j * 0.42) * 0.12 + (j - 5.5) * 0.12;
+      for (let i = 0; i < 120; i += 1) {
+        const x = -1 + i / 59.5;
+        const y =
+          Math.sin(i * 0.13 + j * 0.42) * 0.1 +
+          Math.cos(i * 0.037 + j) * 0.035 +
+          (j - 7.5) * 0.09;
         points.push(new THREE.Vector3(x, y, 0));
       }
       group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material));
     }
+    const accentMaterial = new THREE.PointsMaterial({
+      color: kind === "cuda" ? "#FF4D3D" : "#F7F4ED",
+      size: 0.018,
+      transparent: true,
+      opacity: 0.62
+    });
+    const accentPositions = new Float32Array(160 * 3);
+    for (let i = 0; i < 160; i += 1) {
+      accentPositions[i * 3] = Math.random() * 2 - 1;
+      accentPositions[i * 3 + 1] = Math.random() * 1.55 - 0.775;
+      accentPositions[i * 3 + 2] = 0;
+    }
+    const accentGeometry = new THREE.BufferGeometry();
+    accentGeometry.setAttribute("position", new THREE.BufferAttribute(accentPositions, 3));
+    const points = new THREE.Points(accentGeometry, accentMaterial);
+    group.add(points);
     scene.add(group);
 
     function resize() {
@@ -271,6 +353,7 @@ function initPanelCanvases() {
       group.rotation.z = Math.sin(time * 0.00035) * 0.04;
       group.children.forEach((line, idx) => {
         line.position.x = Math.sin(time * 0.0008 + idx) * 0.04;
+        line.position.y = Math.cos(time * 0.00055 + idx) * 0.012;
       });
       renderer.render(scene, camera);
       if (!reduced) requestAnimationFrame(tick);
@@ -284,6 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initReveals();
   initCursor();
   initMagnetic();
+  initPremiumPointer();
   initHeroField();
   initPanelCanvases();
 });

@@ -6,35 +6,39 @@ import Footer from "../components/Footer.astro";
 const pillars = [
   {
     id: "qgsw",
-    label: "01 / QGSW",
-    title: "Quasi-geostrophic shallow-water dynamics",
-    body: "Vortex-in-cell modeling over the sphere, potential vorticity, coordinate systems, and streamfunction formulation.",
+    label: "Field 01",
+    title: "QGSW dynamics",
+    body: "Quasi-geostrophic shallow-water models, spherical vortex methods, potential vorticity, and streamfunction structure.",
     href: "/notes/qgsw/",
-    metric: "PV residual 2.1e-4"
+    metric: "PV residual 2.1e-4",
+    signal: "vorticity"
   },
   {
     id: "mitgcm",
-    label: "02 / MITgcm",
-    title: "Simulation workflow and model anatomy",
-    body: "Installation notes, verification experiments, source structure, and reproducible tutorial workflows for the MIT General Circulation Model.",
+    label: "Field 02",
+    title: "MITgcm systems",
+    body: "Simulation workflows, verification experiments, source anatomy, diagnostics, and reproducible ocean-model operations.",
     href: "/notes/mitgcm/",
-    metric: "build graph 93 nodes"
+    metric: "build graph 93 nodes",
+    signal: "verification"
   },
   {
     id: "cuda",
-    label: "03 / CUDA + HPC",
-    title: "Parallel scientific computing",
+    label: "Field 03",
+    title: "CUDA / HPC",
     body: "GPU kernels, memory movement, reductions, occupancy diagnostics, and performance-aware numerical implementation.",
     href: "/notes/cuda/",
-    metric: "throughput x38"
+    metric: "throughput x38",
+    signal: "throughput"
   },
   {
     id: "rag",
-    label: "04 / LLM + RAG",
-    title: "Agentic interfaces for scientific code",
-    body: "Retrieval-augmented workflows for documentation lookup, code modification, simulation execution, and model-code explanation.",
+    label: "Field 04",
+    title: "LLM + RAG tools",
+    body: "Retrieval-augmented interfaces for model-code navigation, documentation lookup, code modification, and simulation execution.",
     href: "/notes/rag/",
-    metric: "retrieval k=8"
+    metric: "retrieval k=8",
+    signal: "interface"
   }
 ];
 
@@ -44,23 +48,40 @@ const notes = [
   ["2026-07-03", "CUDA/HPC implementation notes", "Kernel structure, memory hierarchy, reductions, and profiling discipline.", "/notes/cuda/"],
   ["2026-07-03", "LLM/RAG for scientific models", "Agentic retrieval workflows for scientific modeling documentation and code.", "/notes/rag/"]
 ];
+
+const stats = [
+  ["domain", "geophysical fluids"],
+  ["method", "discretized dynamics"],
+  ["stack", "Fortran / CUDA / Python"],
+  ["interface", "scientific AI tools"]
+];
+
+const chapters = [
+  ["01", "Resolve", "Continuous flow is translated into discrete, inspectable computational fields."],
+  ["02", "Simulate", "Ocean-model workflows become reproducible systems with visible assumptions and diagnostics."],
+  ["03", "Accelerate", "Numerical kernels are shaped around memory, locality, stability, and measured throughput."],
+  ["04", "Explain", "Retrieval systems expose model code, documents, and run logic as navigable scientific interfaces."]
+];
 ---
-<BaseLayout pageClass="home-page" title="Hoda Hashemi | Discretized Flow">
+<BaseLayout pageClass="home-page premium-home" title="Hoda Hashemi | Computational Physics">
   <Header />
   <main id="content">
-    <section class="hero" aria-label="Interactive discretized vortex field">
+    <section class="hero premium-hero" aria-label="Interactive computational ocean field">
       <canvas id="vortex-field" class="vortex-field" aria-hidden="true"></canvas>
-      <div class="dither-overlay" aria-hidden="true"></div>
+      <div class="field-fog" aria-hidden="true"></div>
+      <div class="hero-grain" aria-hidden="true"></div>
       <div class="cursor-ring" aria-hidden="true"></div>
-      <div class="hero-wordmark">
-        <img src="/brand/wordmark-horizontal.svg" alt="Hoda Hashemi Discretized Flow" width="720" height="190" />
+
+      <div class="hero-identity panel-resolve">
+        <p class="eyebrow">Computational physics / ocean dynamics / numerical modeling</p>
+        <h1 class="hero-title">Hoda Hashemi</h1>
       </div>
-      <div class="hero-copy">
-        <p class="eyebrow">Computational physicist / ocean dynamics / numerical modeling</p>
-        <h1>Continuous fluid physics, resolved through a visible computational grid.</h1>
+
+      <div class="hero-copy panel-resolve">
+        <p class="hero-line">Continuous fluid physics, resolved through visible computation.</p>
         <p>
-          Hoda Hashemi works across QGSW dynamics, MITgcm simulation workflows,
-          CUDA/HPC, and LLM/RAG tools for scientific modeling code.
+          A research portfolio for geophysical flow, QGSW theory, MITgcm systems,
+          CUDA/HPC implementation, and retrieval interfaces for scientific code.
         </p>
         <div class="hero-links">
           <a class="magnetic" href="/CV/">Open CV</a>
@@ -68,20 +89,64 @@ const notes = [
           <a class="magnetic" href="https://github.com/Hoda-Hashemi" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
-      <aside class="sim-controls" aria-label="Simulation controls">
-        <label for="density">grid density</label>
-        <input id="density" type="range" min="4" max="14" value="8" />
-        <output id="density-readout" for="density">8</output>
-        <span id="particle-readout">particles 4096</span>
-        <span id="frame-readout">frame 0000</span>
+
+      <aside class="hero-readout panel-resolve" aria-label="Live field readout">
+        <div>
+          <span>resolution</span>
+          <strong id="density-readout">8</strong>
+        </div>
+        <div>
+          <span>particles</span>
+          <strong id="particle-readout">4096</strong>
+        </div>
+        <div>
+          <span>frame</span>
+          <strong id="frame-readout">0000</strong>
+        </div>
+        <label class="density-control" for="density">
+          <span>grid density</span>
+          <input id="density" type="range" min="4" max="14" value="8" />
+        </label>
       </aside>
-      <a class="scroll-cue" href="#research">scroll / resolve</a>
+
+      <div class="hero-stat-strip panel-resolve" aria-label="Research summary">
+        {stats.map(([label, value]) => (
+          <span><small>{label}</small>{value}</span>
+        ))}
+      </div>
+      <a class="scroll-cue magnetic" href="#research">Scroll / resolve</a>
     </section>
 
-    <section id="research" class="research-section">
+    <section id="research" class="cinema-section">
+      <div class="cinema-copy panel-resolve">
+        <p class="eyebrow">Research operating system</p>
+        <h2 class="section-title">A premium surface for serious computational work.</h2>
+      </div>
+      <div class="cinema-stage" aria-label="Research process">
+        <div class="stage-visual panel-resolve">
+          <canvas class="panel-canvas stage-canvas" data-kind="qgsw" aria-hidden="true"></canvas>
+          <div class="stage-readouts">
+            <span>stable timestep</span>
+            <span>spectral trace</span>
+            <span>memory locality</span>
+          </div>
+        </div>
+        <div class="stage-chapters">
+          {chapters.map(([num, title, body]) => (
+            <article class="chapter-card panel-resolve">
+              <span>{num}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="research-section premium-research">
       <div class="section-intro panel-resolve">
-        <p class="eyebrow">Research map</p>
-        <h2>Four instruments in the same lab.</h2>
+        <p class="eyebrow">Selected fields</p>
+        <h2 class="section-title">Four instruments in the same lab.</h2>
       </div>
       {pillars.map((pillar) => (
         <article class="research-panel panel-resolve" data-panel={pillar.id}>
@@ -93,16 +158,17 @@ const notes = [
           </div>
           <div class="panel-instrument">
             <canvas class="panel-canvas" data-kind={pillar.id} aria-hidden="true"></canvas>
-            <span>{pillar.metric}</span>
+            <span>{pillar.signal}</span>
+            <strong>{pillar.metric}</strong>
           </div>
         </article>
       ))}
     </section>
 
-    <section id="notebook" class="notebook-section panel-resolve">
+    <section id="notebook" class="notebook-section premium-notebook panel-resolve">
       <div class="section-intro">
-        <p class="eyebrow">Notebook / scribbles</p>
-        <h2>Readable notes after the field resolves.</h2>
+        <p class="eyebrow">Notebook archive</p>
+        <h2 class="section-title">Readable notes after the field resolves.</h2>
       </div>
       <div class="note-list">
         {notes.map(([date, title, description, href]) => (
@@ -115,20 +181,20 @@ const notes = [
       </div>
     </section>
 
-    <section id="about" class="about-section panel-resolve">
+    <section id="about" class="about-section premium-about panel-resolve">
       <div>
-        <p class="eyebrow">About / CV</p>
-        <h2>Geophysical fluids, numerical methods, and scientific interfaces.</h2>
+        <p class="eyebrow">Profile</p>
+        <h2 class="section-title">Geophysical fluids, numerical methods, and scientific interfaces.</h2>
       </div>
       <div class="about-body">
         <p>
           Hoda Hashemi is a computational physicist working in ocean dynamics and numerical modeling.
           The core thread is discretization: translating continuous geophysical flow into stable,
-          inspectable, computational fields.
+          inspectable computational fields.
         </p>
         <p>
-          This site uses the same idea visually: a vortex field, dithered into cells, with resolution
-          exposed as a live control.
+          The website follows the same logic: a live field, a restrained interface, and research
+          surfaces that treat derivations, simulations, and software as one connected system.
         </p>
         <a class="text-link magnetic" href="/CV/">Open print-friendly CV</a>
       </div>

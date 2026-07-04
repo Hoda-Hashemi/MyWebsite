@@ -1,6 +1,6 @@
 # Hoda Hashemi Website
 
-Astro + Three.js personal portfolio for Hoda Hashemi, built around the "Discretized Flow" identity: continuous vortex dynamics resolved through a visible computational grid/dither field.
+Astro + Three.js personal portfolio for Hoda Hashemi, built as a high-end immersive computational-physics website. The homepage uses a live WebGL field, smooth-scroll choreography, premium typography, scientific readouts, and research panels around the "Discretized Flow" identity.
 
 Live site: https://hodahashemi.com/
 
@@ -18,8 +18,8 @@ npm run dev
 ## Content editing
 
 - Main landing page: `src/pages/index.astro`
-- Global styling: `src/styles/global.css`
-- Three.js vortex/dither simulation: `src/scripts/flow-field.js`
+- Global styling and premium homepage system: `src/styles/global.css`
+- Three.js vortex field, panel instruments, smooth scroll, and interactions: `src/scripts/flow-field.js`
 - Print-friendly CV page: `src/pages/CV.astro`
 - Placeholder research-note pages: `src/pages/notes/*.astro`
 - Generated identity assets: `identity/` and `public/brand/`
