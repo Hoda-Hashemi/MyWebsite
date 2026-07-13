@@ -5,9 +5,7 @@ export default function NotFound() {
   return (
     <div className="container-page flex min-h-[70svh] flex-col items-center justify-center py-24 text-center">
       <p className="tag">Error 404</p>
-      <p aria-hidden="true" className="monogram mt-6 text-8xl text-accent">
-        هـ
-      </p>
+      <span aria-hidden="true" className="mark-glyph mt-8 block h-24 w-40" />
       <h1 className="mt-6 text-3xl font-semibold md:text-4xl">
         This page diverged.
       </h1>

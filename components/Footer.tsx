@@ -7,9 +7,7 @@ export function Footer() {
     <footer className="border-t border-line">
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1fr_auto_auto] md:gap-20">
         <div className="max-w-sm">
-          <span aria-hidden="true" className="monogram block text-4xl text-accent">
-            هـ
-          </span>
+          <span aria-hidden="true" className="mark-glyph block h-10 w-16" />
           <p className="mt-4 text-sm leading-relaxed text-muted">
             {site.name} — computational physicist. Ocean dynamics, numerical
             modeling, GPU computing, and tools that make simulation feel simple.

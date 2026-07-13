@@ -10,6 +10,7 @@ import {
 import { Reveal, StaggerText } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Ticker } from "@/components/Ticker";
+import { HeroMark } from "@/components/HeroMark";
 import { focusAreas, articles, type Focus } from "@/lib/data";
 import { site } from "@/lib/site";
 
@@ -25,37 +26,34 @@ export default function HomePage() {
     <>
       {/* ================= HERO ================= */}
       <section className="aurora relative overflow-hidden">
+        <div aria-hidden="true" className="cursor-glow" />
+        <HeroMark />
 
         <div className="container-page relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-24">
-          {/* terminal meta row */}
           <Reveal delay={0.05}>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5">
-                <span
-                  aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-accent"
-                />
-                Open to research collaboration
-              </span>
-              <span className="hidden sm:inline">33.90°N — 35.48°E // BEIRUT</span>
-              <span className="hidden md:inline">SYS: OCEAN / GPU / LLM</span>
-            </div>
+            <p className="tag">Hoda — /huː.dʌ/ — say it like “who?-duh!”</p>
           </Reveal>
 
-          <h1 className="mt-10 max-w-4xl text-[2.6rem] font-semibold leading-[1.02] sm:text-6xl md:text-7xl">
-            <StaggerText text="Continuous physics," delay={0.15} />
+          <h1 className="mt-6 max-w-4xl text-[2.6rem] font-semibold leading-[1.02] sm:text-6xl md:text-7xl">
+            <StaggerText text="Hi, I’m Hoda Hashemi —" delay={0.15} />
             <br />
             <StaggerText
-              text="discrete computation."
-              delay={0.5}
+              text="I spin planets for a living."
+              delay={0.55}
               className="text-gradient"
             />
             <span aria-hidden="true" className="caret" />
           </h1>
 
-          <Reveal delay={0.85}>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
-              I&apos;m {site.name} — a computational physicist modeling ocean
+          <Reveal delay={0.8}>
+            <p className="mt-5 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-muted">
+              computational physicist · vortex herder · GPU whisperer
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.9}>
+            <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
+              A computational physicist modeling ocean
               dynamics with numerical methods, from quasi-geostrophic theory
               (the mathematics of large-scale ocean flow) to CUDA kernels and
               LLM agents that operate simulation code.
@@ -163,9 +161,7 @@ export default function HomePage() {
                   aria-hidden="true"
                   className="hidden select-none items-center justify-center md:flex"
                 >
-                  <div className="monogram text-[9rem] leading-none text-accent opacity-90">
-                    هـ
-                  </div>
+                  <span className="mark-glyph h-40 w-64 opacity-90" />
                 </div>
               </div>
             </div>

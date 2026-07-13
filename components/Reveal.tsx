@@ -72,7 +72,7 @@ export function StaggerText({
     >
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-          <motion.span aria-hidden="true" className="inline-block" variants={word}>
+          <motion.span aria-hidden="true" className={`inline-block ${className ?? ""}`} variants={word}>
             {w}
             {i < words.length - 1 ? " " : ""}
           </motion.span>

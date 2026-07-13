@@ -63,7 +63,7 @@ export default function BrandPage() {
           </Reveal>
           <Reveal delay={0.25}>
             <p className="mt-8 max-w-2xl leading-relaxed text-muted">
-              The mark is a calligraphic <span className="monogram text-accent">هـ</span> in
+              The mark is a calligraphic <span aria-label="heh" className="mark-inline" /> in
               orbit: the kashida becomes a trajectory, the loop an orbital ring, the crescent
               a swing-by. It is drawn once, by hand — never redrawn, retraced, or approximated.
             </p>
@@ -154,7 +154,7 @@ export default function BrandPage() {
           <SectionHeading
             tag="Typography"
             title="A precise voice, a terminal accent."
-            sub="Geist carries the message. Geist Mono carries the instrumentation. IBM Plex Sans Arabic carries the letter هـ itself."
+            sub="Geist carries the message. Geist Mono carries the instrumentation. IBM Plex Sans Arabic carries the letterform behind the mark."
           />
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             <Reveal>
@@ -175,8 +175,8 @@ export default function BrandPage() {
             </Reveal>
             <Reveal delay={0.16}>
               <div className="card h-full p-8">
-                <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">IBM Plex Sans Arabic — the letter</p>
-                <p className="monogram mt-4 text-6xl text-accent">هـ</p>
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">IBM Plex Sans Arabic — the letterform</p>
+                <span className="mark-glyph mt-6 block h-16 w-28" />
                 <p className="mt-4 text-lg font-semibold">The initial of Hoda.</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted">Reserved for the letterform itself — never for running Arabic text set small.</p>
               </div>

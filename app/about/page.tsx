@@ -49,11 +49,22 @@ export default function AboutPage() {
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
           <p className="tag">About — CV</p>
-          <h1 className="mt-4 text-4xl font-semibold md:text-6xl">
+          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted">
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Open to research collaboration
+            </span>
+            <span>33.90°N — 35.48°E · Beirut</span>
+            <span className="hidden sm:inline">SYS: OCEAN / GPU / LLM</span>
+          </div>
+          <h1 className="mt-5 text-4xl font-semibold md:text-6xl">
             Hoda <span className="text-gradient">Hashemi</span>
           </h1>
           <p className="mt-3 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-muted">
             {site.role} · American University of Beirut
+          </p>
+          <p className="mt-2 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-accent">
+            Hoda — /huː.dʌ/ — “who?-duh!”
           </p>
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
             My work sits where continuous physics meets discrete computation:
