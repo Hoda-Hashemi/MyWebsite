@@ -1,7 +1,10 @@
 node_modules/
+.next/
+out/
 dist/
-.astro/
 .DS_Store
 npm-debug.log*
+*.tsbuildinfo
 __pycache__/
 *.pyc
+.vercel
