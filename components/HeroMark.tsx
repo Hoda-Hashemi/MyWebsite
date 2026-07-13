@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
    Also drives the cursor-following gradient via --gx/--gy on the section. */
 export function HeroMark() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const hudRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -122,7 +123,7 @@ export function HeroMark() {
         2 * (x * y + z * w0), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w0),
       ];
       const SW = 1007, SH = 705, L = 26;
-      const base = Math.min(W, H) * 0.00075;
+      const base = Math.min(W, H) * 0.001;
       const gw = SW * base, gh = SH * base;
       const stepPx = Math.min(W, H) * 0.0026;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -135,6 +136,10 @@ export function HeroMark() {
       for (let i = L - 1; i >= 1; i--)
         ctx.drawImage(side, -gw / 2 + ex * i, -gh / 2 + ey * i, gw, gh);
       ctx.drawImage(face, -gw / 2, -gh / 2, gw, gh);
+      if (hudRef.current && Math.floor(now / 120) % 2 === 0) {
+        hudRef.current.textContent =
+          "ω = (" + w.map((v) => v.toFixed(1)).join(", ") + ") rad/s";
+      }
     };
     raf = requestAnimationFrame(frame);
 
@@ -147,10 +152,23 @@ export function HeroMark() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block"
-    />
+    <>
+      <div
+        aria-hidden="true"
+        className="container-page pointer-events-none absolute left-0 right-0 top-8 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted"
+      >
+        sandbox — <span className="text-accent">torque-free rigid body</span>, rk4, l conserved
+      </div>
+      <div
+        ref={hudRef}
+        aria-hidden="true"
+        className="container-page pointer-events-none absolute left-0 right-0 top-14 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-accent"
+      />
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+      />
+    </>
   );
 }

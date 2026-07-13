@@ -7,7 +7,7 @@ import {
   Globe2,
   Waves,
 } from "lucide-react";
-import { Reveal, StaggerText } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Ticker } from "@/components/Ticker";
 import { HeroMark } from "@/components/HeroMark";
@@ -25,68 +25,17 @@ export default function HomePage() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="aurora relative overflow-hidden">
+      <section
+        className="aurora relative overflow-hidden"
+        aria-label="Physics playground — the mark tumbling under the tennis-racket theorem"
+      >
         <div aria-hidden="true" className="cursor-glow" />
-        <HeroMark />
-
-        <div className="container-page relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-24">
-          <Reveal delay={0.05}>
-            <p className="tag">Hoda — /huː.dʌ/ — say it like “who?-duh!”</p>
-          </Reveal>
-
-          <h1 className="mt-6 max-w-4xl text-[2.6rem] font-semibold leading-[1.02] sm:text-6xl md:text-7xl">
-            <StaggerText text="Hi, I’m Hoda Hashemi —" delay={0.15} />
-            <br />
-            <StaggerText
-              text="I spin planets for a living."
-              delay={0.55}
-              className="text-gradient"
-            />
-            <span aria-hidden="true" className="caret" />
-          </h1>
-
-          <Reveal delay={0.8}>
-            <p className="mt-5 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-muted">
-              computational physicist · vortex herder · GPU whisperer
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.9}>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
-              A computational physicist modeling ocean
-              dynamics with numerical methods, from quasi-geostrophic theory
-              (the mathematics of large-scale ocean flow) to CUDA kernels and
-              LLM agents that operate simulation code.
-            </p>
-          </Reveal>
-
-          <Reveal delay={1}>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link href="/about/" className="btn btn-primary">
-                View portfolio <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link href="/projects/" className="btn btn-ghost">
-                Projects
-              </Link>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
-              >
-                GitHub <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal delay={1.15} className="mt-auto pt-16">
-            <p
-              aria-hidden="true"
-              className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted"
-            >
-              scroll ↓ // sections loaded: 04
-            </p>
-          </Reveal>
+        <div className="relative min-h-[calc(100svh-4rem)]">
+          <HeroMark />
+          <div className="container-page pointer-events-none absolute inset-x-0 bottom-6 flex items-end justify-between font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted">
+            <span>scroll ↓ // sections loaded: 04</span>
+            <span className="hidden sm:inline">swipe to apply torque — it obeys euler&apos;s equations</span>
+          </div>
         </div>
       </section>
 
