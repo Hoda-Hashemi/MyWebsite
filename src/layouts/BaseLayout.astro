@@ -2,10 +2,15 @@
 import "../styles/global.css";
 
 const {
-  title = "Hoda Hashemi | Discretized Flow",
-  description = "Premium personal portfolio for Hoda Hashemi, a computational physicist working in ocean dynamics, numerical modeling, QGSW, MITgcm, CUDA/HPC, and LLM/RAG tools.",
-  pageClass = ""
+  title = "Hoda Hashemi | Computational Physics",
+  description = "Portfolio and CV of Hoda Hashemi — a computational physicist in ocean dynamics and numerical modeling: QGSW theory, MITgcm ocean systems, CUDA/HPC, and LLM/RAG tools for scientific code.",
+  pageClass = "",
+  enableMath = false,
 } = Astro.props;
+
+const site = Astro.site ?? new URL("https://hodahashemi.com");
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL("/og-image.png", site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -13,29 +18,57 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0B0C10" />
+    <meta name="author" content="Hoda Hashemi" />
+    <meta name="theme-color" content="#050609" />
+    <link rel="canonical" href={canonical} />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hoda Hashemi — Discretized Flow" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hoda Hashemi" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{title}</title>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
-      onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}] });"
-    ></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    />
+
+    {enableMath && (
+      <>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+        <script
+          defer
+          is:inline
+          src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}] });"
+        ></script>
+      </>
+    )}
   </head>
   <body class={pageClass}>
-    <a class="skip-link" href="#content">Skip interactive hero</a>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <slot />
     <script>
-      import "../scripts/flow-field.js";
+      import "../scripts/main.js";
     </script>
   </body>
 </html>

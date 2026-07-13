@@ -7,7 +7,7 @@ import Footer from "../components/Footer.astro";
   <Header />
   <main id="content" class="cv-shell">
     <section class="cv-hero">
-      <img src="/brand/mark-teal.svg" alt="" width="92" height="92" />
+      <img src="/brand/mark-ink.svg" alt="" width="92" height="92" />
       <p class="eyebrow">CV / computational physics / ocean dynamics</p>
       <h1>Hoda Hashemi</h1>
       <p>
@@ -45,11 +45,18 @@ import Footer from "../components/Footer.astro";
     </section>
 
     <section class="cv-timeline">
-      <h2>Research and projects</h2>
+      <h2>Research</h2>
+      <article><time>08/2025-current</time><div><h3>Graduate Research Assistant</h3><p>Microflows and Microscale Heat Transfer Laboratory, American University of Beirut.</p></div></article>
       <article><time>08/2024-current</time><div><h3>MITgcm simulations of atmosphere-ocean dynamics</h3><p>Simulation workflows and numerical experiments based on atmosphere-ocean climate dynamics.</p></div></article>
       <article><time>05/2024-current</time><div><h3>Vortex-in-cell model for QG shallow water on the sphere</h3><p>Computational modeling for quasi-geostrophic shallow-water equations over spherical geometry.</p></div></article>
+    </section>
+
+    <section class="cv-timeline">
+      <h2>Selected projects</h2>
       <article><time>04/2025-05/2025</time><div><h3>Agentic system for MITgcm</h3><p>LLM/RAG interface for querying documentation, modifying code, and executing simulations through natural language.</p></div></article>
       <article><time>03/2024-05/2024</time><div><h3>Needleman-Wunsch on CUDA</h3><p>Parallel implementation using CUDA and Octopus HPC, with reduction trees, stencils, coarsening, and occupancy optimization.</p></div></article>
+      <article><time>11/2023-12/2023</time><div><h3>Diffusion-convection PDE on a T-shaped membrane</h3><p>Finite-element and Galerkin analysis using FreeFem and MATLAB, with numerical and analytical comparison.</p></div></article>
+      <article><time>02/2023-05/2023</time><div><h3>High-dimensional inference of nonlinear dynamical systems</h3><p>Data assimilation for the Van der Pol oscillator using adjoint-based BFGS and Bayesian optimization.</p></div></article>
     </section>
   </main>
   <Footer />

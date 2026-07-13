@@ -8,7 +8,6 @@ No drawing is freehanded; every cell is selected from the analytic curve.
 from __future__ import annotations
 
 import math
-import os
 import struct
 import zlib
 from pathlib import Path
@@ -18,11 +17,23 @@ IDENTITY = ROOT / "identity"
 PUBLIC = ROOT / "public"
 BRAND = PUBLIC / "brand"
 
-INK = "#0B0C10"
-SURFACE = "#14161C"
-TEXT = "#F2F1ED"
-TEAL = "#21E6C1"
-WARM = "#FF6B4A"
+INK = "#050609"
+SURFACE = "#0E1116"
+TEXT = "#F4F2EC"
+TEAL = "#49F4D1"
+WARM = "#FF5A3D"
+GOLD = "#C8AA6E"
+
+
+def core_split(cells, grid, core_radius=0.16):
+    """Split cells into (core, outer) by normalized distance to the vortex center.
+    The core carries the warm counter-vorticity accent; the outer arms stay teal."""
+    core, outer = set(), set()
+    for gx, gy in cells:
+        nx = (gx + 0.5) / grid - 0.5
+        ny = (gy + 0.5) / grid - 0.5
+        (core if (nx * nx + ny * ny) ** 0.5 < core_radius else outer).add((gx, gy))
+    return core, outer
 
 
 def spiral_points(turns: float = 3.35, samples: int = 960) -> list[tuple[float, float, float]]:
@@ -70,16 +81,24 @@ def mark_svg(
     grid: int,
     size: int = 512,
     color: str = TEAL,
+    accent: str | None = None,
     background: str | None = None,
     title: str = "Discretized Flow mark",
 ) -> None:
     cells = vortex_cells(grid=grid, thickness=1.52 / grid)
     bg = f'<rect width="{size}" height="{size}" fill="{background}"/>' if background else ""
-    d = path_for_cells(cells, grid, size)
+    if accent:
+        core, outer = core_split(cells, grid)
+        paths = (
+            f'<path fill="{color}" d="{path_for_cells(outer, grid, size)}"/>'
+            f'<path fill="{accent}" d="{path_for_cells(core, grid, size)}"/>'
+        )
+    else:
+        paths = f'<path fill="{color}" d="{path_for_cells(cells, grid, size)}"/>'
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {size} {size}" role="img" aria-label="{title}">
   <title>{title}</title>
   {bg}
-  <path fill="{color}" d="{d}"/>
+  {paths}
 </svg>
 '''
     path.write_text(svg, encoding="utf-8")
@@ -95,11 +114,12 @@ def lockup_svg(path: Path, *, stacked: bool = False) -> None:
     text_y = 91 if not stacked else 292
     anchor = "start" if not stacked else "middle"
     cells = vortex_cells(grid=30, thickness=1.52 / 30)
-    d = path_for_cells(cells, 30, mark_size)
+    core, outer = core_split(cells, 30)
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-label="Hoda Hashemi wordmark">
   <rect width="{width}" height="{height}" fill="{INK}"/>
   <g transform="translate({mark_x:.1f} {mark_y:.1f})">
-    <path fill="{TEAL}" d="{d}"/>
+    <path fill="{TEAL}" d="{path_for_cells(outer, 30, mark_size)}"/>
+    <path fill="{WARM}" d="{path_for_cells(core, 30, mark_size)}"/>
   </g>
   <text x="{text_x}" y="{text_y}" fill="{TEXT}" font-family="Space Grotesk, Arial, sans-serif" font-size="46" font-weight="600" text-anchor="{anchor}">Hoda Hashemi</text>
   <text x="{text_x}" y="{text_y + 38}" fill="{TEAL}" font-family="Space Grotesk, Arial, sans-serif" font-size="16" letter-spacing="3" text-anchor="{anchor}">DISCRETIZED FLOW</text>
@@ -127,20 +147,23 @@ def hex_rgba(value: str, alpha: int = 255) -> tuple[int, int, int, int]:
     return int(value[0:2], 16), int(value[2:4], 16), int(value[4:6], 16), alpha
 
 
-def raster_mark(path: Path, size: int, *, grid: int, bg: str = INK, fg: str = TEAL) -> None:
+def raster_mark(path: Path, size: int, *, grid: int, bg: str = INK, fg: str = TEAL, accent: str | None = None) -> None:
     pixels = [hex_rgba(bg) for _ in range(size * size)]
     cells = vortex_cells(grid=grid, thickness=1.55 / grid)
     cell = size / grid
     inset = max(1, int(cell * 0.13))
     fg_rgba = hex_rgba(fg)
+    accent_rgba = hex_rgba(accent) if accent else fg_rgba
+    core = core_split(cells, grid)[0] if accent else set()
     for gx, gy in cells:
         x0 = int(gx * cell) + inset
         y0 = int(gy * cell) + inset
         x1 = int((gx + 1) * cell) - inset
         y1 = int((gy + 1) * cell) - inset
+        color = accent_rgba if (gx, gy) in core else fg_rgba
         for y in range(max(0, y0), min(size, y1)):
             for x in range(max(0, x0), min(size, x1)):
-                pixels[y * size + x] = fg_rgba
+                pixels[y * size + x] = color
     path.write_bytes(png_bytes(size, size, pixels))
 
 
@@ -222,21 +245,23 @@ def main() -> None:
 
     mark_svg(IDENTITY / "mark-dark.svg", grid=34, color=INK, background=None, title="Discretized Flow mark dark")
     mark_svg(IDENTITY / "mark-light.svg", grid=34, color=TEXT, background=None, title="Discretized Flow mark light")
-    mark_svg(BRAND / "mark-teal.svg", grid=34, color=TEAL, background=None)
-    mark_svg(PUBLIC / "favicon.svg", grid=13, color=TEAL, background=INK, title="Hoda Hashemi favicon")
+    mark_svg(BRAND / "mark-teal.svg", grid=34, color=TEAL, accent=WARM, background=None)
+    mark_svg(BRAND / "mark-ink.svg", grid=34, color="#0B0C10", accent="#B23417", background=None, title="Discretized Flow mark for light surfaces")
+    mark_svg(PUBLIC / "favicon.svg", grid=13, color=TEAL, accent=WARM, background=INK, title="Hoda Hashemi favicon")
     lockup_svg(IDENTITY / "wordmark-horizontal.svg", stacked=False)
     lockup_svg(IDENTITY / "wordmark-stacked.svg", stacked=True)
     lockup_svg(BRAND / "wordmark-horizontal.svg", stacked=False)
 
     for size, grid in [(16, 8), (32, 10), (48, 12), (180, 18), (192, 22), (512, 38)]:
+        acc = WARM if size >= 180 else None
         target = BRAND / f"icon-{size}.png"
-        raster_mark(target, size, grid=grid)
+        raster_mark(target, size, grid=grid, accent=acc)
         if size == 180:
-            raster_mark(PUBLIC / "apple-touch-icon.png", size, grid=grid)
+            raster_mark(PUBLIC / "apple-touch-icon.png", size, grid=grid, accent=acc)
         if size == 192:
-            raster_mark(PUBLIC / "pwa-192.png", size, grid=grid)
+            raster_mark(PUBLIC / "pwa-192.png", size, grid=grid, accent=acc)
         if size == 512:
-            raster_mark(PUBLIC / "pwa-512.png", size, grid=grid)
+            raster_mark(PUBLIC / "pwa-512.png", size, grid=grid, accent=acc)
 
     ico(PUBLIC / "favicon.ico", [BRAND / "icon-16.png", BRAND / "icon-32.png", BRAND / "icon-48.png"])
     raster_og(PUBLIC / "og-image.png")
@@ -249,8 +274,8 @@ def main() -> None:
     { "src": "/pwa-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/pwa-512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#0B0C10",
-  "background_color": "#0B0C10",
+  "theme_color": "#050609",
+  "background_color": "#050609",
   "display": "standalone"
 }
 """,
