@@ -20,7 +20,7 @@ function TimelineSection({
   return (
     <section className="mt-16">
       <Reveal>
-        <h2 className="tag">{`// ${tag}`}</h2>
+        <h2 className="tag">{tag}</h2>
       </Reveal>
       <ol className="mt-6 border-l border-line">
         {entries.map((e, i) => (
@@ -48,9 +48,9 @@ export default function AboutPage() {
       {/* header */}
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
-          <p className="tag">// About — CV</p>
+          <p className="tag">About — CV</p>
           <h1 className="mt-4 text-4xl font-semibold md:text-6xl">
-            Hoda <span className="text-accent">Hashemi</span>
+            Hoda <span className="text-gradient">Hashemi</span>
           </h1>
           <p className="mt-3 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-muted">
             {site.role} · American University of Beirut
@@ -165,7 +165,7 @@ export default function AboutPage() {
       {/* projects */}
       <section className="mt-16">
         <Reveal>
-          <h2 className="tag">// Selected projects</h2>
+          <h2 className="tag">Selected projects</h2>
         </Reveal>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2">
           {projects.map((p, i) => (
@@ -185,7 +185,7 @@ export default function AboutPage() {
       {/* skills */}
       <section className="mt-16">
         <Reveal>
-          <h2 className="tag">// Stack</h2>
+          <h2 className="tag">Stack</h2>
         </Reveal>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {skills.map((s, i) => (

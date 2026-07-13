@@ -106,12 +106,25 @@ p { text-wrap: pretty; }
 
 /* terminal-style micro label:  // SECTION 01 */
 .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
+}
+/* the mark as the label bullet (was: //) */
+.tag::before {
+  content: "";
+  flex: none;
+  width: 1.35em;
+  height: 0.95em;
+  background: var(--accent);
+  -webkit-mask: url("/brand-mark.png") center / contain no-repeat;
+  mask: url("/brand-mark.png") center / contain no-repeat;
 }
 
 .btn {
@@ -131,9 +144,10 @@ p { text-wrap: pretty; }
 .btn:active { transform: scale(0.98); }
 
 .btn-primary {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: linear-gradient(120deg, var(--accent) 10%, #2e5cff 55%, #4d7cff 100%);
+  color: #ffffff;
 }
+.dark .btn-primary { color: #05060e; }
 .btn-primary:hover {
   background: var(--accent-strong);
   box-shadow: 0 8px 30px -8px color-mix(in oklab, var(--accent) 60%, transparent);
@@ -163,23 +177,64 @@ p { text-wrap: pretty; }
   transform: translateY(-2px);
 }
 
-/* Blueprint dot grid — the numerical-lattice motif */
-.dot-grid {
-  background-image: radial-gradient(
-    color-mix(in oklab, var(--accent) 26%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 28%, black 25%, transparent 78%);
+/* ---------------------------------------------------------------
+   Aurora — the gradient field. One hue family, luminous and soft:
+   cobalt core -> azure -> ice. Slow drift; still under reduced motion.
+   --------------------------------------------------------------- */
+.aurora {
+  overflow: hidden;
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  filter: blur(70px) saturate(1.15);
+}
+.aurora::before {
+  background:
+    radial-gradient(46rem 26rem at 74% 8%,
+      color-mix(in oklab, var(--accent) 26%, transparent), transparent 66%),
+    radial-gradient(34rem 24rem at 10% 96%,
+      color-mix(in oklab, #00a6ff 16%, transparent), transparent 70%);
+  animation: aurora-a 16s ease-in-out infinite alternate;
+}
+.aurora::after {
+  background:
+    radial-gradient(28rem 20rem at 88% 70%,
+      color-mix(in oklab, #7aa2ff 18%, transparent), transparent 70%),
+    radial-gradient(22rem 18rem at 34% 22%,
+      color-mix(in oklab, var(--accent) 10%, transparent), transparent 72%);
+  animation: aurora-b 21s ease-in-out infinite alternate;
+}
+@keyframes aurora-a {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(3%, 3%, 0) scale(1.12); }
+}
+@keyframes aurora-b {
+  from { transform: translate3d(2%, 3%, 0) scale(1.08); }
+  to { transform: translate3d(-3%, -3%, 0) scale(1); }
 }
 
-/* Monotone glow — single hue only */
+/* quiet variant for cards/CTA */
 .hero-glow {
   background:
     radial-gradient(42rem 24rem at 70% 8%,
-      color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%),
+      color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
     radial-gradient(32rem 22rem at 12% 92%,
-      color-mix(in oklab, var(--accent) 9%, transparent), transparent 72%);
+      color-mix(in oklab, #00a6ff 9%, transparent), transparent 72%);
+}
+
+/* Gradient hairline border for featured surfaces */
+.gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(120deg,
+      color-mix(in oklab, var(--accent) 65%, transparent),
+      color-mix(in oklab, #00a6ff 45%, transparent),
+      color-mix(in oklab, var(--accent) 25%, transparent)) border-box;
 }
 
 /* Glass header */
@@ -267,6 +322,7 @@ p { text-wrap: pretty; }
   }
   .ticker-track { animation: none; }
   .caret { animation: none; }
+  .aurora::before, .aurora::after { animation: none; }
 }
 
 :root:not(.js) .js-only { display: none; }

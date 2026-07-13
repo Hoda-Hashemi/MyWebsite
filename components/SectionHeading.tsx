@@ -11,7 +11,7 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className="max-w-2xl">
-      <p className="tag">{`// ${tag}`}</p>
+      <p className="tag">{tag}</p>
       <h2 className="mt-3 text-3xl font-semibold sm:text-4xl md:text-[2.75rem] md:leading-[1.05]">
         {title}
       </h2>

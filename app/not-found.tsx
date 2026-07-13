@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="container-page flex min-h-[70svh] flex-col items-center justify-center py-24 text-center">
-      <p className="tag">// Error 404</p>
+      <p className="tag">Error 404</p>
       <p aria-hidden="true" className="monogram mt-6 text-8xl text-accent">
         هـ
       </p>

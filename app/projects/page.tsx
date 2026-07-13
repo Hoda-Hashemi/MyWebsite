@@ -31,13 +31,13 @@ export default function ProjectsPage() {
 
       {/* ---- PRODUCTS: tools in process ---- */}
       <Reveal delay={0.08}>
-        <h2 className="tag mt-16">// Products — in process</h2>
+        <h2 className="tag mt-16">Products — in process</h2>
       </Reveal>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
         {featured && (
           <Reveal delay={0.1}>
-            <article className="corners card relative h-full overflow-hidden p-8 md:p-12">
+            <article className="corners card gradient-border relative h-full overflow-hidden p-8 md:p-12">
               <span className="corner-b" aria-hidden="true" />
               <div aria-hidden="true" className="hero-glow absolute inset-0 opacity-60" />
               <div className="relative">
@@ -133,7 +133,7 @@ export default function ProjectsPage() {
 
       {/* ---- PROJECTS ---- */}
       <Reveal>
-        <h2 className="tag mt-20">// Projects — research systems</h2>
+        <h2 className="tag mt-20">Projects — research systems</h2>
       </Reveal>
       <ul className="mt-6 grid gap-4 md:grid-cols-3">
         {rest.map((p, i) => {

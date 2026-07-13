@@ -20,7 +20,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer" className="flex flex-col gap-2.5">
-          <span className="tag mb-1">// Index</span>
+          <span className="tag mb-1">Index</span>
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -30,10 +30,13 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
+          <Link href="/brand/" className="w-fit text-sm text-muted transition-colors hover:text-accent">
+            Identity
+          </Link>
         </nav>
 
         <div className="flex flex-col gap-2.5">
-          <span className="tag mb-1">// Contact</span>
+          <span className="tag mb-1">Contact</span>
           <a
             href={`mailto:${site.email}`}
             className="inline-flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-accent"

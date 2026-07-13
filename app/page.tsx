@@ -24,9 +24,7 @@ export default function HomePage() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative overflow-hidden">
-        <div aria-hidden="true" className="hero-glow absolute inset-0" />
-        <div aria-hidden="true" className="dot-grid absolute inset-0" />
+      <section className="aurora relative overflow-hidden">
 
         <div className="container-page relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-24">
           {/* terminal meta row */}
@@ -50,7 +48,7 @@ export default function HomePage() {
             <StaggerText
               text="discrete computation."
               delay={0.5}
-              className="text-accent"
+              className="text-gradient"
             />
             <span aria-hidden="true" className="caret" />
           </h1>
@@ -135,7 +133,7 @@ export default function HomePage() {
       <section className="border-y border-line bg-bg-subtle">
         <div className="container-page py-24 md:py-32">
           <Reveal>
-            <div className="corners card relative overflow-hidden p-8 md:p-14">
+            <div className="corners card gradient-border relative overflow-hidden p-8 md:p-14">
               <span className="corner-b" aria-hidden="true" />
               <div
                 aria-hidden="true"
@@ -143,7 +141,7 @@ export default function HomePage() {
               />
               <div className="relative grid items-center gap-10 md:grid-cols-[1.2fr_0.8fr]">
                 <div>
-                  <p className="tag">// Incoming — P-01</p>
+                  <p className="tag">Incoming — P-01</p>
                   <h2 className="mt-4 text-4xl font-semibold md:text-5xl">
                     LLM <span className="text-accent">APA</span>
                   </h2>
@@ -230,12 +228,12 @@ export default function HomePage() {
       {/* ================= CTA ================= */}
       <section className="border-t border-line">
         <div className="container-page relative overflow-hidden py-24 text-center md:py-36">
-          <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-70" />
+          <div aria-hidden="true" className="hero-glow absolute inset-0" />
           <Reveal className="relative">
-            <p className="tag">// Contact</p>
+            <p className="tag">Contact</p>
             <h2 className="mx-auto mt-4 max-w-2xl text-4xl font-semibold md:text-6xl">
               Let&apos;s build something{" "}
-              <span className="text-accent">rigorous</span>.
+              <span className="text-gradient">rigorous</span>.
             </h2>
             <p className="mx-auto mt-5 max-w-md text-base text-muted">
               Research collaboration, scientific software, or GPU problems that
