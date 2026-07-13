@@ -11,12 +11,13 @@ export function Logo({ withName = true }: { withName?: boolean }) {
       className="group inline-flex items-center gap-3"
       aria-label="Hoda Hashemi — home"
     >
-      <span
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand-mark.png"
+        alt=""
         aria-hidden="true"
-        className="monogram flex h-9 w-9 items-center justify-center rounded-[10px] border border-line bg-surface text-[1.35rem] text-accent transition-colors duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-contrast"
-      >
-        هـ
-      </span>
+        className="h-7 w-auto transition-transform duration-300 group-hover:-rotate-6"
+      />
       {withName && (
         <span className="text-[0.95rem] font-semibold tracking-tight">
           Hoda Hashemi

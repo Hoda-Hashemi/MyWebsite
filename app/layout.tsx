@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { Header } from "@/components/Header";
+import { Preloader } from "@/components/Preloader";
 import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -46,13 +47,13 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   icons: {
-    // ?v=3 busts browser caches still holding the pre-rebrand icon
+    // ?v=4 busts browser caches still holding the pre-rebrand icon
     icon: [
-      { url: "/favicon.ico?v=3", sizes: "any" },
-      { url: "/icon-192.png?v=3", type: "image/png", sizes: "192x192" },
+      { url: "/favicon.ico?v=4", sizes: "any" },
+      { url: "/icon-192.png?v=4", type: "image/png", sizes: "192x192" },
     ],
-    apple: "/apple-touch-icon.png?v=3",
-    shortcut: "/favicon.ico?v=3",
+    apple: "/apple-touch-icon.png?v=4",
+    shortcut: "/favicon.ico?v=4",
   },
   robots: { index: true, follow: true },
 };
@@ -64,7 +65,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeInit = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
+const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
 
 const personLd = {
   "@context": "https://schema.org",
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#content" className="skip-link">
           Skip to content
         </a>
+        <Preloader />
         <Header />
         <main id="content" className="pt-16">
           {children}

@@ -268,3 +268,5 @@ p { text-wrap: pretty; }
   .ticker-track { animation: none; }
   .caret { animation: none; }
 }
+
+:root:not(.js) .js-only { display: none; }
