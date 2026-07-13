@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   icons: {
-    // ?v=4 busts browser caches still holding the pre-rebrand icon
+    // ?v=5 busts browser caches still holding the pre-rebrand icon
     icon: [
-      { url: "/favicon.ico?v=4", sizes: "any" },
-      { url: "/icon-192.png?v=4", type: "image/png", sizes: "192x192" },
+      { url: "/favicon.ico?v=5", sizes: "any" },
+      { url: "/icon-192.png?v=5", type: "image/png", sizes: "192x192" },
     ],
-    apple: "/apple-touch-icon.png?v=4",
-    shortcut: "/favicon.ico?v=4",
+    apple: "/apple-touch-icon.png?v=5",
+    shortcut: "/favicon.ico?v=5",
   },
   robots: { index: true, follow: true },
 };
