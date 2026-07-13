@@ -69,8 +69,8 @@ export default function HomePage() {
               <Link href="/about/" className="btn btn-primary">
                 View portfolio <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link href="/products/" className="btn btn-ghost">
-                Products
+              <Link href="/projects/" className="btn btn-ghost">
+                Projects
               </Link>
               <a
                 href={site.github}
@@ -153,8 +153,8 @@ export default function HomePage() {
                     breakdown will be published here first.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
-                    <Link href="/products/" className="btn btn-primary">
-                      Product index <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <Link href="/projects/" className="btn btn-primary">
+                      Projects index <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                     <a href={`mailto:${site.email}?subject=LLM%20APA`} className="btn btn-ghost">
                       Get notified

@@ -64,7 +64,7 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    index: "P-02",
+    index: "P-03",
     name: "Agentic MITgcm Interface",
     status: "research",
     tagline: "Natural language in, ocean simulations out.",
@@ -74,7 +74,7 @@ export const products: Product[] = [
     href: "https://github.com/Hoda-Hashemi",
   },
   {
-    index: "P-03",
+    index: "P-04",
     name: "VIC-QGSW Solver",
     status: "research",
     tagline: "Vortex-in-cell dynamics on the sphere.",
@@ -84,7 +84,7 @@ export const products: Product[] = [
     href: "https://github.com/Hoda-Hashemi",
   },
   {
-    index: "P-04",
+    index: "P-05",
     name: "CUDA Needleman–Wunsch",
     status: "shipped",
     tagline: "Sequence alignment at GPU speed.",
