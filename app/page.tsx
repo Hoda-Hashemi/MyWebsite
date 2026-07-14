@@ -11,6 +11,7 @@ import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Ticker } from "@/components/Ticker";
 import { HeroMark } from "@/components/HeroMark";
+import { SignalStabilizer } from "@/components/SignalStabilizer";
 import { focusAreas, articles, type Focus } from "@/lib/data";
 import { site } from "@/lib/site";
 
@@ -168,6 +169,20 @@ export default function HomePage() {
             </Reveal>
           ))}
         </ul>
+      </section>
+
+      {/* ================= PLAY ================= */}
+      <section className="border-t border-line bg-bg-subtle/60">
+        <div className="container-page py-24 md:py-32">
+          <SectionHeading
+            tag="Play — 30 seconds"
+            title="Stabilize the signal."
+            sub="A tiny data-assimilation console: the faint wave is the true state, the bright one is your noisy observation. Tune gain, phase and the noise filter until the residual collapses."
+          />
+          <Reveal delay={0.12} className="mt-12">
+            <SignalStabilizer />
+          </Reveal>
+        </div>
       </section>
 
       {/* ================= CTA ================= */}

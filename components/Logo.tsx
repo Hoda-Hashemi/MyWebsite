@@ -16,13 +16,9 @@ export function Logo({ withName = true }: { withName?: boolean }) {
         src="/brand-mark.png"
         alt=""
         aria-hidden="true"
-        className="h-7 w-auto transition-transform duration-300 group-hover:-rotate-6"
+        className="h-8 w-auto transition-transform duration-300 group-hover:-rotate-6"
       />
-      {withName && (
-        <span className="text-[0.95rem] font-semibold tracking-tight">
-          Hoda Hashemi
-        </span>
-      )}
+      <span className="sr-only">Hoda Hashemi</span>
     </Link>
   );
 }

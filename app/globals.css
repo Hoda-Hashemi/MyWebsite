@@ -31,6 +31,8 @@
   --shadow-lift: 0 2px 4px rgb(5 8 40 / 0.05), 0 18px 50px -18px rgb(0 56 255 / 0.25);
 }
 
+html { background: var(--bg); }
+
 :root {
   --bg: #ffffff;
   --bg-subtle: #f5f7ff;
@@ -69,7 +71,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: transparent;
   color: var(--fg);
   font-family: var(--font-sans);
   font-feature-settings: "ss03", "cv11";
@@ -171,6 +173,12 @@ p { text-wrap: pretty; }
   border-radius: var(--radius-lg);
   background: var(--surface);
   transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+/* dark OS: surfaces go glass over the lattice environment */
+.dark .card {
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
 }
 .card-hover:hover {
   border-color: color-mix(in oklab, var(--accent) 55%, var(--line));

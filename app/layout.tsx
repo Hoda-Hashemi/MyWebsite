@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Preloader } from "@/components/Preloader";
+import { Environment } from "@/components/Environment";
 import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -65,7 +66,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
+const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");var d=t?t==="dark":true;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
 
 const personLd = {
   "@context": "https://schema.org",
@@ -104,6 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#content" className="skip-link">
           Skip to content
         </a>
+        <Environment />
         <Preloader />
         <Header />
         <main id="content" className="pt-16">
