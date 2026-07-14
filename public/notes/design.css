@@ -17,7 +17,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; cursor: url("/cursor-mark.png") 2 11, auto; }
 
 body {
   margin: 0;
@@ -103,17 +103,26 @@ h1 {
   letter-spacing: -0.022em;
   margin: 24px 0 8px;
 }
-/* mono kicker above the title */
-h1::before {
-  content: "// lecture notes — hoda hashemi";
-  display: block;
+/* mono kicker above the title (injected by scripts.js, mark-first) */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 0 0 18px;
   font-family: var(--mono);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 18px;
+}
+.kicker::before {
+  content: "";
+  width: 1.5em;
+  height: 1.05em;
+  background: var(--blue);
+  -webkit-mask: url("logo/hoda-mark.svg") center / contain no-repeat;
+  mask: url("logo/hoda-mark.svg") center / contain no-repeat;
 }
 
 h2 {

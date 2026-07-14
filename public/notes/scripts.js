@@ -60,8 +60,18 @@
     });
   }
 
+  function buildKicker() {
+    const h1 = document.querySelector("main h1");
+    if (!h1 || document.querySelector(".kicker")) return;
+    const k = document.createElement("p");
+    k.className = "kicker";
+    k.textContent = "lecture notes — hoda hashemi";
+    h1.parentNode.insertBefore(k, h1);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     buildHeader();
+    buildKicker();
     buildFooter();
     initReveals();
   });
